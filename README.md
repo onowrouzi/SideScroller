@@ -1,5 +1,5 @@
 # SideScroller
-Mobile Apps Term Project
+###Mobile Apps Term Project
 ----------------------------------------------------------------------------
 
 ##Branch policy & general usage tips
