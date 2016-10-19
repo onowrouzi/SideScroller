@@ -2,6 +2,7 @@ package io.github.onowrouzi.sidescroller.model.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
@@ -22,13 +23,13 @@ public class Background extends GameFigure {
         WIDTH = b2X - 800;
     }
 
-//    @Override
-//    public void render(Graphics2D g) {
-//        g.drawImage(b1, b1X, (int)y, b1.getWidth(), height, null);
-//        if (b2X < b1.getWidth()) {
-//            g.drawImage(b2, b2X, (int)y, b2.getWidth(), height, null);
-//        }
-//    }
+    @Override
+    public void render(Canvas c) { // Need to reimplement scrolling.
+        c.drawBitmap(b1, b1X, (int)y, null);
+        if (b2X < b1.getWidth()) {
+            c.drawBitmap(b2, b2X, (int)y, null);
+        }
+    }
     
     public void moveBackground(){
         b1X -= 20;

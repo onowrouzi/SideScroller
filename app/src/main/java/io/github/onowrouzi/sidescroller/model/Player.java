@@ -1,6 +1,7 @@
 package io.github.onowrouzi.sidescroller.model;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import java.util.ArrayList;
@@ -45,11 +46,11 @@ public class Player extends MovableFigure implements Travel {
         
     }
     
-//    @Override
-//    public void render(Graphics2D g) {
-//        if (immuneTimer % 2 == 0)
-//            //g.drawImage(sprites[spriteState], (int)x, (int)y, width, height, null);
-//    }
+    @Override
+    public void render(Canvas c) {
+        if (immuneTimer % 2 == 0)
+            c.drawBitmap(sprites[spriteState], (int)x, (int)y, null);
+    }
 
     @Override
     public void update() {

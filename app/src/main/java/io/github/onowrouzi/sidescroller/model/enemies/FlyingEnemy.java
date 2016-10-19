@@ -1,6 +1,7 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.RectF;
 
@@ -44,10 +45,10 @@ public class FlyingEnemy extends Enemy {
         
     }
     
-//    @Override
-//    public void render(Graphics2D g) {
-//        //g.drawImage(sprites[spriteState], (int)x, (int)y, width, height, null);
-//    }
+    @Override
+    public void render(Canvas c) {
+        c.drawBitmap(sprites[spriteState], (int)x, (int)y, null);
+    }
 
     @Override
     public void update() {

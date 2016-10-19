@@ -1,6 +1,7 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import io.github.onowrouzi.sidescroller.model.states.AliveGroundEnemy;
@@ -35,10 +36,10 @@ public class GroundEnemy extends Enemy {
         state = alive;
     }
     
-//    @Override
-//    public void render(Graphics2D g) {
-//        //g.drawImage(sprites[spriteState], (int)super.x, (int)super.y, width, height, null);
-//    }
+    @Override
+    public void render(Canvas c) {
+        c.drawBitmap(sprites[spriteState], (int)super.x, (int)super.y, null);
+    }
 
     @Override
     public void update() {

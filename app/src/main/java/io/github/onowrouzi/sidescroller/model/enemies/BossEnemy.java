@@ -1,6 +1,7 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.RectF;
 
@@ -51,16 +52,16 @@ public class BossEnemy extends Enemy {
         state = drop;
     }
     
-//    @Override
-//    public void render(Graphics2D g) {
-//        if (immuneTimer % 2 == 0)
-//            g.drawImage(sprites[spriteState], (int)x, (int)y, width, height, null);
-//        if (state == dying){
-//            g.drawImage(sprites[spriteState], (int)x, (int)y, width, height, null);
-//            g.setColor(Color.WHITE);
-//            g.fillOval((int)ex, (int)ey, eSize, eSize);
-//        }
-//    }
+    @Override
+    public void render(Canvas c) {
+        if (immuneTimer % 2 == 0)
+            c.drawBitmap(sprites[spriteState], (int)x, (int)y, null);
+        if (state == dying){
+            c.drawBitmap(sprites[spriteState], (int)x, (int)y, null);
+            //g.setColor(Color.WHITE);
+            //g.fillOval((int)ex, (int)ey, eSize, eSize);
+        }
+    }
 
     @Override
     public RectF getCollisionBox() {

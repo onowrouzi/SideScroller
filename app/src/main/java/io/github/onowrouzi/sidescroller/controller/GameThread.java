@@ -54,10 +54,10 @@ public class GameThread extends Animator implements Runnable {
     private synchronized void processCollisions() {
         for (MovableFigure f : GameActivity.gameData.friendFigures) {
             for (MovableFigure e : GameActivity.gameData.enemyFigures) {
-//                if (e.getCollisionBox().intersects(f.getCollisionBox())
-//                        && (e.state == e.alive || e.state == e.hurt)){
-//                    handleCollisions(e,f);
-//                }
+                if (e.getCollisionBox().intersect(f.getCollisionBox())
+                        && ((e.state == e.alive) || (e.state == e.hurt))){
+                    handleCollisions(e,f);
+                }
             }
         }
     }

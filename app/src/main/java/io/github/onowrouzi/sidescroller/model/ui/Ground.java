@@ -1,6 +1,7 @@
 package io.github.onowrouzi.sidescroller.model.ui;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 
 import io.github.onowrouzi.sidescroller.model.GameFigure;
 
@@ -15,9 +16,9 @@ public class Ground extends GameFigure {
         groundImage = Bitmap.createBitmap(groundImage, 0, 1327, 3072, 200);
     }
 
-//    @Override
-//    public void render(Graphics2D g) {
-//        //g.drawImage(groundImage, (int)super.x, (int)super.y, width, super.height, null);
-//    }
+    @Override
+    public void render(Canvas c) {
+        c.drawBitmap(groundImage, (int)super.x, (int)super.y, null); //width, super.height, null);
+    }
     
 }

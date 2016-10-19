@@ -2,6 +2,7 @@ package io.github.onowrouzi.sidescroller.model.ui;
 
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 
 import io.github.onowrouzi.sidescroller.model.GameFigure;
@@ -23,18 +24,18 @@ public class BulletCount extends GameFigure implements Observer {
         bullets = 10;
     }
     
-//    @Override
-//    public void render(Graphics2D g) {
-//        g.setFont(new Font("Impact", Font.BOLD, 30));
-//        g.setColor(Color.BLACK);
-//        if (bullets > 0) {
-//            for (int i = 0; i < bullets; i++) {
-//                g.drawImage(bullet, (int)x, (int)y+i*30, 20, 30, null);
-//            }
-//        } else if (reloadTimer % 4 == 0) {
-//            g.drawString("RELOADING...", x, y+20);
-//        }
-//    }
+    @Override
+    public void render(Canvas c) {
+        //g.setFont(new Font("Impact", Font.BOLD, 30));
+        //g.setColor(Color.BLACK);
+        if (bullets > 0) {
+            for (int i = 0; i < bullets; i++) {
+                c.drawBitmap(bullet, (int)x, (int)y+i*30, null);
+            }
+        } else if (reloadTimer % 4 == 0) {
+            //g.drawString("RELOADING...", x, y+20);
+        }
+    }
 
     @Override
     public void updateObserver(int count, int timer) {

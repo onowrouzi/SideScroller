@@ -1,6 +1,7 @@
 package io.github.onowrouzi.sidescroller.model.ui;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 
 import io.github.onowrouzi.sidescroller.model.GameFigure;
@@ -19,15 +20,15 @@ public class HealthBars extends GameFigure implements Observer {
         player.attach(this);
     }
     
-//    @Override
-//    public void render(Graphics2D g) {
+    @Override
+    public void render(Canvas c) {
 //        g.setColor(Color.RED);
 //        g.setFont(new Font("Courier New", Font.BOLD, 30));
 //        g.drawString("HEALTH: ", x, y);
-//        for (int i = 0; i < health; i++){
-//            g.drawImage(heart, (int)x+i*30+110,0, null);
-//        }
-//    }
+        for (int i = 0; i < health; i++){
+            c.drawBitmap(heart, (int)x+i*30+110,0, null);
+        }
+    }
 
     @Override
     public void updateObserver(int count, int timer) {

@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model;
 
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -57,13 +58,13 @@ public class Projectile extends MovableFigure {
         state = alive;
     }
 
-//    @Override
-//    public void render(Graphics2D g) {
-////            g.setColor(primaryColor);
-////            g.fillOval((int) (super.x - size), (int) (super.y - size), size * 2, size * 2);
-////            g.setColor(secondaryColor);
-////            g.fillOval((int) (super.x - size / 2), (int) (super.y - size / 2), size, size);
-//    }
+    @Override
+    public void render(Canvas c) {
+//            g.setColor(primaryColor);
+//            g.fillOval((int) (super.x - size), (int) (super.y - size), size * 2, size * 2);
+//            g.setColor(secondaryColor);
+//            g.fillOval((int) (super.x - size / 2), (int) (super.y - size / 2), size, size);
+    }
 
     @Override
     public void update() {

@@ -2,6 +2,10 @@ package io.github.onowrouzi.sidescroller.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.widget.Toast;
+
+import io.github.onowrouzi.sidescroller.GameActivity;
 
 public abstract class GameFigure {
     
@@ -17,7 +21,7 @@ public abstract class GameFigure {
         this.height = height;
     }
     
-    //public abstract void render(Graphics2D g);
+    public abstract void render(Canvas c);
     
     public Bitmap extractImage(String image) {
         Bitmap img = null;

@@ -1,7 +1,9 @@
 package io.github.onowrouzi.sidescroller;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.GameData;

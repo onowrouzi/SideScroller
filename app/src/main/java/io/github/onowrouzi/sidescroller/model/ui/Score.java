@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.ui;
 
+import android.graphics.Canvas;
 import android.graphics.Color;
 
 import io.github.onowrouzi.sidescroller.model.GameFigure;
@@ -13,11 +14,11 @@ public class Score extends GameFigure {
         score = 0;
     }
 
-//    @Override
-//    public void render(Graphics2D g) {
+    @Override
+    public void render(Canvas c) {
 //        g.setColor(Color.WHITE);
 //        g.setFont(new Font("Courier New", Font.BOLD, 30));
 //        g.drawString("SCORE: " + Integer.toString(score), x, y);
-//    }
+    }
     
 }
