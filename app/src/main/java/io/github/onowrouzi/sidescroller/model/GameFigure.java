@@ -3,6 +3,7 @@ package io.github.onowrouzi.sidescroller.model;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.widget.Toast;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
@@ -13,6 +14,7 @@ public abstract class GameFigure {
     public float y;
     public int width;
     public int height;
+    public Paint paint;
     
     public GameFigure(float x, float y, int width, int height) {
         this.x = x;

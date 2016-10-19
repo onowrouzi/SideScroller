@@ -3,6 +3,7 @@ package io.github.onowrouzi.sidescroller.model.enemies;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.RectF;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
@@ -48,6 +49,8 @@ public class BossEnemy extends Enemy {
         hurt = new HurtBoss(this);
         dying = new DyingBoss(this);
         done = new DoneEnemy(this);
+
+        paint = new Paint();
         
         state = drop;
     }
@@ -58,8 +61,8 @@ public class BossEnemy extends Enemy {
             c.drawBitmap(sprites[spriteState], (int)x, (int)y, null);
         if (state == dying){
             c.drawBitmap(sprites[spriteState], (int)x, (int)y, null);
-            //g.setColor(Color.WHITE);
-            //g.fillOval((int)ex, (int)ey, eSize, eSize);
+            paint.setColor(Color.WHITE);
+            c.drawCircle((int)ex, (int)ey, eSize, paint);
         }
     }
 

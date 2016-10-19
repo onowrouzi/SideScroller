@@ -2,6 +2,7 @@ package io.github.onowrouzi.sidescroller.model;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
@@ -31,6 +32,7 @@ public class Projectile extends MovableFigure {
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.owner = owner;
+        paint = new Paint();
         
         double angle = Math.atan2(Math.abs(ty - sy), Math.abs(tx - sx));
         dx = (float) (UNIT_TRAVEL_DISTANCE * Math.cos(angle));
@@ -60,10 +62,10 @@ public class Projectile extends MovableFigure {
 
     @Override
     public void render(Canvas c) {
-//            g.setColor(primaryColor);
-//            g.fillOval((int) (super.x - size), (int) (super.y - size), size * 2, size * 2);
-//            g.setColor(secondaryColor);
-//            g.fillOval((int) (super.x - size / 2), (int) (super.y - size / 2), size, size);
+        paint.setColor(primaryColor);
+        c.drawCircle(super.x-size, super.y-size, size*2, paint);
+        paint.setColor(secondaryColor);
+        c.drawCircle(super.x-size/2, super.y-size/2, size, paint);
     }
 
     @Override
