@@ -22,7 +22,7 @@ public class BulletCount extends GameFigure implements Observer {
         
         player.attach(this);
         
-        bullet = super.extractImage(resources, R.drawable.bulletcount);
+        bullet = super.extractImage(resources, R.drawable.bullet_count);
         bullet = Bitmap.createBitmap(bullet,35, 0, 65, 127);
         bullets = 10;
 

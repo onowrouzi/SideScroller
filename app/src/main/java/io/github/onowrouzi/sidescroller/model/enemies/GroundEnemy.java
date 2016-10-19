@@ -26,9 +26,9 @@ public class GroundEnemy extends Enemy {
         sprites = new Bitmap[6];
         this.type = type;
 
-        sprites[0] = type == 'A' ? super.extractImage(resources, R.drawable.groundenemy_a1): super.extractImage(resources, R.drawable.groundenemy_b1);
-        sprites[1] = type == 'A' ? super.extractImage(resources, R.drawable.groundenemy_a2): super.extractImage(resources, R.drawable.groundenemy_b2);
-        sprites[2] = type == 'A' ? super.extractImage(resources, R.drawable.groundenemy_a3): super.extractImage(resources, R.drawable.groundenemy_b3);
+        sprites[0] = type == 'A' ? super.extractImage(resources, R.drawable.ground_enemy_a1): super.extractImage(resources, R.drawable.ground_enemy_b1);
+        sprites[1] = type == 'A' ? super.extractImage(resources, R.drawable.ground_enemy_a2): super.extractImage(resources, R.drawable.ground_enemy_b2);
+        sprites[2] = type == 'A' ? super.extractImage(resources, R.drawable.ground_enemy_a3): super.extractImage(resources, R.drawable.ground_enemy_b3);
         sprites[3] = super.flipImage(sprites[0]);
         sprites[4] = super.flipImage(sprites[1]);
         sprites[5] = super.flipImage(sprites[2]);

@@ -37,8 +37,8 @@ public class BossEnemy extends Enemy {
         super(x,y,width,height);
         
         sprites = new Bitmap[4];
-        sprites[0] = super.extractImage(resources, R.drawable.bossenemy1);
-        sprites[1] = super.extractImage(resources, R.drawable.bossenemy2);
+        sprites[0] = super.extractImage(resources, R.drawable.boss_enemy1);
+        sprites[1] = super.extractImage(resources, R.drawable.boss_enemy2);
         sprites[2] = super.flipImage(sprites[0]);
         sprites[3] = super.flipImage(sprites[1]);
         
