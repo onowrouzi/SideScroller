@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -28,20 +29,20 @@ public class FlyingEnemy extends Enemy {
     public static final int DEAD_LEFT = 12;
     public static final int END_LEFT = 15;
     
-    public FlyingEnemy(float x, float y, int width, int height, Resources resources) {
+    public FlyingEnemy(float x, float y, int width, int height, Context context) {
         super(x,y,width,height);
         
         fireHere = (int) (Math.random()*8) * 100;
         sprites = new Bitmap[16];
 
-        sprites[0] = super.extractImage(resources, R.drawable.flying_enemy1);
-        sprites[1] = super.extractImage(resources, R.drawable.flying_enemy2);
-        sprites[2] = super.extractImage(resources, R.drawable.flying_enemy3);
-        sprites[3] = super.extractImage(resources, R.drawable.flying_enemy4);
-        sprites[4] = super.extractImage(resources, R.drawable.flying_enemy5);
-        sprites[5] = super.extractImage(resources, R.drawable.flying_enemy6);
-        sprites[6] = super.extractImage(resources, R.drawable.flying_enemy7);
-        sprites[7] = super.extractImage(resources, R.drawable.flying_enemy8);
+        sprites[0] = super.extractImage(context.getResources(), R.drawable.flying_enemy1);
+        sprites[1] = super.extractImage(context.getResources(), R.drawable.flying_enemy2);
+        sprites[2] = super.extractImage(context.getResources(), R.drawable.flying_enemy3);
+        sprites[3] = super.extractImage(context.getResources(), R.drawable.flying_enemy4);
+        sprites[4] = super.extractImage(context.getResources(), R.drawable.flying_enemy5);
+        sprites[5] = super.extractImage(context.getResources(), R.drawable.flying_enemy6);
+        sprites[6] = super.extractImage(context.getResources(), R.drawable.flying_enemy7);
+        sprites[7] = super.extractImage(context.getResources(), R.drawable.flying_enemy8);
         sprites[8] = super.flipImage(sprites[0]);
         sprites[9] = super.flipImage(sprites[1]);
         sprites[10] = super.flipImage(sprites[2]);
@@ -50,6 +51,10 @@ public class FlyingEnemy extends Enemy {
         sprites[13] = super.flipImage(sprites[5]);
         sprites[14] = super.flipImage(sprites[6]);
         sprites[15] = super.flipImage(sprites[7]);
+
+        for (int i = 0; i < sprites.length; i++){
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
+        }
         
         alive = new AliveFlyingEnemy(this);
         dying = new DyingFlyingEnemy(this);
@@ -77,7 +82,7 @@ public class FlyingEnemy extends Enemy {
                 x+width/2, 
                 y+height,
                 px, py,
-                Color.RED, Color.BLUE, this);
+                Color.RED, Color.YELLOW, this);
 
         synchronized (GameActivity.gameData.enemyFigures) {
             GameActivity.gameData.enemyFigures.add(m);

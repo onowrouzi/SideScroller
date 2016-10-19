@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -20,18 +21,22 @@ public class GroundEnemy extends Enemy {
     public final static int DEAD_RIGHT = 5;
     public char type;
     
-    public GroundEnemy(float x, float y, int width, int height, char type, Resources resources) {
+    public GroundEnemy(float x, float y, int width, int height, char type, Context context) {
         super(x,y,width,height);
         
         sprites = new Bitmap[6];
         this.type = type;
 
-        sprites[0] = type == 'A' ? super.extractImage(resources, R.drawable.ground_enemy_a1): super.extractImage(resources, R.drawable.ground_enemy_b1);
-        sprites[1] = type == 'A' ? super.extractImage(resources, R.drawable.ground_enemy_a2): super.extractImage(resources, R.drawable.ground_enemy_b2);
-        sprites[2] = type == 'A' ? super.extractImage(resources, R.drawable.ground_enemy_a3): super.extractImage(resources, R.drawable.ground_enemy_b3);
+        sprites[0] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a1): super.extractImage(context.getResources(), R.drawable.ground_enemy_b1);
+        sprites[1] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a2): super.extractImage(context.getResources(), R.drawable.ground_enemy_b2);
+        sprites[2] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a3): super.extractImage(context.getResources(), R.drawable.ground_enemy_b3);
         sprites[3] = super.flipImage(sprites[0]);
         sprites[4] = super.flipImage(sprites[1]);
         sprites[5] = super.flipImage(sprites[2]);
+
+        for (int i = 0; i < sprites.length; i++){
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
+        }
         
         alive = new AliveGroundEnemy(this);
         dying = new DyingGroundEnemy(this);

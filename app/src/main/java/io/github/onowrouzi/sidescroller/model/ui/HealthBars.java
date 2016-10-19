@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.ui;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -16,10 +17,10 @@ public class HealthBars extends GameFigure implements Observer {
     private int immuneTimer;
     public Bitmap heart;
 
-    public HealthBars(float x, float y, int width, int height, Player player, Resources resources) {
+    public HealthBars(float x, float y, int width, int height, Player player, Context context) {
         super(x,y,width,height);
         health = 5;
-        heart = super.extractImage(resources, R.drawable.heart);
+        heart = super.extractImage(context.getResources(), R.drawable.heart);
         paint = new Paint();
         player.attach(this);
     }

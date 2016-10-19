@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -33,12 +34,12 @@ public class BossEnemy extends Enemy {
     public final int HURT_RIGHT = 3;
     public boolean hasAttacked;
     
-    public BossEnemy(float x, float y, int width, int height, Resources resources){
+    public BossEnemy(float x, float y, int width, int height, Context context){
         super(x,y,width,height);
         
         sprites = new Bitmap[4];
-        sprites[0] = super.extractImage(resources, R.drawable.boss_enemy1);
-        sprites[1] = super.extractImage(resources, R.drawable.boss_enemy2);
+        sprites[0] = super.extractImage(context.getResources(), R.drawable.boss_enemy1);
+        sprites[1] = super.extractImage(context.getResources(), R.drawable.boss_enemy2);
         sprites[2] = super.flipImage(sprites[0]);
         sprites[3] = super.flipImage(sprites[1]);
         

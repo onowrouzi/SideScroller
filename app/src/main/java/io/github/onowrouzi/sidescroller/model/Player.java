@@ -1,6 +1,6 @@
 package io.github.onowrouzi.sidescroller.model;
 
-import android.content.res.Resources;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
@@ -32,7 +32,7 @@ public class Player extends MovableFigure implements Travel {
     public int bulletRegenCounter;
     private final ArrayList<Observer> observers = new ArrayList<>();
     
-    public Player(float x, float y, int width, int height, Resources resources){
+    public Player(float x, float y, int width, int height, Context context){
         super(x,y,width,height);
         health = 5;
         immuneTimer = 0;
@@ -40,10 +40,11 @@ public class Player extends MovableFigure implements Travel {
         bulletRegenCounter = 100;
         
         sprites = new Bitmap[8];
-        
-        Bitmap playerImages = super.extractImage(resources, R.drawable.player);
+
+        Bitmap playerImages = super.extractImage(context.getResources(), R.drawable.player);
         for (int i = 0; i < 8; i++){
-            sprites[i] = Bitmap.createBitmap(playerImages, i*128, 0, 128, 125);
+            sprites[i] = Bitmap.createBitmap(playerImages, i*128, 20, 128, 170);
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
         }
         
     }
