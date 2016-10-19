@@ -2,6 +2,7 @@ package io.github.onowrouzi.sidescroller.controller;
 
 import android.animation.Animator;
 import android.animation.TimeInterpolator;
+import android.graphics.Canvas;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
@@ -10,7 +11,7 @@ import io.github.onowrouzi.sidescroller.model.Projectile;
 import io.github.onowrouzi.sidescroller.model.enemies.BossEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemy;
 
-public class GameThread extends Animator implements Runnable {
+public class GameThread extends Thread {
 
     public boolean running = true;
     public static boolean paused;
@@ -35,8 +36,7 @@ public class GameThread extends Animator implements Runnable {
                 } else {
                     loading--;
                 }
-//                GameActivity.screen.gameRender();
-//                GameActivity.screen.printScreen();
+                GameActivity.gamePanel.draw();
             }
 
             long endTime = System.currentTimeMillis();
@@ -110,33 +110,4 @@ public class GameThread extends Animator implements Runnable {
         }
     }
 
-    @Override
-    public long getStartDelay() {
-        return 0;
-    }
-
-    @Override
-    public void setStartDelay(long startDelay) {
-
-    }
-
-    @Override
-    public Animator setDuration(long duration) {
-        return null;
-    }
-
-    @Override
-    public long getDuration() {
-        return 0;
-    }
-
-    @Override
-    public void setInterpolator(TimeInterpolator value) {
-
-    }
-
-    @Override
-    public boolean isRunning() {
-        return false;
-    }
 }

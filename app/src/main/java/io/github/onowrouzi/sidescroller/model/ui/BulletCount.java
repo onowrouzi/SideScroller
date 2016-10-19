@@ -1,11 +1,13 @@
 package io.github.onowrouzi.sidescroller.model.ui;
 
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
 import io.github.onowrouzi.sidescroller.model.Player;
 
@@ -15,12 +17,12 @@ public class BulletCount extends GameFigure implements Observer {
     private int bullets;
     private int reloadTimer;
 
-    public BulletCount(float x, float y, int width, int height, Player player) {
+    public BulletCount(float x, float y, int width, int height, Player player, Resources resources) {
         super(x,y,width,height);
         
         player.attach(this);
         
-        bullet = super.extractImage("images/bulletCount.png");
+        bullet = super.extractImage(resources, R.drawable.bulletcount);
         bullet = Bitmap.createBitmap(bullet,35, 0, 65, 127);
         bullets = 10;
 

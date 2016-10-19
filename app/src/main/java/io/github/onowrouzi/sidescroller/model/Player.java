@@ -1,11 +1,13 @@
 package io.github.onowrouzi.sidescroller.model;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import java.util.ArrayList;
 
+import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.ui.BulletCount;
 import io.github.onowrouzi.sidescroller.model.ui.HealthBars;
@@ -30,7 +32,7 @@ public class Player extends MovableFigure implements Travel {
     public int bulletRegenCounter;
     private final ArrayList<Observer> observers = new ArrayList<>();
     
-    public Player(float x, float y, int width, int height){
+    public Player(float x, float y, int width, int height, Resources resources){
         super(x,y,width,height);
         health = 5;
         immuneTimer = 0;
@@ -39,7 +41,7 @@ public class Player extends MovableFigure implements Travel {
         
         sprites = new Bitmap[8];
         
-        Bitmap playerImages = super.extractImage("images/player.png");
+        Bitmap playerImages = super.extractImage(resources, R.drawable.player);
         for (int i = 0; i < 8; i++){
             sprites[i] = Bitmap.createBitmap(playerImages, i*128, 0, 128, 125);
         }

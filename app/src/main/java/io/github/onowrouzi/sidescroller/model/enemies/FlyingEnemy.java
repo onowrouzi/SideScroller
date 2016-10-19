@@ -1,11 +1,13 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.RectF;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
+import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.Projectile;
 import io.github.onowrouzi.sidescroller.model.states.AliveFlyingEnemy;
 import io.github.onowrouzi.sidescroller.model.states.DoneEnemy;
@@ -26,16 +28,28 @@ public class FlyingEnemy extends Enemy {
     public static final int DEAD_LEFT = 12;
     public static final int END_LEFT = 15;
     
-    public FlyingEnemy(float x, float y, int width, int height) {
+    public FlyingEnemy(float x, float y, int width, int height, Resources resources) {
         super(x,y,width,height);
         
         fireHere = (int) (Math.random()*8) * 100;
         sprites = new Bitmap[16];
-        
-        for (int i = 0; i < 8; i++) {
-            sprites[i] = super.extractImage("images/flyingEnemy" + Integer.toString(i+1) + ".png");
-            sprites[i+8] = super.flipImage(sprites[i]);
-        }
+
+        sprites[0] = super.extractImage(resources, R.drawable.flyingenemy1);
+        sprites[1] = super.extractImage(resources, R.drawable.flyingenemy2);
+        sprites[2] = super.extractImage(resources, R.drawable.flyingenemy3);
+        sprites[3] = super.extractImage(resources, R.drawable.flyingenemy4);
+        sprites[4] = super.extractImage(resources, R.drawable.flyingenemy5);
+        sprites[5] = super.extractImage(resources, R.drawable.flyingenemy6);
+        sprites[6] = super.extractImage(resources, R.drawable.flyingenemy7);
+        sprites[7] = super.extractImage(resources, R.drawable.flyingenemy8);
+        sprites[8] = super.flipImage(sprites[0]);
+        sprites[9] = super.flipImage(sprites[1]);
+        sprites[10] = super.flipImage(sprites[2]);
+        sprites[11] = super.flipImage(sprites[3]);
+        sprites[12] = super.flipImage(sprites[4]);
+        sprites[13] = super.flipImage(sprites[5]);
+        sprites[14] = super.flipImage(sprites[6]);
+        sprites[15] = super.flipImage(sprites[7]);
         
         alive = new AliveFlyingEnemy(this);
         dying = new DyingFlyingEnemy(this);

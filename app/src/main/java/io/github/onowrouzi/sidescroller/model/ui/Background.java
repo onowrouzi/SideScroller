@@ -1,10 +1,12 @@
 package io.github.onowrouzi.sidescroller.model.ui;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
+import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
 
 
@@ -14,10 +16,10 @@ public class Background extends GameFigure {
     public int b1X, b2X;
     public final int WIDTH;
     
-    public Background() {
+    public Background(Resources resources) {
         super(0,0,800,600);
         
-        b1 = b2 = BitmapFactory.decodeFile("images/background1.png");
+        b1 = b2 = super.extractImage(resources, R.drawable.background1);
         b1X = 0;
         b2X = b1.getWidth();
         WIDTH = b2X - 800;
@@ -46,7 +48,7 @@ public class Background extends GameFigure {
     }
     
     public void changeBackground(String image){
-        b1 = b2 = super.extractImage(image);
+        //b1 = b2 = super.extractImage(image);
         b1X = 0;
     }
     

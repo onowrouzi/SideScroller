@@ -1,9 +1,11 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.states.AliveGroundEnemy;
 import io.github.onowrouzi.sidescroller.model.states.DoneEnemy;
 import io.github.onowrouzi.sidescroller.model.states.DyingGroundEnemy;
@@ -18,16 +20,18 @@ public class GroundEnemy extends Enemy {
     public final static int DEAD_RIGHT = 5;
     public char type;
     
-    public GroundEnemy(float x, float y, int width, int height, char type) {
+    public GroundEnemy(float x, float y, int width, int height, char type, Resources resources) {
         super(x,y,width,height);
         
         sprites = new Bitmap[6];
         this.type = type;
-        
-        for (int i = 0; i < 3; i++) {
-            sprites[i] = super.extractImage("images/groundEnemy" + type + Integer.toString(i+1) + ".png");
-            sprites[i+3] = super.flipImage(sprites[i]);
-        }
+
+        sprites[0] = type == 'A' ? super.extractImage(resources, R.drawable.groundenemy_a1): super.extractImage(resources, R.drawable.groundenemy_b1);
+        sprites[1] = type == 'A' ? super.extractImage(resources, R.drawable.groundenemy_a2): super.extractImage(resources, R.drawable.groundenemy_b2);
+        sprites[2] = type == 'A' ? super.extractImage(resources, R.drawable.groundenemy_a3): super.extractImage(resources, R.drawable.groundenemy_b3);
+        sprites[3] = super.flipImage(sprites[0]);
+        sprites[4] = super.flipImage(sprites[1]);
+        sprites[5] = super.flipImage(sprites[2]);
         
         alive = new AliveGroundEnemy(this);
         dying = new DyingGroundEnemy(this);

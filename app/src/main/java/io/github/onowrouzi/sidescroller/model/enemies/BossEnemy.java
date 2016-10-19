@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
+import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.Projectile;
 import io.github.onowrouzi.sidescroller.model.states.AliveBoss;
 import io.github.onowrouzi.sidescroller.model.states.DescendingBoss;
@@ -31,12 +33,12 @@ public class BossEnemy extends Enemy {
     public final int HURT_RIGHT = 3;
     public boolean hasAttacked;
     
-    public BossEnemy(float x, float y, int width, int height){
+    public BossEnemy(float x, float y, int width, int height, Resources resources){
         super(x,y,width,height);
         
         sprites = new Bitmap[4];
-        sprites[0] = super.extractImage("images/bossEnemy1.png");
-        sprites[1] = super.extractImage("images/bossEnemy2.png");
+        sprites[0] = super.extractImage(resources, R.drawable.bossenemy1);
+        sprites[1] = super.extractImage(resources, R.drawable.bossenemy2);
         sprites[2] = super.flipImage(sprites[0]);
         sprites[3] = super.flipImage(sprites[1]);
         

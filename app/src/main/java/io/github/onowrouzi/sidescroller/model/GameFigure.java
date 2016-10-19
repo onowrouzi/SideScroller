@@ -1,14 +1,12 @@
 package io.github.onowrouzi.sidescroller.model;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
-import android.widget.Toast;
-
-import io.github.onowrouzi.sidescroller.GameActivity;
 
 public abstract class GameFigure {
     
@@ -26,11 +24,11 @@ public abstract class GameFigure {
     }
     
     public abstract void render(Canvas c);
-    
-    public Bitmap extractImage(String image) {
+
+    public Bitmap extractImage(Resources resources, int id) {
         Bitmap img = null;
         try {
-            img = BitmapFactory.decodeFile(image);
+            img = BitmapFactory.decodeResource(resources, id);
         } catch (Exception ex) {
             //JOptionPane.showMessageDialog(null, "Error: Cannot open " + image);
             System.exit(-1);
@@ -45,6 +43,6 @@ public abstract class GameFigure {
         flippedImage.setDensity(DisplayMetrics.DENSITY_DEFAULT);
         return Bitmap.createBitmap(flippedImage);
     }
-    
+
     
 }
