@@ -3,7 +3,9 @@ package io.github.onowrouzi.sidescroller.model;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.util.DisplayMetrics;
 import android.widget.Toast;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
@@ -35,17 +37,13 @@ public abstract class GameFigure {
         }
         return img;
     }
-    //Below code retrieved and modifiied from http://stackoverflow.com/questions/13742365/how-do-i-flip-an-image-horizontally-flip-with-glreadpixels-bufferedimage-and-o
+    //Below code retrieved and modifiied from http://stackoverflow.com/questions/7925278/drawing-mirrored-bitmaps-in-android
     public Bitmap flipImage(Bitmap image) {
-//        Bitmap flippedImage = new Bitmap(image.getWidth(), image.getHeight(), image.getType());
-//        AffineTransform at = AffineTransform.getTranslateInstance(image.getWidth(), 0);
-//        AffineTransform flip = AffineTransform.getScaleInstance(-1d, 1d);
-//        at.concatenate(flip);
-//        Graphics2D g = flippedImage.createGraphics();
-//        g.setTransform(at);
-//        g.drawImage(image, 0, 0, null);
-//        g.dispose();
-        return image;
+        Matrix m = new Matrix();
+        m.preScale(-1, 1);
+        Bitmap flippedImage = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), m, false);
+        flippedImage.setDensity(DisplayMetrics.DENSITY_DEFAULT);
+        return Bitmap.createBitmap(flippedImage);
     }
     
     
