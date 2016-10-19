@@ -40,7 +40,7 @@ public class Player extends MovableFigure implements Travel {
         
         Bitmap playerImages = super.extractImage("images/player.png");
         for (int i = 0; i < 8; i++){
-            //sprites[i] = playerImages.getSubimage(i*128, 0, 128, 125);
+            sprites[i] = Bitmap.createBitmap(playerImages, i*128, 0, 128, 125);
         }
         
     }

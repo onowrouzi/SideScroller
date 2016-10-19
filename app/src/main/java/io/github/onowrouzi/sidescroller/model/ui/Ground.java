@@ -12,7 +12,7 @@ public class Ground extends GameFigure {
         super(x, y, width, height);
         
         groundImage = super.extractImage("images/ground.png");
-        //groundImage = groundImage.getSubimage(0, 1327, 3072, 200);
+        groundImage = Bitmap.createBitmap(groundImage, 0, 1327, 3072, 200);
     }
 
 //    @Override
