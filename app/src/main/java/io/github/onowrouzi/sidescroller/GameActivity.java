@@ -2,9 +2,12 @@ package io.github.onowrouzi.sidescroller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -12,7 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import io.github.onowrouzi.sidescroller.controller.GameThread;
+import io.github.onowrouzi.sidescroller.controller.RepeatListener;
 import io.github.onowrouzi.sidescroller.model.GameData;
+import io.github.onowrouzi.sidescroller.model.Player;
 import io.github.onowrouzi.sidescroller.view.GamePanel;
 
 public class GameActivity extends Activity {
@@ -28,8 +33,15 @@ public class GameActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
 
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        final Player player = new Player(size.x/2, size.y-150, size.x/8, size.y/5, getApplicationContext());;
+
         RelativeLayout surface = (RelativeLayout) findViewById(R.id.surface);
-        gameData = new GameData(getApplicationContext());
+        gameData = new GameData(getApplicationContext(), player);
         gamePanel = new GamePanel(getApplicationContext());
         surface.addView(gamePanel);
         buttonA = (ImageButton) findViewById(R.id.button_a);
@@ -44,6 +56,20 @@ public class GameActivity extends Activity {
         buttonY.bringToFront();
         buttonLeft.bringToFront();
         buttonRight.bringToFront();
+
+        buttonLeft.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                player.travelLeft();
+            }
+        }));
+
+        buttonRight.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                player.travelRight();
+            }
+        }));
     }
 
 }

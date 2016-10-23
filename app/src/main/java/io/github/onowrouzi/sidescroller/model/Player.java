@@ -16,11 +16,15 @@ import io.github.onowrouzi.sidescroller.model.ui.Observer;
 public class Player extends MovableFigure implements Travel {
     
     public static final int STAND_RIGHT = 0;
-    public static final int WALK_RIGHT = 7;
+    public static final int END_STAND_RIGHT = 7;
     public static final int MELEE_RIGHT = 2;
     public static final int SHOOT_RIGHT = 3;
     public static final int STAND_LEFT = 8;
-    public static final int WALK_LEFT = 15;
+    public static final int END_STAND_LEFT = 15;
+    public static final int RUN_RIGHT = 16;
+    public static final int END_RUN_RIGHT = 18;
+    public static final int RUN_LEFT = 19;
+    public static final int END_RUN_LEFT = 21;
     public static final int MELEE_LEFT = 6;
     public static final int SHOOT_LEFT = 7;
     public boolean ascend;
@@ -39,8 +43,9 @@ public class Player extends MovableFigure implements Travel {
         bulletCount = 10;
         bulletRegenCounter = 100;
         
-        sprites = new Bitmap[16];
+        sprites = new Bitmap[22];
 
+        //Idle Right
         sprites[0] = super.extractImage(context.getResources(), R.drawable.player1);
         sprites[1] = super.extractImage(context.getResources(), R.drawable.player2);
         sprites[2] = super.extractImage(context.getResources(), R.drawable.player3);
@@ -49,6 +54,7 @@ public class Player extends MovableFigure implements Travel {
         sprites[5] = super.extractImage(context.getResources(), R.drawable.player6);
         sprites[6] = super.extractImage(context.getResources(), R.drawable.player7);
         sprites[7] = super.extractImage(context.getResources(), R.drawable.player8);
+        //Idle Left
         sprites[8] = super.flipImage(sprites[0]);
         sprites[9] = super.flipImage(sprites[1]);
         sprites[10] = super.flipImage(sprites[2]);
@@ -57,6 +63,14 @@ public class Player extends MovableFigure implements Travel {
         sprites[13] = super.flipImage(sprites[5]);
         sprites[14] = super.flipImage(sprites[6]);
         sprites[15] = super.flipImage(sprites[7]);
+        //Run Right
+        sprites[16] = super.extractImage(context.getResources(), R.drawable.player9);
+        sprites[17] = super.extractImage(context.getResources(), R.drawable.player10);
+        sprites[18] = super.extractImage(context.getResources(), R.drawable.player11);
+        //Run Left
+        sprites[19] = super.flipImage(sprites[16]);
+        sprites[20] = super.flipImage(sprites[17]);
+        sprites[21] = super.flipImage(sprites[18]);
 
         for (int i = 0; i < sprites.length; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
@@ -88,10 +102,11 @@ public class Player extends MovableFigure implements Travel {
     
     @Override
     public void travelLeft() {
-        if (spriteState == STAND_LEFT){
-            spriteState = WALK_LEFT;
+
+        if (spriteState >= RUN_LEFT && spriteState < END_RUN_LEFT){
+            spriteState++;
         } else {
-            spriteState = STAND_LEFT;
+            spriteState = RUN_LEFT;
         }
         
         if (x > 0) x -= 20;
@@ -99,10 +114,11 @@ public class Player extends MovableFigure implements Travel {
     
     @Override
     public void travelRight() {
-        if (spriteState == STAND_RIGHT){
-            spriteState = WALK_RIGHT;
+
+        if (spriteState >= RUN_RIGHT && spriteState < END_RUN_RIGHT){
+            spriteState++;
         } else {
-            spriteState = STAND_RIGHT;
+            spriteState = RUN_RIGHT;
         }
         
         if (x + width < 800){
@@ -113,12 +129,14 @@ public class Player extends MovableFigure implements Travel {
     }
 
     public void idle(){
-        if (spriteState != WALK_LEFT && spriteState != WALK_RIGHT){
-            spriteState++;
-        } else if (spriteState == WALK_RIGHT) {
-            spriteState = STAND_RIGHT;
-        } else if (spriteState == WALK_LEFT) {
-            spriteState = STAND_LEFT;
+        if (spriteState <= END_STAND_LEFT) {
+            if (spriteState != END_STAND_LEFT && spriteState != END_STAND_RIGHT) {
+                spriteState++;
+            } else if (spriteState == END_STAND_RIGHT) {
+                spriteState = STAND_RIGHT;
+            } else if (spriteState == END_STAND_LEFT) {
+                spriteState = STAND_LEFT;
+            }
         }
     }
     
@@ -131,12 +149,12 @@ public class Player extends MovableFigure implements Travel {
     }
     
     public void jump(int key){
-        if (spriteState < STAND_LEFT) {
-            spriteState = WALK_RIGHT;
-        } else {
-            spriteState = WALK_LEFT;
-        }
-        if (!ascend && !descend) ascend = true;
+//        if (spriteState < STAND_LEFT) {
+//            spriteState = WALK_RIGHT;
+//        } else {
+//            spriteState = WALK_LEFT;
+//        }
+//        if (!ascend && !descend) ascend = true;
 //        if (key == KeyEvent.VK_D) jumpRight = true;
 //        if (key == KeyEvent.VK_A) jumpLeft = true;
     }

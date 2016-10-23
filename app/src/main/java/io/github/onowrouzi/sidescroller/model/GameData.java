@@ -37,9 +37,10 @@ public class GameData {
     public static boolean stage2;
     public static int stage;
     
-    public GameData(Context context) {
+    public GameData(Context context, Player player) {
 
         this.context = context;
+        this.player = player;
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -52,8 +53,7 @@ public class GameData {
         enemyFigures = Collections.synchronizedList(new ArrayList<MovableFigure>() );
         friendFigures = Collections.synchronizedList(new ArrayList<MovableFigure>() );
         uiFigures = Collections.synchronizedList(new ArrayList<GameFigure>());
-            
-        player = new Player(size.x/2, size.y-150, size.x/8, size.y/5, context);
+
         friendFigures.add(player);
         
         background = new Background(context);
