@@ -2,10 +2,12 @@ package io.github.onowrouzi.sidescroller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ public class GameActivity extends Activity {
 
     public static GameData gameData;
     public static GamePanel gamePanel;
+    ImageButton buttonA, buttonB, buttonX, buttonY, buttonLeft, buttonRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,18 @@ public class GameActivity extends Activity {
         gameData = new GameData(getApplicationContext());
         gamePanel = new GamePanel(getApplicationContext());
         surface.addView(gamePanel);
+        buttonA = (ImageButton) findViewById(R.id.button_a);
+        buttonB = (ImageButton) findViewById(R.id.button_b);
+        buttonX = (ImageButton) findViewById(R.id.button_x);
+        buttonY = (ImageButton) findViewById(R.id.button_y);
+        buttonLeft = (ImageButton) findViewById(R.id.button_left);
+        buttonRight = (ImageButton) findViewById(R.id.button_right);
+        buttonA.bringToFront();
+        buttonB.bringToFront();
+        buttonX.bringToFront();
+        buttonY.bringToFront();
+        buttonLeft.bringToFront();
+        buttonRight.bringToFront();
     }
 
 }

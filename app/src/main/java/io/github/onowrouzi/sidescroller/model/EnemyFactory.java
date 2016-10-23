@@ -1,7 +1,6 @@
 package io.github.onowrouzi.sidescroller.model;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
@@ -15,7 +14,7 @@ public class EnemyFactory{
     
     public static Enemy generateEnemy(Context context){
         
-        int random = (int) (Math.random() * 100);
+        int random = (int) (Math.random() * 1000);
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -23,7 +22,7 @@ public class EnemyFactory{
         display.getSize(size);
         
         Enemy enemy = null;
-        if (random % 97 == 0) {
+        if (random > 90 && random < 95) {
             int randomType = (int) (Math.random()*100);
             char type;
             if (randomType < 70) {
@@ -38,11 +37,11 @@ public class EnemyFactory{
                 enemy.spriteState = GroundEnemy.STAND_RIGHT;
             }    
         }
-        else if (random % 79 == 0) {
+        else if (random > 95 && random < 100) {
             if (GameActivity.gameData.enemyFigures.size() % 2 == 0) {
-                enemy = new FlyingEnemy(-size.x/8, size.y/30, size.x/8, size.y/8, context);
+                enemy = new FlyingEnemy(-size.x/8, size.y/20, size.x/8, size.y/8, context);
             } else {
-                enemy = new FlyingEnemy(size.x + size.x/8, size.y/30, size.x/8, size.y/8, context);
+                enemy = new FlyingEnemy(size.x + size.x/8, size.y/20, size.x/8, size.y/8, context);
                 enemy.spriteState = FlyingEnemy.START_FLAP_LEFT;
             }
         }

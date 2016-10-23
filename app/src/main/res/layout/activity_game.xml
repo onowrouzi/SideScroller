@@ -10,4 +10,61 @@
     android:id="@+id/surface"
     tools:context="io.github.onowrouzi.sidescroller.GameActivity">
 
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/button_a"
+        android:background="@drawable/button_a"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/button_b"
+        android:layout_toStartOf="@+id/button_b" />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/button_b"
+        android:background="@drawable/button_b"
+        android:layout_above="@+id/button_a"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/button_x"
+        android:background="@drawable/button_x"
+        android:layout_above="@+id/button_a"
+        android:layout_toLeftOf="@+id/button_a"
+        android:layout_toStartOf="@+id/button_a" />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/button_y"
+        android:background="@drawable/button_y"
+        android:layout_above="@+id/button_x"
+        android:layout_toRightOf="@+id/button_x"
+        android:layout_toEndOf="@+id/button_x" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button_left"
+        android:background="@drawable/button_left"
+        android:layout_alignTop="@+id/button_x"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/button_right"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/button_right"
+        android:layout_alignTop="@+id/button_left"
+        android:layout_toRightOf="@+id/button_left"
+        android:layout_toEndOf="@+id/button_left" />
+
 </RelativeLayout>

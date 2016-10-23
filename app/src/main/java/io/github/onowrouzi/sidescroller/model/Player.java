@@ -16,11 +16,11 @@ import io.github.onowrouzi.sidescroller.model.ui.Observer;
 public class Player extends MovableFigure implements Travel {
     
     public static final int STAND_RIGHT = 0;
-    public static final int WALK_RIGHT = 1;
+    public static final int WALK_RIGHT = 7;
     public static final int MELEE_RIGHT = 2;
     public static final int SHOOT_RIGHT = 3;
-    public static final int STAND_LEFT = 4;
-    public static final int WALK_LEFT = 5;
+    public static final int STAND_LEFT = 8;
+    public static final int WALK_LEFT = 15;
     public static final int MELEE_LEFT = 6;
     public static final int SHOOT_LEFT = 7;
     public boolean ascend;
@@ -39,14 +39,35 @@ public class Player extends MovableFigure implements Travel {
         bulletCount = 10;
         bulletRegenCounter = 100;
         
-        sprites = new Bitmap[8];
+        sprites = new Bitmap[16];
 
-        Bitmap playerImages = super.extractImage(context.getResources(), R.drawable.player);
-        for (int i = 0; i < 8; i++){
-            sprites[i] = Bitmap.createBitmap(playerImages, i*128, 20, 128, 170);
+        sprites[0] = super.extractImage(context.getResources(), R.drawable.player1);
+        sprites[1] = super.extractImage(context.getResources(), R.drawable.player2);
+        sprites[2] = super.extractImage(context.getResources(), R.drawable.player3);
+        sprites[3] = super.extractImage(context.getResources(), R.drawable.player4);
+        sprites[4] = super.extractImage(context.getResources(), R.drawable.player5);
+        sprites[5] = super.extractImage(context.getResources(), R.drawable.player6);
+        sprites[6] = super.extractImage(context.getResources(), R.drawable.player7);
+        sprites[7] = super.extractImage(context.getResources(), R.drawable.player8);
+        sprites[8] = super.flipImage(sprites[0]);
+        sprites[9] = super.flipImage(sprites[1]);
+        sprites[10] = super.flipImage(sprites[2]);
+        sprites[11] = super.flipImage(sprites[3]);
+        sprites[12] = super.flipImage(sprites[4]);
+        sprites[13] = super.flipImage(sprites[5]);
+        sprites[14] = super.flipImage(sprites[6]);
+        sprites[15] = super.flipImage(sprites[7]);
+
+        for (int i = 0; i < sprites.length; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
         }
-        
+//
+//        Bitmap playerImages = super.extractImage(context.getResources(), R.drawable.player);
+//        for (int i = 0; i < 8; i++){
+//            sprites[i] = Bitmap.createBitmap(playerImages, i*128, 20, 128, 170);
+//            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
+//        }
+//
     }
     
     @Override
@@ -57,6 +78,7 @@ public class Player extends MovableFigure implements Travel {
 
     @Override
     public void update() {
+        idle();
         handleImmuneTimer();
         handleBulletCount();
         handleJump();
@@ -87,6 +109,16 @@ public class Player extends MovableFigure implements Travel {
             x += 20;
         } else if (GameData.stage1) {
             GameData.background.moveBackground();
+        }
+    }
+
+    public void idle(){
+        if (spriteState != WALK_LEFT && spriteState != WALK_RIGHT){
+            spriteState++;
+        } else if (spriteState == WALK_RIGHT) {
+            spriteState = STAND_RIGHT;
+        } else if (spriteState == WALK_LEFT) {
+            spriteState = STAND_LEFT;
         }
     }
     

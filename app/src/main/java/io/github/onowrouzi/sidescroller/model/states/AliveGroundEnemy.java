@@ -13,7 +13,7 @@ public class AliveGroundEnemy implements FigureState {
 
     @Override
     public void update() {
-        if (enemy.spriteState < GroundEnemy.DEAD_LEFT) {
+        if (enemy.spriteState <= GroundEnemy.WALK_LEFT) {
             enemy.travelLeft();
         } else {
             enemy.travelRight();

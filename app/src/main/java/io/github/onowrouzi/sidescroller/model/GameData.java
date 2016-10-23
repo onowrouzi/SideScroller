@@ -62,13 +62,13 @@ public class GameData {
         uiFigures.add(ground);
         gameScore = new Score(10,30,80,20);
         uiFigures.add(gameScore);
-        healthBars = new HealthBars(size.x*2/3, size.y/10, size.x/10, size.y/10, player, context);
+        healthBars = new HealthBars(size.x*2/3-70, size.y/10, size.x/10, size.y/10, player, context);
         uiFigures.add(healthBars);
         bulletCount = new BulletCount(10, size.y/8, size.x/8, size.y/10, player, context);
         uiFigures.add(bulletCount);
         
         enemyFigures.add(new GroundEnemy(size.x + size.x/8, size.y - 150, size.x/8, size.y/5, 'A', context));
-        enemyFigures.add(new FlyingEnemy(-size.x/8, size.y/30, size.x/8, size.y/8, context));
+        enemyFigures.add(new FlyingEnemy(-size.x/8, size.y/20, size.x/8, size.y/8, context));
     }
     
     public void update() {

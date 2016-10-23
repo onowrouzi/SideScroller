@@ -14,25 +14,35 @@ import io.github.onowrouzi.sidescroller.model.states.DyingGroundEnemy;
 public class GroundEnemy extends Enemy {
     
     public final static int STAND_LEFT = 0;
-    public final static int WALK_LEFT = 1;
+    public final static int WALK_LEFT = 7;
     public final static int DEAD_LEFT = 2;
-    public final static int STAND_RIGHT = 3;
-    public final static int WALK_RIGHT = 4;
+    public final static int STAND_RIGHT = 8;
+    public final static int WALK_RIGHT = 15;
     public final static int DEAD_RIGHT = 5;
     public char type;
     
     public GroundEnemy(float x, float y, int width, int height, char type, Context context) {
         super(x,y,width,height);
         
-        sprites = new Bitmap[6];
+        sprites = new Bitmap[16];
         this.type = type;
 
-        sprites[0] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a1): super.extractImage(context.getResources(), R.drawable.ground_enemy_b1);
-        sprites[1] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a2): super.extractImage(context.getResources(), R.drawable.ground_enemy_b2);
-        sprites[2] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a3): super.extractImage(context.getResources(), R.drawable.ground_enemy_b3);
-        sprites[3] = super.flipImage(sprites[0]);
-        sprites[4] = super.flipImage(sprites[1]);
-        sprites[5] = super.flipImage(sprites[2]);
+        sprites[0] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a1): super.extractImage(context.getResources(), R.drawable.ground_enemy_a1);
+        sprites[1] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a2): super.extractImage(context.getResources(), R.drawable.ground_enemy_a2);
+        sprites[2] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a3): super.extractImage(context.getResources(), R.drawable.ground_enemy_a3);
+        sprites[3] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a4): super.extractImage(context.getResources(), R.drawable.ground_enemy_a4);
+        sprites[4] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a5): super.extractImage(context.getResources(), R.drawable.ground_enemy_a5);
+        sprites[5] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a6): super.extractImage(context.getResources(), R.drawable.ground_enemy_a6);
+        sprites[6] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a7): super.extractImage(context.getResources(), R.drawable.ground_enemy_a7);
+        sprites[7] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a8): super.extractImage(context.getResources(), R.drawable.ground_enemy_a8);
+        sprites[8] = super.flipImage(sprites[0]);
+        sprites[9] = super.flipImage(sprites[1]);
+        sprites[10] = super.flipImage(sprites[2]);
+        sprites[11] = super.flipImage(sprites[3]);
+        sprites[12] = super.flipImage(sprites[4]);
+        sprites[13] = super.flipImage(sprites[5]);
+        sprites[14] = super.flipImage(sprites[6]);
+        sprites[15] = super.flipImage(sprites[7]);
 
         for (int i = 0; i < sprites.length; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
@@ -62,24 +72,24 @@ public class GroundEnemy extends Enemy {
 
     @Override
     public void travelLeft() {
-        if (spriteState == STAND_LEFT) {
-            spriteState = WALK_LEFT;
+        if (spriteState < WALK_LEFT) {
+            spriteState++;
         } else {
             spriteState = STAND_LEFT;
         }
         
-        x -= 5;
+        x -= 2;
     }
 
     @Override
     public void travelRight() {
-        if (spriteState == STAND_RIGHT) {
-            spriteState = WALK_RIGHT;
+        if (spriteState < WALK_RIGHT) {
+            spriteState++;
         } else {
             spriteState = STAND_RIGHT;
         }
         
-        x += 5;
+        x += 2;
     }
 
 }

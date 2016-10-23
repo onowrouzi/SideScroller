@@ -35,22 +35,22 @@ public class FlyingEnemy extends Enemy {
         fireHere = (int) (Math.random()*8) * 100;
         sprites = new Bitmap[16];
 
-        sprites[0] = super.extractImage(context.getResources(), R.drawable.flying_enemy1);
-        sprites[1] = super.extractImage(context.getResources(), R.drawable.flying_enemy2);
-        sprites[2] = super.extractImage(context.getResources(), R.drawable.flying_enemy3);
-        sprites[3] = super.extractImage(context.getResources(), R.drawable.flying_enemy4);
-        sprites[4] = super.extractImage(context.getResources(), R.drawable.flying_enemy5);
-        sprites[5] = super.extractImage(context.getResources(), R.drawable.flying_enemy6);
-        sprites[6] = super.extractImage(context.getResources(), R.drawable.flying_enemy7);
-        sprites[7] = super.extractImage(context.getResources(), R.drawable.flying_enemy8);
-        sprites[8] = super.flipImage(sprites[0]);
-        sprites[9] = super.flipImage(sprites[1]);
-        sprites[10] = super.flipImage(sprites[2]);
-        sprites[11] = super.flipImage(sprites[3]);
-        sprites[12] = super.flipImage(sprites[4]);
-        sprites[13] = super.flipImage(sprites[5]);
-        sprites[14] = super.flipImage(sprites[6]);
-        sprites[15] = super.flipImage(sprites[7]);
+        sprites[8] = super.extractImage(context.getResources(), R.drawable.flying_enemy1);
+        sprites[9] = super.extractImage(context.getResources(), R.drawable.flying_enemy2);
+        sprites[10] = super.extractImage(context.getResources(), R.drawable.flying_enemy3);
+        sprites[11] = super.extractImage(context.getResources(), R.drawable.flying_enemy4);
+        sprites[12] = super.extractImage(context.getResources(), R.drawable.flying_enemy5);
+        sprites[13] = super.extractImage(context.getResources(), R.drawable.flying_enemy6);
+        sprites[14] = super.extractImage(context.getResources(), R.drawable.flying_enemy7);
+        sprites[15] = super.extractImage(context.getResources(), R.drawable.flying_enemy8);
+        sprites[0] = super.flipImage(sprites[8]);
+        sprites[1] = super.flipImage(sprites[9]);
+        sprites[2] = super.flipImage(sprites[10]);
+        sprites[3] = super.flipImage(sprites[11]);
+        sprites[4] = super.flipImage(sprites[12]);
+        sprites[5] = super.flipImage(sprites[13]);
+        sprites[6] = super.flipImage(sprites[14]);
+        sprites[7] = super.flipImage(sprites[15]);
 
         for (int i = 0; i < sprites.length; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
@@ -82,7 +82,7 @@ public class FlyingEnemy extends Enemy {
                 x+width/2, 
                 y+height,
                 px, py,
-                Color.RED, Color.YELLOW, this);
+                Color.WHITE, Color.BLACK, this);
 
         synchronized (GameActivity.gameData.enemyFigures) {
             GameActivity.gameData.enemyFigures.add(m);
