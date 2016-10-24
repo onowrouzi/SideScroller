@@ -73,7 +73,11 @@ public class RepeatListener implements OnTouchListener {
                 handler.removeCallbacks(handlerRunnable);
                 downView.setPressed(false);
                 downView = null;
-                player.spriteState = player.spriteState < Player.RUN_LEFT ? player.spriteState = Player.STAND_RIGHT : Player.STAND_LEFT;
+                if (player.isRunningRight()) {
+                    player.spriteState = Player.STAND_RIGHT;
+                } else if (player.isRunningLeft()){
+                    player.spriteState = Player.STAND_LEFT;
+                }
                 return true;
         }
 

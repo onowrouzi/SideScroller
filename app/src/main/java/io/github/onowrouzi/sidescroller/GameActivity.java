@@ -36,7 +36,7 @@ public class GameActivity extends Activity {
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
-        display.getSize(size);
+        display.getSize(size); //X = 800, Y = 400
 
         final Player player = new Player(size.x/2, size.y-150, size.x/8, size.y/5, getApplicationContext());;
 
@@ -68,6 +68,20 @@ public class GameActivity extends Activity {
             @Override
             public void onClick(View view) {
                 player.travelRight();
+            }
+        }));
+
+        buttonA.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.jump();
+            }
+        }));
+
+        buttonX.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.melee();
             }
         }));
     }

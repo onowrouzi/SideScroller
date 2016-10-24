@@ -28,7 +28,7 @@ public class GameData {
     public final List<GameFigure> uiFigures;
     
     public Player player;
-    public static Ground ground;
+    //public static Ground ground;
     public static Background background;
     public static Score gameScore;
     public static HealthBars healthBars;
@@ -58,8 +58,8 @@ public class GameData {
         
         background = new Background(context);
         uiFigures.add(background);
-        ground = new Ground(0, size.y-400, size.x, 400, context);
-        uiFigures.add(ground);
+//        ground = new Ground(0, 0, size.x, size.y, context);
+//        uiFigures.add(ground);
         gameScore = new Score(10,30,80,20);
         uiFigures.add(gameScore);
         healthBars = new HealthBars(size.x*2/3-70, size.y/10, size.x/10, size.y/10, player, context);

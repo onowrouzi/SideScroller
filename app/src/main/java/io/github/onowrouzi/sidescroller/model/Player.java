@@ -17,21 +17,28 @@ public class Player extends MovableFigure implements Travel {
     
     public static final int STAND_RIGHT = 0;
     public static final int END_STAND_RIGHT = 7;
-    public static final int MELEE_RIGHT = 2;
-    public static final int SHOOT_RIGHT = 3;
     public static final int STAND_LEFT = 8;
     public static final int END_STAND_LEFT = 15;
     public static final int RUN_RIGHT = 16;
     public static final int END_RUN_RIGHT = 18;
     public static final int RUN_LEFT = 19;
     public static final int END_RUN_LEFT = 21;
-    public static final int MELEE_LEFT = 6;
+    public static final int JUMP_RIGHT = 22;
+    public static final int FALL_RIGHT = 23;
+    public static final int JUMP_LEFT = 24;
+    public static final int FALL_LEFT = 25;
+    public static final int MELEE_RIGHT = 26;
+    public static final int END_MELEE_RIGHT = 28;
+    public static final int MELEE_LEFT = 29;
+    public static final int END_MELEE_LEFT = 31;
+
+    public static final int SHOOT_RIGHT = 3;
     public static final int SHOOT_LEFT = 7;
+    private int groundLevel;
     public boolean ascend;
     public boolean descend;
     public boolean jumpLeft;
     public boolean jumpRight;
-    public boolean melee;
     public int bulletCount;
     public int bulletRegenCounter;
     private final ArrayList<Observer> observers = new ArrayList<>();
@@ -42,8 +49,9 @@ public class Player extends MovableFigure implements Travel {
         immuneTimer = 0;
         bulletCount = 10;
         bulletRegenCounter = 100;
+        groundLevel = (int)y + height;
         
-        sprites = new Bitmap[22];
+        sprites = new Bitmap[32];
 
         //Idle Right
         sprites[0] = super.extractImage(context.getResources(), R.drawable.player1);
@@ -71,17 +79,28 @@ public class Player extends MovableFigure implements Travel {
         sprites[19] = super.flipImage(sprites[16]);
         sprites[20] = super.flipImage(sprites[17]);
         sprites[21] = super.flipImage(sprites[18]);
+        //Jump Right
+        sprites[22] = super.extractImage(context.getResources(), R.drawable.player12);
+        sprites[23] = super.extractImage(context.getResources(), R.drawable.player13);
+        //Jump Left
+        sprites[24] = super.flipImage(sprites[22]);
+        sprites[25] = super.flipImage(sprites[23]);
+        //Melee Right
+        sprites[26] = super.extractImage(context.getResources(), R.drawable.player14);
+        sprites[27] = super.extractImage(context.getResources(), R.drawable.player15);
+        sprites[28] = super.extractImage(context.getResources(), R.drawable.player16);
+        //Melee Left
+        sprites[29] = super.flipImage(sprites[26]);
+        sprites[30] = super.flipImage(sprites[27]);
+        sprites[31] = super.flipImage(sprites[28]);
 
-        for (int i = 0; i < sprites.length; i++){
+        for (int i = 0; i < MELEE_RIGHT; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
         }
-//
-//        Bitmap playerImages = super.extractImage(context.getResources(), R.drawable.player);
-//        for (int i = 0; i < 8; i++){
-//            sprites[i] = Bitmap.createBitmap(playerImages, i*128, 20, 128, 170);
-//            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-//        }
-//
+
+        for (int i = MELEE_RIGHT; i <= END_MELEE_LEFT; i++){
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], (int)(width*1.5), height, false);
+        }
     }
     
     @Override
@@ -140,23 +159,60 @@ public class Player extends MovableFigure implements Travel {
         }
     }
     
-    public void meleeAttack() {
-        if (spriteState < STAND_LEFT) {
-            spriteState = MELEE_RIGHT;
-        } else {
-            spriteState = MELEE_LEFT;
+    public void jump(){
+        if (!ascend && !descend) {
+            ascend = true;
+
+            if (isStandingLeft()) {
+                spriteState = JUMP_LEFT;
+            }
+            if (isRunningLeft()) {
+                spriteState = JUMP_LEFT;
+                jumpLeft = true;
+            }
+
+            if (isStandingRight()) {
+                spriteState = JUMP_RIGHT;
+            }
+
+            if (isRunningRight()) {
+                spriteState = JUMP_RIGHT;
+                jumpRight = true;
+            }
         }
     }
-    
-    public void jump(int key){
-//        if (spriteState < STAND_LEFT) {
-//            spriteState = WALK_RIGHT;
-//        } else {
-//            spriteState = WALK_LEFT;
-//        }
-//        if (!ascend && !descend) ascend = true;
-//        if (key == KeyEvent.VK_D) jumpRight = true;
-//        if (key == KeyEvent.VK_A) jumpLeft = true;
+
+    public void melee(){
+        if (isStandingLeft() || isRunningLeft()){
+            spriteState = MELEE_LEFT;
+            x -= width*.5;
+        } else if (isStandingRight() || isRunningRight()){
+            spriteState = MELEE_RIGHT;
+        }
+    }
+
+    public boolean isStandingLeft(){
+        return spriteState >= STAND_LEFT && spriteState <= END_STAND_LEFT;
+    }
+
+    public boolean isStandingRight(){
+        return spriteState >= STAND_RIGHT && spriteState <= END_STAND_RIGHT;
+    }
+
+    public boolean isRunningLeft(){
+        return spriteState >= RUN_LEFT && spriteState <= END_RUN_LEFT;
+    }
+
+    public boolean isRunningRight(){
+        return spriteState >= RUN_RIGHT && spriteState <= END_RUN_RIGHT;
+    }
+
+    public boolean isMeleeLeft(){
+        return spriteState >= MELEE_LEFT && spriteState <= END_MELEE_LEFT;
+    }
+
+    public boolean isMeleeRight(){
+        return spriteState >= MELEE_RIGHT && spriteState <= END_MELEE_RIGHT;
     }
     
     public void hurt(){
@@ -206,7 +262,7 @@ public class Player extends MovableFigure implements Travel {
         } else {
             jumpLeft = true;
         }
-        jump(0);
+        jump();
     }
     
     public void bounceOff(){
@@ -216,7 +272,7 @@ public class Player extends MovableFigure implements Travel {
         } else {
             jumpLeft = true;
         }
-        jump(0);
+        jump();
     }
     
     public void attach(Observer observer){
@@ -235,32 +291,34 @@ public class Player extends MovableFigure implements Travel {
 
     public void handleJump() {
         if (ascend) {
-            if (y > GameData.ground.y - height*2) {
+            if (y > groundLevel - height*2) {
                 y -= 20;
             } else {
                 ascend = false;
                 descend = true;
+                spriteState = spriteState == JUMP_LEFT ? FALL_LEFT : FALL_RIGHT;
             }
-            if (jumpLeft) x -= 20;
+            if (jumpLeft) x -= 5;
             if (jumpRight) {
                 if (x+width*2 < 800) {
-                    x += 20;
+                    x += 5;
                 } else if (GameData.stage1) {
                     GameData.background.moveBackground();
                 }
             }
         } else if (descend) {
-            if (y + height == GameData.ground.y) {
+            if (y+height >= groundLevel) {
                 descend = false;
                 jumpLeft = false;
                 jumpRight = false;
+                spriteState = spriteState == FALL_LEFT ? STAND_LEFT : STAND_RIGHT;
             } else {
                 y += 20;
             }
-            if (jumpLeft && x>0) x -= 20;
+            if (jumpLeft && x>0) x -= 5;
             if (jumpRight){
                 if (x+width*2 < 800) {
-                    x += 20;
+                    x += 5;
                 } else if (GameData.stage1) {
                     GameData.background.moveBackground();
                 }
@@ -280,12 +338,20 @@ public class Player extends MovableFigure implements Travel {
     }
 
     public void handleMelee() {
-        if (melee){
-            melee = false;
-            spriteState--;
-        } else if (spriteState == MELEE_LEFT || spriteState == MELEE_RIGHT){
-            melee = true;
-        }
+         if (isMeleeLeft()){
+            if (spriteState == END_MELEE_LEFT) {
+                spriteState = STAND_LEFT;
+                x += width*.5;
+            } else {
+                spriteState++;
+            }
+         } else if (isMeleeRight()){
+            if (spriteState == END_MELEE_RIGHT){
+                spriteState = STAND_RIGHT;
+            } else {
+                spriteState++;
+            }
+         }
     }
 
     public void handleImmuneTimer() {
