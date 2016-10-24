@@ -64,16 +64,16 @@ public class GameThread extends Thread {
 
     private synchronized void handleCollisions(MovableFigure e, MovableFigure f) {
         if (f instanceof Player) {
-            if (GameActivity.gameData.player.spriteState == Player.MELEE_LEFT ||
-                    GameActivity.gameData.player.spriteState == Player.MELEE_RIGHT) {
+            if (GameActivity.gameData.player.isMeleeLeft() ||
+                    GameActivity.gameData.player.isMeleeRight()) {
                 if (e instanceof BossEnemy) {
                     BossEnemy boss = (BossEnemy) e;
                     boss.hurt();
-                } else if (GameActivity.gameData.player.spriteState == Player.MELEE_LEFT
+                } else if (GameActivity.gameData.player.isMeleeLeft()
                         && e.spriteState < GroundEnemy.DEAD_LEFT
                         && e.x > GameActivity.gameData.player.x) {
                     GameActivity.gameData.player.hurt();
-                } else if (GameActivity.gameData.player.spriteState == Player.MELEE_RIGHT
+                } else if (GameActivity.gameData.player.isMeleeRight()
                         && e.spriteState > GroundEnemy.DEAD_LEFT
                         && e.x < GameActivity.gameData.player.x) {
                     GameActivity.gameData.player.hurt();

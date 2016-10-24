@@ -3,10 +3,12 @@ package io.github.onowrouzi.sidescroller.model;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.RectF;
 
 import java.util.ArrayList;
 
+import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.ui.BulletCount;
@@ -42,6 +44,7 @@ public class Player extends MovableFigure implements Travel {
     public int bulletCount;
     public int bulletRegenCounter;
     private final ArrayList<Observer> observers = new ArrayList<>();
+    Context context;
     
     public Player(float x, float y, int width, int height, Context context){
         super(x,y,width,height);
@@ -53,6 +56,7 @@ public class Player extends MovableFigure implements Travel {
         
         sprites = new Bitmap[32];
 
+        this.context = context;
         getSprites(context);
     }
     
@@ -175,6 +179,17 @@ public class Player extends MovableFigure implements Travel {
         }
         if (health == 0){
             GameThread.gameOver = true;
+        }
+    }
+
+    public void fireProjectile(float ex, float ey) {
+        float sx = (isStandingRight() || isRunningRight()) ? x+width : x;
+        Shuriken s = new Shuriken (sx, y+height/2, ex, ey, Color.WHITE, Color.BLACK, context, this);
+
+        bulletCount--;
+
+        synchronized (GameActivity.gameData.friendFigures) {
+            GameActivity.gameData.friendFigures.add(s);
         }
     }
     

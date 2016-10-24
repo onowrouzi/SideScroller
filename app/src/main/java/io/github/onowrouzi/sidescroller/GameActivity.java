@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
@@ -35,7 +36,7 @@ public class GameActivity extends Activity {
 
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
-        Point size = new Point();
+        final Point size = new Point();
         display.getSize(size); //X = 800, Y = 400
 
         final Player player = new Player(size.x/2, size.y-size.y/4, size.x/8, size.y/5, getApplicationContext());
@@ -44,6 +45,18 @@ public class GameActivity extends Activity {
         gameData = new GameData(getApplicationContext(), player);
         gamePanel = new GamePanel(getApplicationContext());
         surface.addView(gamePanel);
+
+        gamePanel.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() < size.y - size.y/4
+                        && player.bulletCount > 0){
+                    player.fireProjectile(event.getX(), event.getY());
+                    return true;
+                }
+                return false;
+            }
+        });
         buttonA = (ImageButton) findViewById(R.id.button_a);
         buttonB = (ImageButton) findViewById(R.id.button_b);
         buttonX = (ImageButton) findViewById(R.id.button_x);
