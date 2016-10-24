@@ -31,9 +31,9 @@ public class EnemyFactory{
                 type = 'B';
             }
             if (GameActivity.gameData.enemyFigures.size() % 2 == 0) {
-                enemy = new GroundEnemy(size.x + size.x/8, size.y - 150, size.x/8, size.y/5, type, context);
+                enemy = new GroundEnemy(size.x + size.x/8, size.y - size.y/4, size.x/8, size.y/5, type, context);
             } else {
-                enemy = new GroundEnemy(-size.x/8, size.y - 150, size.x/8, size.y/5, type, context);
+                enemy = new GroundEnemy(-size.x/8, size.y - size.y/4, size.x/8, size.y/5, type, context);
                 enemy.spriteState = GroundEnemy.STAND_RIGHT;
             }    
         }

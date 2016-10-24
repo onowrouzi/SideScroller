@@ -67,7 +67,7 @@ public class GameData {
         bulletCount = new BulletCount(10, size.y/8, size.x/8, size.y/10, player, context);
         uiFigures.add(bulletCount);
         
-        enemyFigures.add(new GroundEnemy(size.x + size.x/8, size.y - 150, size.x/8, size.y/5, 'A', context));
+        enemyFigures.add(new GroundEnemy(size.x + size.x/8, size.y - size.y/4, size.x/8, size.y/5, 'A', context));
         enemyFigures.add(new FlyingEnemy(-size.x/8, size.y/20, size.x/8, size.y/8, context));
     }
     

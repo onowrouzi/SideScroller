@@ -38,7 +38,7 @@ public class GameActivity extends Activity {
         Point size = new Point();
         display.getSize(size); //X = 800, Y = 400
 
-        final Player player = new Player(size.x/2, size.y-150, size.x/8, size.y/5, getApplicationContext());;
+        final Player player = new Player(size.x/2, size.y-size.y/4, size.x/8, size.y/5, getApplicationContext());
 
         RelativeLayout surface = (RelativeLayout) findViewById(R.id.surface);
         gameData = new GameData(getApplicationContext(), player);
