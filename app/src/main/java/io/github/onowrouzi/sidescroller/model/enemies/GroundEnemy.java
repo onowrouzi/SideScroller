@@ -1,7 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
@@ -27,26 +26,7 @@ public class GroundEnemy extends Enemy {
         sprites = new Bitmap[16];
         this.type = type;
 
-        sprites[0] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a1): super.extractImage(context.getResources(), R.drawable.ground_enemy_a1);
-        sprites[1] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a2): super.extractImage(context.getResources(), R.drawable.ground_enemy_a2);
-        sprites[2] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a3): super.extractImage(context.getResources(), R.drawable.ground_enemy_a3);
-        sprites[3] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a4): super.extractImage(context.getResources(), R.drawable.ground_enemy_a4);
-        sprites[4] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a5): super.extractImage(context.getResources(), R.drawable.ground_enemy_a5);
-        sprites[5] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a6): super.extractImage(context.getResources(), R.drawable.ground_enemy_a6);
-        sprites[6] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a7): super.extractImage(context.getResources(), R.drawable.ground_enemy_a7);
-        sprites[7] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a8): super.extractImage(context.getResources(), R.drawable.ground_enemy_a8);
-        sprites[8] = super.flipImage(sprites[0]);
-        sprites[9] = super.flipImage(sprites[1]);
-        sprites[10] = super.flipImage(sprites[2]);
-        sprites[11] = super.flipImage(sprites[3]);
-        sprites[12] = super.flipImage(sprites[4]);
-        sprites[13] = super.flipImage(sprites[5]);
-        sprites[14] = super.flipImage(sprites[6]);
-        sprites[15] = super.flipImage(sprites[7]);
-
-        for (int i = 0; i < sprites.length; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
+        getSprites(context);
         
         alive = new AliveGroundEnemy(this);
         dying = new DyingGroundEnemy(this);
@@ -90,6 +70,29 @@ public class GroundEnemy extends Enemy {
         }
         
         x += 2;
+    }
+
+    public void getSprites(Context context){
+        sprites[0] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a1): super.extractImage(context.getResources(), R.drawable.ground_enemy_a1);
+        sprites[1] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a2): super.extractImage(context.getResources(), R.drawable.ground_enemy_a2);
+        sprites[2] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a3): super.extractImage(context.getResources(), R.drawable.ground_enemy_a3);
+        sprites[3] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a4): super.extractImage(context.getResources(), R.drawable.ground_enemy_a4);
+        sprites[4] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a5): super.extractImage(context.getResources(), R.drawable.ground_enemy_a5);
+        sprites[5] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a6): super.extractImage(context.getResources(), R.drawable.ground_enemy_a6);
+        sprites[6] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a7): super.extractImage(context.getResources(), R.drawable.ground_enemy_a7);
+        sprites[7] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a8): super.extractImage(context.getResources(), R.drawable.ground_enemy_a8);
+        sprites[8] = super.flipImage(sprites[0]);
+        sprites[9] = super.flipImage(sprites[1]);
+        sprites[10] = super.flipImage(sprites[2]);
+        sprites[11] = super.flipImage(sprites[3]);
+        sprites[12] = super.flipImage(sprites[4]);
+        sprites[13] = super.flipImage(sprites[5]);
+        sprites[14] = super.flipImage(sprites[6]);
+        sprites[15] = super.flipImage(sprites[7]);
+
+        for (int i = 0; i < sprites.length; i++){
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
+        }
     }
 
 }

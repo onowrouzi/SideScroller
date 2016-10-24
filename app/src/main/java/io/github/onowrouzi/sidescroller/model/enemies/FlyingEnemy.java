@@ -1,7 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -35,26 +34,7 @@ public class FlyingEnemy extends Enemy {
         fireHere = (int) (Math.random()*8) * 100;
         sprites = new Bitmap[16];
 
-        sprites[8] = super.extractImage(context.getResources(), R.drawable.flying_enemy1);
-        sprites[9] = super.extractImage(context.getResources(), R.drawable.flying_enemy2);
-        sprites[10] = super.extractImage(context.getResources(), R.drawable.flying_enemy3);
-        sprites[11] = super.extractImage(context.getResources(), R.drawable.flying_enemy4);
-        sprites[12] = super.extractImage(context.getResources(), R.drawable.flying_enemy5);
-        sprites[13] = super.extractImage(context.getResources(), R.drawable.flying_enemy6);
-        sprites[14] = super.extractImage(context.getResources(), R.drawable.flying_enemy7);
-        sprites[15] = super.extractImage(context.getResources(), R.drawable.flying_enemy8);
-        sprites[0] = super.flipImage(sprites[8]);
-        sprites[1] = super.flipImage(sprites[9]);
-        sprites[2] = super.flipImage(sprites[10]);
-        sprites[3] = super.flipImage(sprites[11]);
-        sprites[4] = super.flipImage(sprites[12]);
-        sprites[5] = super.flipImage(sprites[13]);
-        sprites[6] = super.flipImage(sprites[14]);
-        sprites[7] = super.flipImage(sprites[15]);
-
-        for (int i = 0; i < sprites.length; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
+        getSprites(context);
         
         alive = new AliveFlyingEnemy(this);
         dying = new DyingFlyingEnemy(this);
@@ -112,6 +92,29 @@ public class FlyingEnemy extends Enemy {
             spriteState = START_FLAP_RIGHT;
         }
         x += 5;
+    }
+
+    public void getSprites(Context context){
+        sprites[8] = super.extractImage(context.getResources(), R.drawable.flying_enemy1);
+        sprites[9] = super.extractImage(context.getResources(), R.drawable.flying_enemy2);
+        sprites[10] = super.extractImage(context.getResources(), R.drawable.flying_enemy3);
+        sprites[11] = super.extractImage(context.getResources(), R.drawable.flying_enemy4);
+        sprites[12] = super.extractImage(context.getResources(), R.drawable.flying_enemy5);
+        sprites[13] = super.extractImage(context.getResources(), R.drawable.flying_enemy6);
+        sprites[14] = super.extractImage(context.getResources(), R.drawable.flying_enemy7);
+        sprites[15] = super.extractImage(context.getResources(), R.drawable.flying_enemy8);
+        sprites[0] = super.flipImage(sprites[8]);
+        sprites[1] = super.flipImage(sprites[9]);
+        sprites[2] = super.flipImage(sprites[10]);
+        sprites[3] = super.flipImage(sprites[11]);
+        sprites[4] = super.flipImage(sprites[12]);
+        sprites[5] = super.flipImage(sprites[13]);
+        sprites[6] = super.flipImage(sprites[14]);
+        sprites[7] = super.flipImage(sprites[15]);
+
+        for (int i = 0; i < sprites.length; i++){
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
+        }
     }
 
 }

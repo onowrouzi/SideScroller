@@ -53,54 +53,7 @@ public class Player extends MovableFigure implements Travel {
         
         sprites = new Bitmap[32];
 
-        //Idle Right
-        sprites[0] = super.extractImage(context.getResources(), R.drawable.player1);
-        sprites[1] = super.extractImage(context.getResources(), R.drawable.player2);
-        sprites[2] = super.extractImage(context.getResources(), R.drawable.player3);
-        sprites[3] = super.extractImage(context.getResources(), R.drawable.player4);
-        sprites[4] = super.extractImage(context.getResources(), R.drawable.player5);
-        sprites[5] = super.extractImage(context.getResources(), R.drawable.player6);
-        sprites[6] = super.extractImage(context.getResources(), R.drawable.player7);
-        sprites[7] = super.extractImage(context.getResources(), R.drawable.player8);
-        //Idle Left
-        sprites[8] = super.flipImage(sprites[0]);
-        sprites[9] = super.flipImage(sprites[1]);
-        sprites[10] = super.flipImage(sprites[2]);
-        sprites[11] = super.flipImage(sprites[3]);
-        sprites[12] = super.flipImage(sprites[4]);
-        sprites[13] = super.flipImage(sprites[5]);
-        sprites[14] = super.flipImage(sprites[6]);
-        sprites[15] = super.flipImage(sprites[7]);
-        //Run Right
-        sprites[16] = super.extractImage(context.getResources(), R.drawable.player9);
-        sprites[17] = super.extractImage(context.getResources(), R.drawable.player10);
-        sprites[18] = super.extractImage(context.getResources(), R.drawable.player11);
-        //Run Left
-        sprites[19] = super.flipImage(sprites[16]);
-        sprites[20] = super.flipImage(sprites[17]);
-        sprites[21] = super.flipImage(sprites[18]);
-        //Jump Right
-        sprites[22] = super.extractImage(context.getResources(), R.drawable.player12);
-        sprites[23] = super.extractImage(context.getResources(), R.drawable.player13);
-        //Jump Left
-        sprites[24] = super.flipImage(sprites[22]);
-        sprites[25] = super.flipImage(sprites[23]);
-        //Melee Right
-        sprites[26] = super.extractImage(context.getResources(), R.drawable.player14);
-        sprites[27] = super.extractImage(context.getResources(), R.drawable.player15);
-        sprites[28] = super.extractImage(context.getResources(), R.drawable.player16);
-        //Melee Left
-        sprites[29] = super.flipImage(sprites[26]);
-        sprites[30] = super.flipImage(sprites[27]);
-        sprites[31] = super.flipImage(sprites[28]);
-
-        for (int i = 0; i < MELEE_RIGHT; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
-
-        for (int i = MELEE_RIGHT; i <= END_MELEE_LEFT; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], (int)(width*1.5), height, false);
-        }
+        getSprites(context);
     }
     
     @Override
@@ -140,7 +93,7 @@ public class Player extends MovableFigure implements Travel {
             spriteState = RUN_RIGHT;
         }
         
-        if (x + width < 800){
+        if (x + width < width*6.5){
             x += 20;
         } else if (GameData.stage1) {
             GameData.background.moveBackground();
@@ -357,6 +310,57 @@ public class Player extends MovableFigure implements Travel {
     public void handleImmuneTimer() {
         if (immuneTimer > 0) {
             immuneTimer--;
+        }
+    }
+
+    public void getSprites(Context context){
+        //Idle Right
+        sprites[0] = super.extractImage(context.getResources(), R.drawable.player1);
+        sprites[1] = super.extractImage(context.getResources(), R.drawable.player2);
+        sprites[2] = super.extractImage(context.getResources(), R.drawable.player3);
+        sprites[3] = super.extractImage(context.getResources(), R.drawable.player4);
+        sprites[4] = super.extractImage(context.getResources(), R.drawable.player5);
+        sprites[5] = super.extractImage(context.getResources(), R.drawable.player6);
+        sprites[6] = super.extractImage(context.getResources(), R.drawable.player7);
+        sprites[7] = super.extractImage(context.getResources(), R.drawable.player8);
+        //Idle Left
+        sprites[8] = super.flipImage(sprites[0]);
+        sprites[9] = super.flipImage(sprites[1]);
+        sprites[10] = super.flipImage(sprites[2]);
+        sprites[11] = super.flipImage(sprites[3]);
+        sprites[12] = super.flipImage(sprites[4]);
+        sprites[13] = super.flipImage(sprites[5]);
+        sprites[14] = super.flipImage(sprites[6]);
+        sprites[15] = super.flipImage(sprites[7]);
+        //Run Right
+        sprites[16] = super.extractImage(context.getResources(), R.drawable.player9);
+        sprites[17] = super.extractImage(context.getResources(), R.drawable.player10);
+        sprites[18] = super.extractImage(context.getResources(), R.drawable.player11);
+        //Run Left
+        sprites[19] = super.flipImage(sprites[16]);
+        sprites[20] = super.flipImage(sprites[17]);
+        sprites[21] = super.flipImage(sprites[18]);
+        //Jump Right
+        sprites[22] = super.extractImage(context.getResources(), R.drawable.player12);
+        sprites[23] = super.extractImage(context.getResources(), R.drawable.player13);
+        //Jump Left
+        sprites[24] = super.flipImage(sprites[22]);
+        sprites[25] = super.flipImage(sprites[23]);
+        //Melee Right
+        sprites[26] = super.extractImage(context.getResources(), R.drawable.player14);
+        sprites[27] = super.extractImage(context.getResources(), R.drawable.player15);
+        sprites[28] = super.extractImage(context.getResources(), R.drawable.player16);
+        //Melee Left
+        sprites[29] = super.flipImage(sprites[26]);
+        sprites[30] = super.flipImage(sprites[27]);
+        sprites[31] = super.flipImage(sprites[28]);
+
+        for (int i = 0; i < MELEE_RIGHT; i++){
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
+        }
+
+        for (int i = MELEE_RIGHT; i <= END_MELEE_LEFT; i++){
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], (int)(width*1.5), height, false);
         }
     }
     
