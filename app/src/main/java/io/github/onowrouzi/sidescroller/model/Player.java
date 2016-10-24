@@ -33,6 +33,10 @@ public class Player extends MovableFigure implements Travel {
     public static final int END_MELEE_RIGHT = 28;
     public static final int MELEE_LEFT = 29;
     public static final int END_MELEE_LEFT = 31;
+    public static final int THROW_RIGHT = 32;
+    public static final int END_THROW_RIGHT = 34;
+    public static final int THROW_LEFT = 35;
+    public static final int END_THROW_LEFT = 37;
 
     public static final int SHOOT_RIGHT = 3;
     public static final int SHOOT_LEFT = 7;
@@ -54,7 +58,7 @@ public class Player extends MovableFigure implements Travel {
         bulletRegenCounter = 100;
         groundLevel = (int)y + height;
         
-        sprites = new Bitmap[32];
+        sprites = new Bitmap[38];
 
         this.context = context;
         getSprites(context);
@@ -73,6 +77,7 @@ public class Player extends MovableFigure implements Travel {
         handleBulletCount();
         handleJump();
         handleMelee();
+        handleThrow();
         notifyObservers();
     }
     
@@ -171,6 +176,30 @@ public class Player extends MovableFigure implements Travel {
     public boolean isMeleeRight(){
         return spriteState >= MELEE_RIGHT && spriteState <= END_MELEE_RIGHT;
     }
+
+    public boolean isThrowLeft(){
+        return spriteState >= THROW_LEFT && spriteState <= END_THROW_LEFT;
+    }
+
+    public boolean isThrowRight(){
+        return spriteState >= THROW_RIGHT && spriteState <= END_THROW_RIGHT;
+    }
+
+    public boolean isJumpLeft(){
+        return spriteState == JUMP_LEFT || spriteState == FALL_LEFT;
+    }
+
+    public boolean isJumpRight(){
+        return spriteState == JUMP_RIGHT || spriteState == FALL_RIGHT;
+    }
+
+    public boolean isFacingLeft(){
+        return (isStandingLeft() || isRunningLeft() || isMeleeLeft() || isThrowLeft() || isJumpLeft());
+    }
+
+    public boolean isFacingRight(){
+        return (isStandingRight() || isRunningRight() || isMeleeRight() || isThrowRight() || isJumpRight());
+    }
     
     public void hurt(){
         if (immuneTimer == 0) {
@@ -183,7 +212,9 @@ public class Player extends MovableFigure implements Travel {
     }
 
     public void fireProjectile(float ex, float ey) {
-        float sx = (isStandingRight() || isRunningRight()) ? x+width : x;
+        spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
+
+        float sx = isFacingRight() ? x+width : x;
         Shuriken s = new Shuriken (sx, y+height/2, ex, ey, Color.WHITE, Color.BLACK, context, this);
 
         bulletCount--;
@@ -322,6 +353,22 @@ public class Player extends MovableFigure implements Travel {
          }
     }
 
+    public void handleThrow(){
+        if (isThrowLeft()){
+            if (spriteState == END_THROW_LEFT) {
+                spriteState = STAND_LEFT;
+            } else {
+                spriteState++;
+            }
+        } else if (isThrowRight()){
+            if (spriteState == END_THROW_RIGHT){
+                spriteState = STAND_RIGHT;
+            } else {
+                spriteState++;
+            }
+        }
+    }
+
     public void handleImmuneTimer() {
         if (immuneTimer > 0) {
             immuneTimer--;
@@ -369,6 +416,14 @@ public class Player extends MovableFigure implements Travel {
         sprites[29] = super.flipImage(sprites[26]);
         sprites[30] = super.flipImage(sprites[27]);
         sprites[31] = super.flipImage(sprites[28]);
+        //Melee Right
+        sprites[32] = super.extractImage(context.getResources(), R.drawable.player17);
+        sprites[33] = super.extractImage(context.getResources(), R.drawable.player18);
+        sprites[34] = super.extractImage(context.getResources(), R.drawable.player19);
+        //Melee Left
+        sprites[35] = super.flipImage(sprites[32]);
+        sprites[36] = super.flipImage(sprites[33]);
+        sprites[37] = super.flipImage(sprites[34]);
 
         for (int i = 0; i < MELEE_RIGHT; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
@@ -376,6 +431,10 @@ public class Player extends MovableFigure implements Travel {
 
         for (int i = MELEE_RIGHT; i <= END_MELEE_LEFT; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], (int)(width*1.5), height, false);
+        }
+
+        for (int i = THROW_RIGHT; i <= END_THROW_LEFT; i++){
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
         }
     }
     
