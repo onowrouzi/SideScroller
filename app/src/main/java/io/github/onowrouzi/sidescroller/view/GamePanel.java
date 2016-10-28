@@ -50,16 +50,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     c.drawText("YOU WON!!!", width / 2 - 250, height / 2, p);
                 } else if (GameThread.loading > 0) {
                     p.setColor(Color.WHITE);
-                    p.setTextSize(50);
-                    c.drawText("LOADING STAGE " + Integer.toString(GameData.stage), width / 3 - 50, height / 2 - 100, p);
-                    c.drawText(" IN " + Integer.toString(GameThread.loading / 10), width / 2 - 50, height / 2 - 25, p);
-                    p.setTextSize(25);
-                    c.drawText("    Controls: ", width / 3, height / 2 + 30, p);
-                    c.drawText("    W = JUMP", width / 3, height / 2 + 80, p);
-                    c.drawText("    A = LEFT", width / 3, height / 2 + 110, p);
-                    c.drawText("    D = RIGHT", width / 3, height / 2 + 140, p);
-                    c.drawText("    SPACE = MELEE", width / 3, height / 2 + 170, p);
-                    c.drawText("    LEFT CLICK = SHOOT", width / 3, height / 2 + 200, p);
+                    p.setTextSize(100);
+                    c.drawText("LOADING ... ", 200, 200, p);
+//                    c.drawText(Integer.toString(GameThread.loading / 10), 300, 200, p);
+//                    p.setTextSize(25);
+//                    c.drawText("    Controls: ", width / 3, height / 2 + 30, p);
+//                    c.drawText("    W = JUMP", width / 3, height / 2 + 80, p);
+//                    c.drawText("    A = LEFT", width / 3, height / 2 + 110, p);
+//                    c.drawText("    D = RIGHT", width / 3, height / 2 + 140, p);
+//                    c.drawText("    SPACE = MELEE", width / 3, height / 2 + 170, p);
+//                    c.drawText("    LEFT CLICK = SHOOT", width / 3, height / 2 + 200, p);
                 } else if (!GameThread.gameOver) {
 
                     synchronized (GameActivity.gameData.uiFigures) {

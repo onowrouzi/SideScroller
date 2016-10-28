@@ -30,9 +30,8 @@ public class HealthBars extends GameFigure implements Observer {
         paint.setColor(Color.RED);
         paint.setTextSize(20);
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        c.drawText("HEALTH: ", x, y, paint);
         for (int i = 0; i < health; i++){
-            c.drawBitmap(heart, (int)x+i*50+70,0, null);
+            c.drawBitmap(heart, (int)x+i*width/2+width,0, null);
         }
     }
 

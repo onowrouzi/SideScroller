@@ -84,19 +84,19 @@ public class GameActivity extends Activity {
             }
         }));
 
-        buttonA.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                player.jump();
-            }
-        }));
-
-        buttonX.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                player.melee();
-            }
-        }));
+//        buttonA.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                player.jump();
+//            }
+//        }));
+//
+//        buttonX.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                player.melee();
+//            }
+//        }));
     }
 
 }
