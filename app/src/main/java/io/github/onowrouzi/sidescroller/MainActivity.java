@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 
-    Button btnStart, btnExit;
+    Button btnStart, btnExit, btnScores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +23,20 @@ public class MainActivity extends Activity {
 
         btnStart = (Button) findViewById(R.id.btn_start);
         btnExit = (Button) findViewById(R.id.btn_exit);
+        btnScores = (Button) findViewById(R.id.btn_scores);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnScores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ScoresActivity.class);
                 startActivity(i);
             }
         });
