@@ -18,7 +18,7 @@ public class AliveFlyingEnemy implements FigureState {
             enemy.travelLeft();
         }
         if ((int)enemy.x == enemy.fireHere){ 
-            enemy.fireProjectile();
+//            enemy.fireProjectile();
         }
     }
     

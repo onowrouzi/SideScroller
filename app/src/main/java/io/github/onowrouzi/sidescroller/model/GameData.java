@@ -67,18 +67,18 @@ public class GameData {
         bulletCount = new BulletCount(10, size.y/8, size.x/8, size.y/10, player, context);
         uiFigures.add(bulletCount);
         
-//        enemyFigures.add(new GroundEnemy(size.x + size.x/8, size.y - size.y/4, size.x/8, size.y/5, 'A', context));
-//        enemyFigures.add(new FlyingEnemy(-size.x/8, size.y/20, size.x/8, size.y/8, context));
+        enemyFigures.add(new GroundEnemy(size.x + size.x/8, size.y - size.y/4, size.x/8, size.y/5, 'A', context));
+        enemyFigures.add(new FlyingEnemy(-size.x/8, size.y/20, size.x/8, size.y/8, context));
     }
     
     public void update() {
        
-//        if (stage1) {
-//            Enemy enemy = EnemyFactory.generateEnemy(context);
-//            if (enemy != null) {
-//                enemyFigures.add(enemy);
-//            }
-//        }
+        if (stage1) {
+            Enemy enemy = EnemyFactory.generateEnemy(context);
+            if (enemy != null) {
+                enemyFigures.add(enemy);
+            }
+        }
         
         synchronized (friendFigures) {
             for (int i = 0; i < friendFigures.size(); i++) {
@@ -86,11 +86,11 @@ public class GameData {
             }
         }
         
-//        synchronized (enemyFigures) {
-//            for (int i = 0; i < enemyFigures.size(); i++) {
-//                enemyFigures.get(i).update();
-//            }
-//        }
+        synchronized (enemyFigures) {
+            for (int i = 0; i < enemyFigures.size(); i++) {
+                enemyFigures.get(i).update();
+            }
+        }
         
         if (Score.score >= 200 && !stage2){
             setBossStage();

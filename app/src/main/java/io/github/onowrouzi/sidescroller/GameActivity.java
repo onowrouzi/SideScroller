@@ -46,17 +46,17 @@ public class GameActivity extends Activity {
         gamePanel = new GamePanel(getApplicationContext());
         surface.addView(gamePanel);
 
-//        gamePanel.setOnTouchListener(new View.OnTouchListener(){
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() < size.y - size.y/4
-//                        && player.bulletCount > 0){
-//                    player.fireProjectile(event.getX(), event.getY());
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
+        gamePanel.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() < size.y - size.y/4
+                        && player.bulletCount > 0){
+                    player.fireProjectile(event.getX(), event.getY());
+                    return true;
+                }
+                return false;
+            }
+        });
         buttonA = (ImageButton) findViewById(R.id.button_a);
         buttonB = (ImageButton) findViewById(R.id.button_b);
         buttonX = (ImageButton) findViewById(R.id.button_x);
@@ -84,19 +84,19 @@ public class GameActivity extends Activity {
             }
         }));
 
-//        buttonA.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                player.jump();
-//            }
-//        }));
-//
-//        buttonX.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                player.melee();
-//            }
-//        }));
+        buttonA.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.jump();
+            }
+        }));
+
+        buttonX.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.melee();
+            }
+        }));
     }
 
 }
