@@ -5,7 +5,7 @@ import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemy;
 
 public class DyingGroundEnemy implements FigureState {
 
-    public Enemy enemy;
+    public GroundEnemy enemy;
     
     public DyingGroundEnemy(GroundEnemy enemy) {
         this.enemy = enemy;
@@ -13,13 +13,23 @@ public class DyingGroundEnemy implements FigureState {
 
     @Override
     public void update() {
-        if (enemy.spriteState < GroundEnemy.DEAD_LEFT) {
+        if (enemy.isFacingLeft()) {
             enemy.spriteState = GroundEnemy.DEAD_LEFT;
-        } else {
+        } else if (enemy.isFacingRight()){
             enemy.spriteState = GroundEnemy.DEAD_RIGHT;
         }
+
+        if (enemy.isDyingLeft()) {
+            if (enemy.spriteState == GroundEnemy.END_DEAD_LEFT)
+                enemy.state = enemy.done;
+            else enemy.spriteState++;
+        } else if (enemy.isDyingRight()){
+            if (enemy.spriteState == GroundEnemy.END_DEAD_RIGHT)
+                enemy.state = enemy.done;
+            else enemy.spriteState++;
+        }
         //Sounds.play("sounds/dyingGroundEnemySound.wav");
-        enemy.state = enemy.done;
+
     }
     
 }

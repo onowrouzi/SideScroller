@@ -13,7 +13,6 @@ import io.github.onowrouzi.sidescroller.model.states.AliveFlyingEnemy;
 import io.github.onowrouzi.sidescroller.model.states.DoneEnemy;
 import io.github.onowrouzi.sidescroller.model.states.DyingFlyingEnemy;
 
-
 public class FlyingEnemy extends Enemy {
      
     private int px;
@@ -21,18 +20,18 @@ public class FlyingEnemy extends Enemy {
     public int fireHere;
     public static final int START_FLAP_RIGHT = 0;
     public static final int END_FLAP_RIGHT = 3;
-    public static final int DEAD_RIGHT = 4;
-    public static final int END_RIGHT = 7;
-    public static final int START_FLAP_LEFT = 8;
-    public static final int END_FLAP_LEFT = 11;
-    public static final int DEAD_LEFT = 12;
-    public static final int END_LEFT = 15;
+    public static final int START_FLAP_LEFT = 4;
+    public static final int END_FLAP_LEFT = 7;
+    public static final int DEAD_LEFT = 8;
+    public static final int END_DEAD_LEFT = 12;
+    public static final int DEAD_RIGHT = 13;
+    public static final int END_DEAD_RIGHT = 17;
     
     public FlyingEnemy(float x, float y, int width, int height, Context context) {
         super(x,y,width,height);
         
         fireHere = (int) (Math.random()*8) * 100;
-        sprites = new Bitmap[16];
+        sprites = new Bitmap[18];
 
         getSprites(context);
         
@@ -71,7 +70,7 @@ public class FlyingEnemy extends Enemy {
 
     @Override
     public RectF getCollisionBox() {
-        return new RectF(x+10, y+10, super.width*.8f, super.height*.8f);
+        return new RectF(x, y, x+width, y+height);
     }
 
     @Override
@@ -94,23 +93,29 @@ public class FlyingEnemy extends Enemy {
         x += 5;
     }
 
+    public boolean isFacingLeft(){ return (spriteState >= START_FLAP_LEFT && spriteState <= END_FLAP_LEFT); }
+
+    public boolean isFacingRight() { return (spriteState >= START_FLAP_RIGHT && spriteState <= END_FLAP_RIGHT); }
+
+    public boolean isDyingLeft() { return (spriteState >= DEAD_LEFT && spriteState <= END_DEAD_LEFT); }
+
+    public boolean isDyingRight() { return (spriteState >= DEAD_RIGHT && spriteState <= END_DEAD_RIGHT); }
+
     public void getSprites(Context context){
-        sprites[8] = super.extractImage(context.getResources(), R.drawable.flying_enemy1);
-        sprites[9] = super.extractImage(context.getResources(), R.drawable.flying_enemy2);
-        sprites[10] = super.extractImage(context.getResources(), R.drawable.flying_enemy3);
-        sprites[11] = super.extractImage(context.getResources(), R.drawable.flying_enemy4);
-        sprites[12] = super.extractImage(context.getResources(), R.drawable.flying_enemy5);
-        sprites[13] = super.extractImage(context.getResources(), R.drawable.flying_enemy6);
-        sprites[14] = super.extractImage(context.getResources(), R.drawable.flying_enemy7);
-        sprites[15] = super.extractImage(context.getResources(), R.drawable.flying_enemy8);
-        sprites[0] = super.flipImage(sprites[8]);
-        sprites[1] = super.flipImage(sprites[9]);
-        sprites[2] = super.flipImage(sprites[10]);
-        sprites[3] = super.flipImage(sprites[11]);
-        sprites[4] = super.flipImage(sprites[12]);
-        sprites[5] = super.flipImage(sprites[13]);
-        sprites[6] = super.flipImage(sprites[14]);
-        sprites[7] = super.flipImage(sprites[15]);
+        sprites[4] = super.extractImage(context.getResources(), R.drawable.flying_enemy1);
+        sprites[5] = super.extractImage(context.getResources(), R.drawable.flying_enemy2);
+        sprites[6] = super.extractImage(context.getResources(), R.drawable.flying_enemy3);
+        sprites[7] = super.extractImage(context.getResources(), R.drawable.flying_enemy4);
+        sprites[0] = super.flipImage(sprites[4]);
+        sprites[1] = super.flipImage(sprites[5]);
+        sprites[2] = super.flipImage(sprites[6]);
+        sprites[3] = super.flipImage(sprites[7]);
+        sprites[8] = sprites[13] = super.extractImage(context.getResources(), R.drawable.air_explode1);
+        sprites[9] = sprites[14] = super.extractImage(context.getResources(), R.drawable.air_explode2);
+        sprites[10] = sprites[15] = super.extractImage(context.getResources(), R.drawable.air_explode3);
+        sprites[11] = sprites[16] = super.extractImage(context.getResources(), R.drawable.air_explode4);
+        sprites[12] = sprites[17] = super.extractImage(context.getResources(), R.drawable.air_explode5);
+
 
         for (int i = 0; i < sprites.length; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);

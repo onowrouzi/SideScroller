@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.RectF;
 
 import java.util.ArrayList;
@@ -38,8 +39,6 @@ public class Player extends MovableFigure implements Travel {
     public static final int THROW_LEFT = 35;
     public static final int END_THROW_LEFT = 37;
 
-    public static final int SHOOT_RIGHT = 3;
-    public static final int SHOOT_LEFT = 7;
     private int groundLevel;
     public boolean ascend;
     public boolean descend;
@@ -225,7 +224,7 @@ public class Player extends MovableFigure implements Travel {
     }
     
     public float getXofMissileShoot() {
-        if (spriteState == SHOOT_LEFT) {
+        if (spriteState == THROW_LEFT) {
             return super.x;
         }
         else return super.x+super.width;
@@ -247,11 +246,9 @@ public class Player extends MovableFigure implements Travel {
     
     @Override
     public RectF getCollisionBox() {
-        if (spriteState == MELEE_LEFT) 
-            return new RectF(x,y+height/4,width*.7f,height/4*3);
-        else if (spriteState == MELEE_RIGHT) 
-            return new RectF(x+width/3,y+height/4,width*.7f,height/4*3);
-        return new RectF(x+width*.3f,y+height/4,width*.4f,height/4*3);
+        if (isMeleeRight()) return new RectF(x+width*.3f,y,x+width*1.3f,y+height);
+        if (isFacingRight()) return new RectF(x+width*.3f,y,x+width*.9f,y+height);
+        return new RectF(x,y,x+width*.7f,y+height);
     }
     
     public void bounceBack(){
@@ -425,6 +422,7 @@ public class Player extends MovableFigure implements Travel {
         sprites[36] = super.flipImage(sprites[33]);
         sprites[37] = super.flipImage(sprites[34]);
 
+        //Scale Images
         for (int i = 0; i < MELEE_RIGHT; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
         }

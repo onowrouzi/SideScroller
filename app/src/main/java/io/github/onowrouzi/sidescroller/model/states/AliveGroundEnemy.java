@@ -5,7 +5,7 @@ import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemy;
 
 public class AliveGroundEnemy implements FigureState {
 
-    public Enemy enemy;
+    public GroundEnemy enemy;
     
     public AliveGroundEnemy(GroundEnemy enemy) {
         this.enemy = enemy;
@@ -13,7 +13,7 @@ public class AliveGroundEnemy implements FigureState {
 
     @Override
     public void update() {
-        if (enemy.spriteState <= GroundEnemy.WALK_LEFT) {
+        if (enemy.isFacingLeft()) {
             enemy.travelLeft();
         } else {
             enemy.travelRight();

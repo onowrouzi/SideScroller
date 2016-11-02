@@ -21,18 +21,13 @@ public class Background extends GameFigure {
     public final int WIDTH;
     
     public Background(Context context) {
-        super(0,0,800,600);
-
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+        super(0,0,GameActivity.screenWidth,GameActivity.screenHeight);
 
         b1 = b2 = super.extractImage(context.getResources(), R.drawable.background1);
-        b1 = b2 = Bitmap.createScaledBitmap(b1, size.x, size.y, false);
+        b1 = b2 = Bitmap.createScaledBitmap(b1, b1.getWidth(), GameActivity.screenHeight, false);
         b1X = 0;
         b2X = b1.getWidth();
-        WIDTH = b2X - 800;
+        WIDTH = b2X - GameActivity.screenWidth;
     }
 
     @Override

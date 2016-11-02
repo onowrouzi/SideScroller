@@ -75,7 +75,7 @@ public class Projectile extends MovableFigure {
     
     @Override
     public RectF getCollisionBox() {
-        return new RectF(super.x-size/2,super.y-size/2,((size)*0.9f),((size)*0.9f));
+        return new RectF(super.x-size/2,super.y-size/2,super.x+((size)*0.9f),super.y+((size)*0.9f));
     }
     
 }

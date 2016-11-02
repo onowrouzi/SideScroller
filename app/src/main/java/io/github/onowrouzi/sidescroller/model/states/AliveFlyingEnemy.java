@@ -12,13 +12,13 @@ public class AliveFlyingEnemy implements FigureState {
 
     @Override
     public void update() {
-        if (enemy.spriteState <= FlyingEnemy.END_FLAP_RIGHT) {
+        if (enemy.isFacingRight()) {
             enemy.travelRight();
-        } else {
+        } else if (enemy.isFacingLeft()){
             enemy.travelLeft();
         }
         if ((int)enemy.x == enemy.fireHere){ 
-//            enemy.fireProjectile();
+            enemy.fireProjectile();
         }
     }
     

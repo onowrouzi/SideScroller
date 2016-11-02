@@ -12,18 +12,20 @@ import io.github.onowrouzi.sidescroller.model.states.DyingGroundEnemy;
 
 public class GroundEnemy extends Enemy {
     
-    public final static int STAND_LEFT = 0;
-    public final static int WALK_LEFT = 7;
-    public final static int DEAD_LEFT = 2;
-    public final static int STAND_RIGHT = 8;
-    public final static int WALK_RIGHT = 15;
-    public final static int DEAD_RIGHT = 5;
+    public final static int WALK_LEFT = 0;
+    public final static int END_WALK_LEFT = 7;
+    public final static int WALK_RIGHT = 8;
+    public final static int END_WALK_RIGHT = 15;
+    public final static int DEAD_LEFT = 16;
+    public final static int END_DEAD_LEFT = 20;
+    public final static int DEAD_RIGHT = 21;
+    public final static int END_DEAD_RIGHT = 25;
     public char type;
     
     public GroundEnemy(float x, float y, int width, int height, char type, Context context) {
         super(x,y,width,height);
         
-        sprites = new Bitmap[16];
+        sprites = new Bitmap[26];
         this.type = type;
 
         getSprites(context);
@@ -47,15 +49,15 @@ public class GroundEnemy extends Enemy {
 
     @Override
     public RectF getCollisionBox() {
-        return new RectF(x+5, y+10, width*.9f, height);
+        return new RectF(x+width*.1f, y, x+width*.9f, y+height);
     }
 
     @Override
     public void travelLeft() {
-        if (spriteState < WALK_LEFT) {
+        if (spriteState < END_WALK_LEFT) {
             spriteState++;
         } else {
-            spriteState = STAND_LEFT;
+            spriteState = WALK_LEFT;
         }
         
         x -= 2;
@@ -63,14 +65,22 @@ public class GroundEnemy extends Enemy {
 
     @Override
     public void travelRight() {
-        if (spriteState < WALK_RIGHT) {
+        if (spriteState < END_WALK_RIGHT) {
             spriteState++;
         } else {
-            spriteState = STAND_RIGHT;
+            spriteState = WALK_RIGHT;
         }
         
         x += 2;
     }
+
+    public boolean isFacingLeft(){ return spriteState <= END_WALK_LEFT; }
+
+    public boolean isFacingRight(){ return (spriteState >= WALK_RIGHT && spriteState <= END_WALK_RIGHT); }
+
+    public boolean isDyingLeft() { return (spriteState >= DEAD_LEFT && spriteState <= END_DEAD_LEFT); }
+
+    public boolean isDyingRight() { return (spriteState >= DEAD_RIGHT && spriteState <= END_DEAD_RIGHT); }
 
     public void getSprites(Context context){
         sprites[0] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_enemy_a1): super.extractImage(context.getResources(), R.drawable.ground_enemy_a1);
@@ -89,6 +99,11 @@ public class GroundEnemy extends Enemy {
         sprites[13] = super.flipImage(sprites[5]);
         sprites[14] = super.flipImage(sprites[6]);
         sprites[15] = super.flipImage(sprites[7]);
+        sprites[16] = sprites[21] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_explode1): super.extractImage(context.getResources(), R.drawable.ground_explode1);
+        sprites[17] = sprites[22] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_explode2): super.extractImage(context.getResources(), R.drawable.ground_explode2);
+        sprites[18] = sprites[23] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_explode3): super.extractImage(context.getResources(), R.drawable.ground_explode3);
+        sprites[19] = sprites[24] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_explode4): super.extractImage(context.getResources(), R.drawable.ground_explode4);
+        sprites[20] = sprites[25] = type == 'A' ? super.extractImage(context.getResources(), R.drawable.ground_explode5): super.extractImage(context.getResources(), R.drawable.ground_explode5);
 
         for (int i = 0; i < sprites.length; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);

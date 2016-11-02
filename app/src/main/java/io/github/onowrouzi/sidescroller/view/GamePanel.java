@@ -11,8 +11,8 @@ import android.view.SurfaceView;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
-import io.github.onowrouzi.sidescroller.model.GameData;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
+import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     
@@ -22,7 +22,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread gameThread;
     private Canvas c;
     private Paint p;
-    private Image doubleBufferImage = null;
     private SurfaceHolder holder;
 
     public GamePanel(Context context) {
@@ -62,6 +61,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 //                    c.drawText("    LEFT CLICK = SHOOT", width / 3, height / 2 + 200, p);
                 } else if (!GameThread.gameOver) {
 
+                    p.setColor(Color.WHITE);
+
                     synchronized (GameActivity.gameData.uiFigures) {
                         for (GameFigure u : GameActivity.gameData.uiFigures) {
                             u.render(c);
@@ -77,11 +78,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     synchronized (GameActivity.gameData.enemyFigures) {
                         for (GameFigure e : GameActivity.gameData.enemyFigures) {
                             e.render(c);
+                            //c.drawRect(((Enemy)e).getCollisionBox(), p);
                         }
                     }
 
                     if (GameThread.paused) {
-                        p.setColor(Color.BLACK);
                         p.setTextSize(100);
                         c.drawText("PAUSED", width / 2 - 175, height / 2, p);
                     }
@@ -105,22 +106,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    public void onDraw(Canvas canvas) {
-        System.out.println("DRAW!!!");
-        draw();
-    }
-
+    public void onDraw(Canvas canvas) { draw(); }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        System.out.println("SURFACE CREATED");
-        gameThread.start();
-    }
+    public void surfaceCreated(SurfaceHolder holder) { gameThread.start(); }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-    }
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {

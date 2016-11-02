@@ -19,6 +19,7 @@ import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.controller.RepeatListener;
 import io.github.onowrouzi.sidescroller.model.GameData;
 import io.github.onowrouzi.sidescroller.model.Player;
+import io.github.onowrouzi.sidescroller.model.SizeManager;
 import io.github.onowrouzi.sidescroller.view.GamePanel;
 
 public class GameActivity extends Activity {
@@ -26,6 +27,8 @@ public class GameActivity extends Activity {
     public static GameData gameData;
     public static GamePanel gamePanel;
     ImageButton buttonA, buttonB, buttonX, buttonY, buttonLeft, buttonRight;
+    public static int screenWidth;
+    public static int screenHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,11 @@ public class GameActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
 
-        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        final Point size = new Point();
-        display.getSize(size); //X = 800, Y = 400
+        SizeManager sizeManager = new SizeManager(getApplicationContext());
+        screenWidth = sizeManager.getX();
+        screenHeight = sizeManager.getY();
 
-        final Player player = new Player(size.x/2, size.y-size.y/4, size.x/8, size.y/5, getApplicationContext());
+        final Player player = new Player(screenWidth/2, screenHeight-screenHeight/4, screenWidth/8, screenHeight/5, getApplicationContext());
 
         RelativeLayout surface = (RelativeLayout) findViewById(R.id.surface);
         gameData = new GameData(getApplicationContext(), player);
@@ -49,7 +51,7 @@ public class GameActivity extends Activity {
         gamePanel.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() < size.y - size.y/4
+                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() < screenHeight - screenHeight/4
                         && player.bulletCount > 0){
                     player.fireProjectile(event.getX(), event.getY());
                     return true;

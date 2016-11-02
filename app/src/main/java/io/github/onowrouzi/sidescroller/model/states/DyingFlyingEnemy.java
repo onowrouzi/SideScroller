@@ -1,40 +1,31 @@
 package io.github.onowrouzi.sidescroller.model.states;
 
-import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemy;
 
 public class DyingFlyingEnemy implements FigureState {
 
-    public Enemy enemy;
-    public boolean fallingLeft;
-    public boolean fallingRight;
+    public FlyingEnemy enemy;
     
     public DyingFlyingEnemy(FlyingEnemy enemy) {
-        
         this.enemy = enemy;
     }
 
     @Override
     public void update() {
-        if (!fallingLeft && !fallingRight) {
-            if (enemy.spriteState < FlyingEnemy.DEAD_RIGHT) {
-                enemy.spriteState = FlyingEnemy.DEAD_RIGHT;
-                fallingRight = true;
-            } else {
-                enemy.spriteState = FlyingEnemy.DEAD_LEFT;
-                fallingLeft = true;
-            }
-            //Sounds.play("sounds/dyingFlyingEnemySound.wav");
-        } else {
-            if (fallingLeft && enemy.spriteState < FlyingEnemy.END_LEFT){
-                enemy.spriteState++;
-            } else if (fallingRight && enemy.spriteState < FlyingEnemy.END_RIGHT) {
-                enemy.spriteState++;
-            }
-            enemy.y += 20;
+        if (enemy.isFacingLeft()) {
+            enemy.spriteState = FlyingEnemy.DEAD_LEFT;
+        } else if (enemy.isFacingRight()){
+            enemy.spriteState = FlyingEnemy.DEAD_RIGHT;
         }
-        if (enemy.y > 600) {
-            enemy.state = enemy.done;
+
+        if (enemy.isDyingLeft()) {
+            if (enemy.spriteState == FlyingEnemy.END_DEAD_LEFT)
+                enemy.state = enemy.done;
+            else enemy.spriteState++;
+        } else if (enemy.isDyingRight()){
+            if (enemy.spriteState == FlyingEnemy.END_DEAD_RIGHT)
+                enemy.state = enemy.done;
+            else enemy.spriteState++;
         }
     }
     

@@ -1,15 +1,12 @@
 package io.github.onowrouzi.sidescroller.model.ui;
 
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
-import android.view.Display;
-import android.view.WindowManager;
 
+import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
 import io.github.onowrouzi.sidescroller.model.Player;
@@ -24,15 +21,10 @@ public class BulletCount extends GameFigure implements Observer {
         super(x,y,width,height);
         
         player.attach(this);
-
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
         
         bullet = super.extractImage(context.getResources(), R.drawable.bullet_count);
         //bullet = Bitmap.createBitmap(bullet,35, 0, 65, 127);
-        bullet = Bitmap.createScaledBitmap(bullet, size.x/30, size.y/30, false);
+        bullet = Bitmap.createScaledBitmap(bullet, width, height, false);
         bullets = 10;
 
         paint = new Paint();
@@ -43,10 +35,12 @@ public class BulletCount extends GameFigure implements Observer {
         paint.setColor(Color.BLACK);
         if (bullets > 0) {
             for (int i = 0; i < bullets; i++) {
-                c.drawBitmap(bullet, (int)x, (int)y+i*30, null);
+                c.drawBitmap(bullet, (int)x, (int)y+i*height, null);
             }
         } else if (reloadTimer % 4 == 0) {
-            c.drawText("RELOADING...", x, y+20, paint);
+            paint.setColor(Color.WHITE);
+            paint.setTextSize(GameActivity.screenWidth/20);
+            c.drawText("RELOADING...", x, y+GameActivity.screenWidth/20, paint);
         }
     }
 

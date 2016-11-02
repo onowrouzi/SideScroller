@@ -1,14 +1,12 @@
 package io.github.onowrouzi.sidescroller.model;
 
 import android.content.Context;
-import android.graphics.Point;
-import android.view.Display;
-import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.enemies.BossEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
@@ -16,7 +14,6 @@ import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemy;
 import io.github.onowrouzi.sidescroller.model.ui.Background;
 import io.github.onowrouzi.sidescroller.model.ui.BulletCount;
-import io.github.onowrouzi.sidescroller.model.ui.Ground;
 import io.github.onowrouzi.sidescroller.model.ui.HealthBars;
 import io.github.onowrouzi.sidescroller.model.ui.Score;
 
@@ -42,11 +39,6 @@ public class GameData {
         this.context = context;
         this.player = player;
 
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
         stage1 = true;
         stage = 1;
         
@@ -58,17 +50,17 @@ public class GameData {
         
         background = new Background(context);
         uiFigures.add(background);
-//        ground = new Ground(0, 0, size.x, size.y, context);
+//        ground = new Ground(0, 0, GameActivity.screenWidth, GameActivity.screenHeight, context);
 //        uiFigures.add(ground);
-        gameScore = new Score(10,30,80,20);
+        gameScore = new Score(10,GameActivity.screenHeight/16,80,20);
         uiFigures.add(gameScore);
-        healthBars = new HealthBars(size.x*2/3-70, size.y/10, size.x/10, size.y/10, player, context);
+        healthBars = new HealthBars(GameActivity.screenWidth*4/7, 0, GameActivity.screenWidth/10, GameActivity.screenHeight/10, player, context);
         uiFigures.add(healthBars);
-        bulletCount = new BulletCount(10, size.y/8, size.x/8, size.y/10, player, context);
+        bulletCount = new BulletCount(10, GameActivity.screenHeight/10, GameActivity.screenWidth/16, GameActivity.screenHeight/20, player, context);
         uiFigures.add(bulletCount);
         
-        enemyFigures.add(new GroundEnemy(size.x + size.x/8, size.y - size.y/4, size.x/8, size.y/5, 'A', context));
-        enemyFigures.add(new FlyingEnemy(-size.x/8, size.y/20, size.x/8, size.y/8, context));
+        enemyFigures.add(new GroundEnemy(GameActivity.screenWidth + GameActivity.screenWidth/8, GameActivity.screenHeight - GameActivity.screenHeight/4, GameActivity.screenWidth/8, GameActivity.screenHeight/5, 'A', context));
+        enemyFigures.add(new FlyingEnemy(-GameActivity.screenWidth/8, GameActivity.screenHeight/20, GameActivity.screenWidth/8, GameActivity.screenHeight/8, context));
     }
     
     public void update() {
