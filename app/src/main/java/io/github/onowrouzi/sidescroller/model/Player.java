@@ -3,15 +3,16 @@ package io.github.onowrouzi.sidescroller.model;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Vibrator;
 
 import java.util.ArrayList;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
+import io.github.onowrouzi.sidescroller.model.helpers.PlayerActionHandler;
+import io.github.onowrouzi.sidescroller.model.projectiles.Shuriken;
 import io.github.onowrouzi.sidescroller.model.ui.BulletCount;
 import io.github.onowrouzi.sidescroller.model.ui.HealthBars;
 import io.github.onowrouzi.sidescroller.model.ui.Observer;
@@ -39,7 +40,7 @@ public class Player extends MovableFigure implements Travel {
     public static final int THROW_LEFT = 35;
     public static final int END_THROW_LEFT = 37;
 
-    private int groundLevel;
+    public int groundLevel;
     public boolean ascend;
     public boolean descend;
     public boolean jumpLeft;
@@ -47,7 +48,9 @@ public class Player extends MovableFigure implements Travel {
     public int bulletCount;
     public int bulletRegenCounter;
     private final ArrayList<Observer> observers = new ArrayList<>();
+    Vibrator v;
     Context context;
+    PlayerActionHandler pah;
     
     public Player(float x, float y, int width, int height, Context context){
         super(x,y,width,height);
@@ -60,7 +63,10 @@ public class Player extends MovableFigure implements Travel {
         sprites = new Bitmap[38];
 
         this.context = context;
+        pah = new PlayerActionHandler(this);
         getSprites(context);
+
+        v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
     
     @Override
@@ -71,18 +77,12 @@ public class Player extends MovableFigure implements Travel {
 
     @Override
     public void update() {
-        idle();
-        handleImmuneTimer();
-        handleBulletCount();
-        handleJump();
-        handleMelee();
-        handleThrow();
+        pah.handle();
         notifyObservers();
     }
     
     @Override
     public void travelLeft() {
-
         if (spriteState >= RUN_LEFT && spriteState < END_RUN_LEFT){
             spriteState++;
         } else {
@@ -94,7 +94,6 @@ public class Player extends MovableFigure implements Travel {
     
     @Override
     public void travelRight() {
-
         if (spriteState >= RUN_RIGHT && spriteState < END_RUN_RIGHT){
             spriteState++;
         } else {
@@ -107,40 +106,45 @@ public class Player extends MovableFigure implements Travel {
             GameData.background.moveBackground();
         }
     }
-
-    public void idle(){
-        if (spriteState <= END_STAND_LEFT) {
-            if (spriteState != END_STAND_LEFT && spriteState != END_STAND_RIGHT) {
-                spriteState++;
-            } else if (spriteState == END_STAND_RIGHT) {
-                spriteState = STAND_RIGHT;
-            } else if (spriteState == END_STAND_LEFT) {
-                spriteState = STAND_LEFT;
-            }
-        }
-    }
     
     public void jump(){
         if (!ascend && !descend) {
             ascend = true;
 
-            if (isStandingLeft()) {
-                spriteState = JUMP_LEFT;
-            }
+            if (isStandingLeft()) spriteState = JUMP_LEFT;
+
             if (isRunningLeft()) {
                 spriteState = JUMP_LEFT;
                 jumpLeft = true;
             }
 
-            if (isStandingRight()) {
-                spriteState = JUMP_RIGHT;
-            }
+            if (isStandingRight()) spriteState = JUMP_RIGHT;
 
             if (isRunningRight()) {
                 spriteState = JUMP_RIGHT;
                 jumpRight = true;
             }
         }
+    }
+
+    public void bounceBack(){
+        descend = jumpLeft = jumpRight = false;
+        if (spriteState >= STAND_LEFT) {
+            jumpRight = true;
+        } else {
+            jumpLeft = true;
+        }
+        jump();
+    }
+
+    public void bounceOff(){
+        descend = jumpLeft = jumpRight = false;
+        if (spriteState < STAND_LEFT) {
+            jumpRight = true;
+        } else {
+            jumpLeft = true;
+        }
+        jump();
     }
 
     public void melee(){
@@ -150,6 +154,40 @@ public class Player extends MovableFigure implements Travel {
         } else if (isStandingRight() || isRunningRight()){
             spriteState = MELEE_RIGHT;
         }
+    }
+
+    public void fireProjectile(float ex, float ey) {
+        spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
+
+        float sx = isFacingRight() ? x+width : x;
+        Shuriken s = new Shuriken (sx, y+height/2, ex, ey, context, this);
+
+        bulletCount--;
+
+        synchronized (GameActivity.gameData.friendFigures) {
+            GameActivity.gameData.friendFigures.add(s);
+        }
+    }
+
+    public void hurt(){
+        if (immuneTimer == 0) {
+            v.vibrate(500);
+            health--;
+            immuneTimer = 20;
+        }
+        if (health == 0){
+            GameThread.gameOver = true;
+        }
+    }
+
+    public void resetPlayer(){
+        health = 5;
+        immuneTimer = 0;
+        bulletCount = 10;
+        bulletRegenCounter = 100;
+        x = y = 350;
+        spriteState = STAND_RIGHT;
+        ascend = descend = false;
     }
 
     public boolean isStandingLeft(){
@@ -200,75 +238,11 @@ public class Player extends MovableFigure implements Travel {
         return (isStandingRight() || isRunningRight() || isMeleeRight() || isThrowRight() || isJumpRight());
     }
     
-    public void hurt(){
-        if (immuneTimer == 0) {
-            health--;
-            immuneTimer = 20;
-        }
-        if (health == 0){
-            GameThread.gameOver = true;
-        }
-    }
-
-    public void fireProjectile(float ex, float ey) {
-        spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
-
-        float sx = isFacingRight() ? x+width : x;
-        Shuriken s = new Shuriken (sx, y+height/2, ex, ey, Color.WHITE, Color.BLACK, context, this);
-
-        bulletCount--;
-
-        synchronized (GameActivity.gameData.friendFigures) {
-            GameActivity.gameData.friendFigures.add(s);
-        }
-    }
-    
-    public float getXofMissileShoot() {
-        if (spriteState == THROW_LEFT) {
-            return super.x;
-        }
-        else return super.x+super.width;
-    }
-
-    public float getYofMissileShoot() {
-        return super.y + height/2;
-    }
-    
-    public void resetPlayer(){
-        health = 5;
-        immuneTimer = 0;
-        bulletCount = 10;
-        bulletRegenCounter = 100;
-        x = y = 350;
-        spriteState = STAND_RIGHT;
-        ascend = descend = false;
-    }
-    
     @Override
     public RectF getCollisionBox() {
         if (isMeleeRight()) return new RectF(x+width*.3f,y,x+width*1.3f,y+height);
         if (isFacingRight()) return new RectF(x+width*.3f,y,x+width*.9f,y+height);
         return new RectF(x,y,x+width*.7f,y+height);
-    }
-    
-    public void bounceBack(){
-        descend = jumpLeft = jumpRight = false;
-        if (spriteState >= STAND_LEFT) {
-            jumpRight = true;
-        } else {
-            jumpLeft = true;
-        }
-        jump();
-    }
-    
-    public void bounceOff(){
-        descend = jumpLeft = jumpRight = false;
-        if (spriteState < STAND_LEFT) {
-            jumpRight = true;
-        } else {
-            jumpLeft = true;
-        }
-        jump();
     }
     
     public void attach(Observer observer){
@@ -282,93 +256,6 @@ public class Player extends MovableFigure implements Travel {
             } else if (o instanceof HealthBars){
                 o.updateObserver(health, immuneTimer);
             }
-        }
-    }
-
-    public void handleJump() {
-        if (ascend) {
-            if (y > groundLevel - height*2) {
-                y -= 20;
-            } else {
-                ascend = false;
-                descend = true;
-                spriteState = spriteState == JUMP_LEFT ? FALL_LEFT : FALL_RIGHT;
-            }
-            if (jumpLeft) x -= 5;
-            if (jumpRight) {
-                if (x+width*2 < 800) {
-                    x += 5;
-                } else if (GameData.stage1) {
-                    GameData.background.moveBackground();
-                }
-            }
-        } else if (descend) {
-            if (y+height >= groundLevel) {
-                descend = false;
-                jumpLeft = false;
-                jumpRight = false;
-                spriteState = spriteState == FALL_LEFT ? STAND_LEFT : STAND_RIGHT;
-            } else {
-                y += 20;
-            }
-            if (jumpLeft && x>0) x -= 5;
-            if (jumpRight){
-                if (x+width*2 < 800) {
-                    x += 5;
-                } else if (GameData.stage1) {
-                    GameData.background.moveBackground();
-                }
-            }
-        }
-    }
-
-    public void handleBulletCount() {
-        if (bulletCount == 0) {
-            bulletRegenCounter--;
-        }
-
-        if (bulletRegenCounter == 0) {
-            bulletCount = 10;
-            bulletRegenCounter = 100;
-        }
-    }
-
-    public void handleMelee() {
-         if (isMeleeLeft()){
-            if (spriteState == END_MELEE_LEFT) {
-                spriteState = STAND_LEFT;
-                x += width*.5;
-            } else {
-                spriteState++;
-            }
-         } else if (isMeleeRight()){
-            if (spriteState == END_MELEE_RIGHT){
-                spriteState = STAND_RIGHT;
-            } else {
-                spriteState++;
-            }
-         }
-    }
-
-    public void handleThrow(){
-        if (isThrowLeft()){
-            if (spriteState == END_THROW_LEFT) {
-                spriteState = STAND_LEFT;
-            } else {
-                spriteState++;
-            }
-        } else if (isThrowRight()){
-            if (spriteState == END_THROW_RIGHT){
-                spriteState = STAND_RIGHT;
-            } else {
-                spriteState++;
-            }
-        }
-    }
-
-    public void handleImmuneTimer() {
-        if (immuneTimer > 0) {
-            immuneTimer--;
         }
     }
 
@@ -421,7 +308,6 @@ public class Player extends MovableFigure implements Travel {
         sprites[35] = super.flipImage(sprites[32]);
         sprites[36] = super.flipImage(sprites[33]);
         sprites[37] = super.flipImage(sprites[34]);
-
         //Scale Images
         for (int i = 0; i < MELEE_RIGHT; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
@@ -435,5 +321,4 @@ public class Player extends MovableFigure implements Travel {
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
         }
     }
-    
 }

@@ -90,8 +90,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 } else {
 
                     p.setColor(Color.WHITE);
-                    p.setTextSize(100);
-                    c.drawText("GAME OVER", width / 2 - 250, height / 2, p);
+                    p.setTextSize(GameActivity.screenWidth/8);
+                    c.drawText("GAME OVER", GameActivity.screenWidth / 2 - GameActivity.screenWidth / 3, GameActivity.screenHeight / 3, p);
                 }
 
                 holder.unlockCanvasAndPost(c);

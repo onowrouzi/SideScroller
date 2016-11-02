@@ -1,4 +1,4 @@
-package io.github.onowrouzi.sidescroller.model;
+package io.github.onowrouzi.sidescroller.model.helpers;
 
 import android.content.Context;
 import android.graphics.Point;

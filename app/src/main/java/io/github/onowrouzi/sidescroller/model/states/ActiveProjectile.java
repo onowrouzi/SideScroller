@@ -1,6 +1,7 @@
 package io.github.onowrouzi.sidescroller.model.states;
 
-import io.github.onowrouzi.sidescroller.model.Projectile;
+import io.github.onowrouzi.sidescroller.GameActivity;
+import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 
 public class ActiveProjectile implements FigureState {
 
@@ -15,8 +16,8 @@ public class ActiveProjectile implements FigureState {
         projectile.x += projectile.dx;
         projectile.y += projectile.dy;
         
-        if (projectile.x > 2000 || projectile.x < -100 ||
-                projectile.y > 2000 || projectile.y < -100) {
+        if (projectile.x > GameActivity.screenWidth || projectile.x < -10 ||
+                projectile.y > GameActivity.screenHeight || projectile.y < -10) {
             projectile.state = projectile.dying;
         }
     }

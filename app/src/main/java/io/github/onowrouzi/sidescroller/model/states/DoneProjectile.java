@@ -1,7 +1,7 @@
 package io.github.onowrouzi.sidescroller.model.states;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
-import io.github.onowrouzi.sidescroller.model.Projectile;
+import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 
 public class DoneProjectile implements FigureState {
 

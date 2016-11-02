@@ -1,7 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.enemies;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,7 +9,8 @@ import android.graphics.RectF;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
-import io.github.onowrouzi.sidescroller.model.Projectile;
+import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
+import io.github.onowrouzi.sidescroller.model.projectiles.Shuriken;
 import io.github.onowrouzi.sidescroller.model.states.AliveBoss;
 import io.github.onowrouzi.sidescroller.model.states.DescendingBoss;
 import io.github.onowrouzi.sidescroller.model.states.DoneEnemy;
@@ -33,6 +33,7 @@ public class BossEnemy extends Enemy {
     public final int FACE_RIGHT = 2;
     public final int HURT_RIGHT = 3;
     public boolean hasAttacked;
+    Context context;
     
     public BossEnemy(float x, float y, int width, int height, Context context){
         super(x,y,width,height);
@@ -54,7 +55,8 @@ public class BossEnemy extends Enemy {
         done = new DoneEnemy(this);
 
         paint = new Paint();
-        
+        this.context = context;
+
         state = drop;
     }
     
@@ -127,23 +129,11 @@ public class BossEnemy extends Enemy {
             bx = x+width-5;
         }
         
-        Projectile m1 = new Projectile (
-                bx, 
-                y+height/2,
-                px, py, 
-                Color.BLUE, Color.CYAN, this);
+        Shuriken m1 = new Shuriken (bx, y+height/2, px, py, context, this);
         
-        Projectile m2 = new Projectile (
-                bx, 
-                y+height/2,
-                px+60, py+60, 
-                Color.BLUE, Color.CYAN, this);
+        Shuriken m2 = new Shuriken (bx, y+height/2, px+60, py+60, context, this);
         
-        Projectile m3 = new Projectile (
-                bx, 
-                y+height/2,
-                px-60, py-60, 
-                Color.BLUE, Color.CYAN, this);
+        Shuriken m3 = new Shuriken (bx, y+height/2, px-60, py-60, context, this);
         
         synchronized (GameActivity.gameData.enemyFigures) {
             GameActivity.gameData.enemyFigures.add(m1);

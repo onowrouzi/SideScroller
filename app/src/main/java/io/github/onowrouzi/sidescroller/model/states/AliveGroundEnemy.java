@@ -1,7 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.states;
 
-import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
-import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemy;
+import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.GroundEnemy;
 
 public class AliveGroundEnemy implements FigureState {
 

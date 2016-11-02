@@ -1,7 +1,8 @@
 package io.github.onowrouzi.sidescroller.model.states;
 
-import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
-import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemy;
+import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.GroundEnemy;
+import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Walker;
+import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Worm;
 
 public class DyingGroundEnemy implements FigureState {
 
@@ -14,17 +15,19 @@ public class DyingGroundEnemy implements FigureState {
     @Override
     public void update() {
         if (enemy.isFacingLeft()) {
-            enemy.spriteState = GroundEnemy.DEAD_LEFT;
+            enemy.spriteState = enemy instanceof Walker ? Walker.DEAD_LEFT: Worm.DEAD_LEFT;
         } else if (enemy.isFacingRight()){
-            enemy.spriteState = GroundEnemy.DEAD_RIGHT;
+            enemy.spriteState = enemy instanceof Walker ? Walker.DEAD_RIGHT: Worm.DEAD_RIGHT;
         }
 
         if (enemy.isDyingLeft()) {
-            if (enemy.spriteState == GroundEnemy.END_DEAD_LEFT)
+            if (enemy instanceof Walker && enemy.spriteState == Walker.END_DEAD_LEFT
+                    || enemy instanceof Worm && enemy.spriteState == Worm.END_DEAD_LEFT)
                 enemy.state = enemy.done;
             else enemy.spriteState++;
         } else if (enemy.isDyingRight()){
-            if (enemy.spriteState == GroundEnemy.END_DEAD_RIGHT)
+            if (enemy instanceof Walker && enemy.spriteState == Walker.END_DEAD_RIGHT
+                    || enemy instanceof Worm && enemy.spriteState == Worm.END_DEAD_RIGHT)
                 enemy.state = enemy.done;
             else enemy.spriteState++;
         }

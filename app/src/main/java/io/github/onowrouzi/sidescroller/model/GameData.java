@@ -10,8 +10,9 @@ import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.enemies.BossEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
-import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemy;
-import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemy;
+import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.Bird;
+import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Walker;
+import io.github.onowrouzi.sidescroller.model.helpers.EnemyFactory;
 import io.github.onowrouzi.sidescroller.model.ui.Background;
 import io.github.onowrouzi.sidescroller.model.ui.BulletCount;
 import io.github.onowrouzi.sidescroller.model.ui.HealthBars;
@@ -59,8 +60,8 @@ public class GameData {
         bulletCount = new BulletCount(10, GameActivity.screenHeight/10, GameActivity.screenWidth/16, GameActivity.screenHeight/20, player, context);
         uiFigures.add(bulletCount);
         
-        enemyFigures.add(new GroundEnemy(GameActivity.screenWidth + GameActivity.screenWidth/8, GameActivity.screenHeight - GameActivity.screenHeight/4, GameActivity.screenWidth/8, GameActivity.screenHeight/5, 'A', context));
-        enemyFigures.add(new FlyingEnemy(-GameActivity.screenWidth/8, GameActivity.screenHeight/20, GameActivity.screenWidth/8, GameActivity.screenHeight/8, context));
+        enemyFigures.add(new Walker(GameActivity.screenWidth + GameActivity.screenWidth/8, GameActivity.screenHeight - GameActivity.screenHeight/4, GameActivity.screenWidth/8, GameActivity.screenHeight/5, context));
+        enemyFigures.add(new Bird(-GameActivity.screenWidth/8, GameActivity.screenHeight/20, GameActivity.screenWidth/8, GameActivity.screenHeight/8, context));
     }
     
     public void update() {
@@ -84,9 +85,9 @@ public class GameData {
             }
         }
         
-        if (Score.score >= 200 && !stage2){
-            setBossStage();
-        }
+//        if (Score.score >= 200 && !stage2){
+//            setBossStage();
+//        }
     }
     
     public void setBossStage() {
