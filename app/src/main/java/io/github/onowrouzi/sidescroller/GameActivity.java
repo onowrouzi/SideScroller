@@ -124,8 +124,26 @@ public class GameActivity extends Activity {
 
     @Override
     public void onBackPressed(){
+        GameThread.paused = true;
         new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to exit?")
+                .setTitle("PAUSED")
+                .setItems(new CharSequence[]{"Resume", "Exit"}, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int selected){
+                        switch (selected){
+                            case 0: GameThread.paused = false;
+                                    break;
+                            case 1: confirmExit();
+                                    break;
+                        }
+                    }
+                })
+                .show();
+    }
+
+    public void confirmExit(){
+        new AlertDialog.Builder(this)
+            .setMessage("Are you sure you want to exit?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -133,7 +151,12 @@ public class GameActivity extends Activity {
                         startActivity(i);
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GameThread.paused = false;
+                    }
+                })
                 .show();
     }
 
