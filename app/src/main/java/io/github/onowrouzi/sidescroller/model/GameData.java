@@ -108,11 +108,11 @@ public class GameData {
         stage1 = true;
         stage2 = false;
         stage = 1;
-        background.changeBackground("images/background1.png");
+//        background.changeBackground("images/background1.png");
         enemyFigures.clear();
         player.resetPlayer();
         GameThread.gameWon = GameThread.gameOver = false;
-        GameThread.loading = 60;
+//        GameThread.loading = 60;
 //        Sounds.backgroundMusic.stop();
 //        Sounds.play("sounds/songLoop.wav");
     }

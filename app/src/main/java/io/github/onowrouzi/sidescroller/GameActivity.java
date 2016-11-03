@@ -1,14 +1,22 @@
 package io.github.onowrouzi.sidescroller;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.controller.RepeatListener;
 import io.github.onowrouzi.sidescroller.model.GameData;
 import io.github.onowrouzi.sidescroller.model.Player;
@@ -22,6 +30,7 @@ public class GameActivity extends Activity {
     ImageButton buttonA, buttonB, buttonX, buttonY, buttonLeft, buttonRight;
     public static int screenWidth;
     public static int screenHeight;
+    public static AlertDialog gameOverDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +43,11 @@ public class GameActivity extends Activity {
         screenWidth = sizeManager.getX();
         screenHeight = sizeManager.getY();
 
-        final Player player = new Player(screenWidth/2, screenHeight-screenHeight/4, screenWidth/8, screenHeight/5, getApplicationContext());
+        final Player player = new Player(screenWidth/2, screenHeight*3/4, screenWidth/8, screenHeight/5, getApplicationContext());
 
         RelativeLayout surface = (RelativeLayout) findViewById(R.id.surface);
         gameData = new GameData(getApplicationContext(), player);
-        gamePanel = new GamePanel(getApplicationContext());
+        gamePanel = new GamePanel(this);
         surface.addView(gamePanel);
 
         gamePanel.setOnTouchListener(new View.OnTouchListener(){
@@ -52,6 +61,7 @@ public class GameActivity extends Activity {
                 return false;
             }
         });
+
         buttonA = (ImageButton) findViewById(R.id.button_a);
         buttonB = (ImageButton) findViewById(R.id.button_b);
         buttonX = (ImageButton) findViewById(R.id.button_x);
@@ -92,6 +102,59 @@ public class GameActivity extends Activity {
                 player.melee();
             }
         }));
+
+        gameOverDialog = new AlertDialog.Builder(GameActivity.this)
+                .setTitle("Game Over")
+                .setMessage("Do you want to play again?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        GameActivity.gameData.setStageOne();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(GameActivity.this, MainActivity.class);
+                        startActivity(i);
+                    }
+                })
+                .create();
+    }
+
+    @Override
+    public void onBackPressed(){
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "BACK PRESSED", Toast.LENGTH_LONG);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+//        boolean retry = true;
+//        gamePanel.gameThread.running = false;
+//        Toast toast = Toast.makeText(getApplicationContext(), "BACK PRESSED", Toast.LENGTH_LONG);
+//        while (retry) {
+//            try {
+//                gamePanel.gameThread.join();
+//                retry = false;
+//            } catch (InterruptedException e) {
+//                // try it again and again...
+//            }
+//        }
+//        RelativeLayout surface = (RelativeLayout) findViewById(R.id.surface);
+//        PopupMenu popup = new PopupMenu(this, surface);
+//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                return false;
+//            }
+//        });
+//        popup.getMenuInflater().inflate(R.menu.pause_menu, popup.getMenu());
+//        popup.show();
     }
 
 }

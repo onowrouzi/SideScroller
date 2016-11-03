@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,15 +18,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int width;
     public static int height;
 
-    private GameThread gameThread;
+    public GameThread gameThread;
     private Canvas c;
     private Paint p;
     private SurfaceHolder holder;
+    private Activity a;
 
-    public GamePanel(Context context) {
-        super(context);
+    public GamePanel(Activity a) {
+        super(a.getApplicationContext());
         holder = getHolder();
         holder.addCallback(this);
+        this.a = a;
 
         gameThread = new GameThread();
         setFocusable(true);
@@ -84,7 +87,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     }
 
                 } else {
-
+                    a.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            GameActivity.gameOverDialog.show();
+                        }
+                    });
                     p.setColor(Color.WHITE);
                     p.setTextSize(GameActivity.screenWidth/8);
                     c.drawText("GAME OVER", GameActivity.screenWidth / 2 - GameActivity.screenWidth / 3, GameActivity.screenHeight / 3, p);

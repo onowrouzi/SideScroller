@@ -185,7 +185,8 @@ public class Player extends MovableFigure implements Travel {
         immuneTimer = 0;
         bulletCount = 10;
         bulletRegenCounter = 100;
-        x = y = 350;
+        x = GameActivity.screenWidth/2;
+        y = GameActivity.screenHeight*3/4;
         spriteState = STAND_RIGHT;
         ascend = descend = false;
     }
