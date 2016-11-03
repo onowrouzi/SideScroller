@@ -3,6 +3,7 @@ package io.github.onowrouzi.sidescroller.controller;
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
 import io.github.onowrouzi.sidescroller.model.Player;
+import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.SpikyRoll;
 import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 import io.github.onowrouzi.sidescroller.model.enemies.BossEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.GroundEnemy;
@@ -65,11 +66,14 @@ public class GameThread extends Thread {
                 if (e instanceof BossEnemy) {
                     BossEnemy boss = (BossEnemy) e;
                     boss.hurt();
+                } else if (e instanceof SpikyRoll){
+                    //do nothing if player melee's spikyroll...
                 } else if (GameActivity.gameData.player.isMeleeLeft()
                         && e.state == e.alive
                         && e.x > GameActivity.gameData.player.x) {
                     GameActivity.gameData.player.hurt();
                 } else if (GameActivity.gameData.player.isMeleeRight()
+                        && !(e instanceof SpikyRoll)
                         && e.state == e.alive
                         && e.x < GameActivity.gameData.player.x) {
                     GameActivity.gameData.player.hurt();
@@ -79,13 +83,13 @@ public class GameThread extends Thread {
             } else if (GameActivity.gameData.player.descend || GameActivity.gameData.player.ascend) {
                 if (e instanceof GroundEnemy){
                     GroundEnemy enemy = (GroundEnemy) e;
-//                    if (enemy.type == 'A') {
+                    if (enemy instanceof SpikyRoll){
+                        GameActivity.gameData.player.hurt();
+                        GameActivity.gameData.player.bounceBack();
+                    } else{
                         e.state = e.dying;
                         GameActivity.gameData.player.bounceOff();
-//                    } else {
-//                        GameActivity.gameData.player.hurt();
-//                        GameActivity.gameData.player.bounceBack();
-//                    }
+                    }
                 } else {
                     GameActivity.gameData.player.hurt();
                 }

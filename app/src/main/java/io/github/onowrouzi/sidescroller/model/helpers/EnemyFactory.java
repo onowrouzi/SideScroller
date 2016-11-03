@@ -6,7 +6,7 @@ import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.Bat;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.Bird;
-import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.FlyingEnemy;
+import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.SpikyRoll;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Walker;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Worm;
 
@@ -19,20 +19,35 @@ public class EnemyFactory{
         Enemy enemy = null;
         if (random > 85 && random < 95) {
             int randomType = (int) (Math.random()*100);
-            if (randomType < 50) {
+            if (randomType < 40) {
                 if (GameActivity.gameData.enemyFigures.size() % 2 == 0) {
                     enemy = new Walker(GameActivity.screenWidth + GameActivity.screenWidth / 8,
-                                        GameActivity.screenHeight - GameActivity.screenHeight / 4,
-                                        GameActivity.screenWidth / 8,
-                                        GameActivity.screenHeight / 5,
-                                        context);
+                            GameActivity.screenHeight - GameActivity.screenHeight / 4,
+                            GameActivity.screenWidth / 8,
+                            GameActivity.screenHeight / 5,
+                            context);
                 } else {
                     enemy = new Walker(-GameActivity.screenWidth / 8,
-                                        GameActivity.screenHeight - GameActivity.screenHeight / 4,
-                                        GameActivity.screenWidth / 8,
-                                        GameActivity.screenHeight / 5,
-                                        context);
+                            GameActivity.screenHeight - GameActivity.screenHeight / 4,
+                            GameActivity.screenWidth / 8,
+                            GameActivity.screenHeight / 5,
+                            context);
                     enemy.spriteState = Walker.WALK_RIGHT;
+                }
+            } else if (randomType < 60) {
+                if (GameActivity.gameData.enemyFigures.size() % 2 == 0) {
+                    enemy = new SpikyRoll(GameActivity.screenWidth + GameActivity.screenWidth / 8,
+                            GameActivity.screenHeight - GameActivity.screenHeight / 8,
+                            GameActivity.screenWidth / 12,
+                            GameActivity.screenHeight / 12,
+                            context);
+                } else {
+                    enemy = new SpikyRoll(-GameActivity.screenWidth / 8,
+                            GameActivity.screenHeight - GameActivity.screenHeight / 8,
+                            GameActivity.screenWidth / 12,
+                            GameActivity.screenHeight / 12,
+                            context);
+                    enemy.spriteState = SpikyRoll.WALK_RIGHT;
                 }
             } else {
                 if (GameActivity.gameData.enemyFigures.size() % 2 == 0) {
@@ -50,8 +65,7 @@ public class EnemyFactory{
                     enemy.spriteState = Worm.WALK_RIGHT;
                 }
             }
-        }
-        else if (random > 95 && random < 100) {
+        } else if (random > 95 && random < 100) {
             int randomType = (int) (Math.random()*100);
             if (randomType < 50) {
                 if (GameActivity.gameData.enemyFigures.size() % 2 == 0) {

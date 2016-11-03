@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.media.Image;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -12,7 +11,6 @@ import android.view.SurfaceView;
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
-import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     
@@ -49,16 +47,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     c.drawText("YOU WON!!!", width / 2 - 250, height / 2, p);
                 } else if (GameThread.loading > 0) {
                     p.setColor(Color.WHITE);
-                    p.setTextSize(100);
-                    c.drawText("LOADING ... ", 200, 200, p);
-//                    c.drawText(Integer.toString(GameThread.loading / 10), 300, 200, p);
-//                    p.setTextSize(25);
-//                    c.drawText("    Controls: ", width / 3, height / 2 + 30, p);
-//                    c.drawText("    W = JUMP", width / 3, height / 2 + 80, p);
-//                    c.drawText("    A = LEFT", width / 3, height / 2 + 110, p);
-//                    c.drawText("    D = RIGHT", width / 3, height / 2 + 140, p);
-//                    c.drawText("    SPACE = MELEE", width / 3, height / 2 + 170, p);
-//                    c.drawText("    LEFT CLICK = SHOOT", width / 3, height / 2 + 200, p);
+                    p.setTextSize(GameActivity.screenWidth/20);
+                    c.drawText("LOADING ... ", GameActivity.screenWidth/20, GameActivity.screenHeight/12, p);
+                    p.setTextSize(GameActivity.screenWidth/24);
+                    c.drawText("    Controls: ", GameActivity.screenWidth / 4, GameActivity.screenHeight / 3, p);
+                    c.drawText("    Arrows = Movement", GameActivity.screenWidth / 4, GameActivity.screenHeight / 3 + p.getTextSize(), p);
+                    c.drawText("    A = JUMP", GameActivity.screenWidth / 4, GameActivity.screenHeight / 3  + p.getTextSize()*2+10, p);
+                    c.drawText("    X = MELEE", GameActivity.screenWidth / 4, GameActivity.screenHeight / 3  + p.getTextSize()*3+10, p);
+                    c.drawText("    Tap screen above player to shoot.", GameActivity.screenWidth / 4,
+                                                            GameActivity.screenHeight / 3  + p.getTextSize()*4+10, p);
                 } else if (!GameThread.gameOver) {
 
                     p.setColor(Color.WHITE);
@@ -78,7 +75,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     synchronized (GameActivity.gameData.enemyFigures) {
                         for (GameFigure e : GameActivity.gameData.enemyFigures) {
                             e.render(c);
-                            //c.drawRect(((Enemy)e).getCollisionBox(), p);
                         }
                     }
 
@@ -128,4 +124,3 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 }
-
