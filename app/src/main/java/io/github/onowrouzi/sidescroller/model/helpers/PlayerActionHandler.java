@@ -27,7 +27,10 @@ public class PlayerActionHandler {
             } else {
                 p.ascend = false;
                 p.descend = true;
-                p.spriteState = p.spriteState == p.JUMP_LEFT ? p.FALL_LEFT : p.FALL_RIGHT;
+                if (p.spriteState == p.JUMP_LEFT)
+                    p.spriteState = p.FALL_LEFT;
+                if (p.spriteState == p.JUMP_RIGHT)
+                    p.spriteState = p.FALL_RIGHT;
             }
             if (p.jumpLeft) p.x -= 5;
             if (p.jumpRight) {
@@ -40,7 +43,10 @@ public class PlayerActionHandler {
         } else if (p.descend) {
             if (p.y+p.height >= p.groundLevel) {
                 p.descend = p.jumpLeft = p.jumpRight = false;
-                p.spriteState = p.spriteState == p.FALL_LEFT ? p.STAND_LEFT : p.STAND_RIGHT;
+                if (p.spriteState == p.FALL_LEFT)
+                    p.spriteState = p.STAND_LEFT;
+                if (p.spriteState == p.FALL_RIGHT)
+                    p.spriteState = p.STAND_RIGHT;
             } else {
                 p.y += 20;
             }

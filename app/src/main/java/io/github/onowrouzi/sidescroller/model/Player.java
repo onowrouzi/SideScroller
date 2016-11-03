@@ -83,22 +83,16 @@ public class Player extends MovableFigure implements Travel {
     
     @Override
     public void travelLeft() {
-        if (spriteState >= RUN_LEFT && spriteState < END_RUN_LEFT){
-            spriteState++;
-        } else {
-            spriteState = RUN_LEFT;
-        }
-        
+        if (!isJumpLeft())
+            spriteState = (spriteState >= RUN_LEFT && spriteState < END_RUN_LEFT) ? spriteState+1 : RUN_LEFT;
+
         if (x > 0) x -= 20;
     }
     
     @Override
     public void travelRight() {
-        if (spriteState >= RUN_RIGHT && spriteState < END_RUN_RIGHT){
-            spriteState++;
-        } else {
-            spriteState = RUN_RIGHT;
-        }
+        if (!isJumpRight())
+            spriteState = (spriteState >= RUN_RIGHT && spriteState < END_RUN_RIGHT) ? spriteState+1 : RUN_RIGHT;
         
         if (x + width < width*6.5){
             x += 20;

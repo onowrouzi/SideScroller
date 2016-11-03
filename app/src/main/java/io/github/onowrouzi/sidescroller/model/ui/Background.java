@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
+import io.github.onowrouzi.sidescroller.model.Player;
 
 
 public class Background extends GameFigure {
@@ -49,6 +50,10 @@ public class Background extends GameFigure {
         
         for (GameFigure e : GameActivity.gameData.enemyFigures) {
             e.x -= 20;
+        }
+
+        for (GameFigure f : GameActivity.gameData.friendFigures){
+            if (!(f instanceof Player)) f.x-=20;
         }
     }
     
