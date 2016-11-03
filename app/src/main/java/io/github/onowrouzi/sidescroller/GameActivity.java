@@ -129,32 +129,12 @@ public class GameActivity extends Activity {
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "BACK PRESSED", Toast.LENGTH_LONG);
+                        Intent i = new Intent(GameActivity.this, MainActivity.class);
+                        startActivity(i);
                     }
                 })
                 .setNegativeButton("No", null)
                 .show();
-//        boolean retry = true;
-//        gamePanel.gameThread.running = false;
-//        Toast toast = Toast.makeText(getApplicationContext(), "BACK PRESSED", Toast.LENGTH_LONG);
-//        while (retry) {
-//            try {
-//                gamePanel.gameThread.join();
-//                retry = false;
-//            } catch (InterruptedException e) {
-//                // try it again and again...
-//            }
-//        }
-//        RelativeLayout surface = (RelativeLayout) findViewById(R.id.surface);
-//        PopupMenu popup = new PopupMenu(this, surface);
-//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                return false;
-//            }
-//        });
-//        popup.getMenuInflater().inflate(R.menu.pause_menu, popup.getMenu());
-//        popup.show();
     }
 
 }

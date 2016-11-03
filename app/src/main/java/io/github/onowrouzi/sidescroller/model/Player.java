@@ -171,7 +171,7 @@ public class Player extends MovableFigure implements Travel {
 
     public void hurt(){
         if (immuneTimer == 0) {
-            v.vibrate(500);
+            v.vibrate(50);
             health--;
             immuneTimer = 20;
         }
