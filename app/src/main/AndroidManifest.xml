@@ -23,7 +23,8 @@
         <activity
             android:name=".GameActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ScoresActivity"></activity>
+        <activity android:name=".ScoresActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

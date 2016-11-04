@@ -5,22 +5,32 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.controller.RepeatListener;
 import io.github.onowrouzi.sidescroller.model.GameData;
 import io.github.onowrouzi.sidescroller.model.Player;
 import io.github.onowrouzi.sidescroller.model.helpers.SizeManager;
+import io.github.onowrouzi.sidescroller.model.ui.Score;
 import io.github.onowrouzi.sidescroller.view.GamePanel;
 
 public class GameActivity extends Activity {
@@ -28,6 +38,7 @@ public class GameActivity extends Activity {
     public static GameData gameData;
     public static GamePanel gamePanel;
     ImageButton buttonA, buttonB, buttonX, buttonY, buttonLeft, buttonRight;
+    EditText inputName;
     public static int screenWidth;
     public static int screenHeight;
     public static AlertDialog gameOverDialog;
@@ -103,20 +114,22 @@ public class GameActivity extends Activity {
             }
         }));
 
+        inputName = new EditText(this);
         gameOverDialog = new AlertDialog.Builder(GameActivity.this)
                 .setTitle("Game Over")
-                .setMessage("Do you want to play again?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        GameActivity.gameData.setStageOne();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setMessage("Input your name:")
+                .setView(inputName)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(GameActivity.this, MainActivity.class);
-                        startActivity(i);
+                        String playerName = inputName.getText().toString();
+
+                        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt(playerName, Score.score);
+                        editor.commit();
+
+                        replayOrExit();
                     }
                 })
                 .create();
@@ -158,6 +171,25 @@ public class GameActivity extends Activity {
                     }
                 })
                 .show();
+    }
+
+    public void replayOrExit(){
+        new AlertDialog.Builder(this)
+            .setMessage("Do you want to play again?")
+            .setCancelable(false)
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    GameActivity.gameData.setStageOne();
+                }
+            })
+            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent i = new Intent(GameActivity.this, MainActivity.class);
+                    startActivity(i);
+                }
+            })
+            .show();
     }
 
 }

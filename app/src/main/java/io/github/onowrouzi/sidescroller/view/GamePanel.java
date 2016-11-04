@@ -1,7 +1,6 @@
 package io.github.onowrouzi.sidescroller.view;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -38,9 +37,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void draw(){
-        p.setColor(Color.WHITE);
-        p.setTextSize(100);
-        c.drawText("HEY!!!", 50, 50, p);
         if (holder.getSurface().isValid()) {
             c = holder.lockCanvas(null);
             if (gameThread.running) {
@@ -48,6 +44,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 if (GameThread.gameWon) {
                     p.setColor(Color.WHITE);
                     c.drawText("YOU WON!!!", width / 2 - 250, height / 2, p);
+
                 } else if (GameThread.loading > 0) {
                     p.setColor(Color.WHITE);
                     p.setTextSize(GameActivity.screenWidth/20);
@@ -93,9 +90,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                             GameActivity.gameOverDialog.show();
                         }
                     });
-                    p.setColor(Color.WHITE);
-                    p.setTextSize(GameActivity.screenWidth/8);
-                    c.drawText("GAME OVER", GameActivity.screenWidth / 2 - GameActivity.screenWidth / 3, GameActivity.screenHeight / 3, p);
                 }
 
                 holder.unlockCanvasAndPost(c);
