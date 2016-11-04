@@ -54,7 +54,7 @@ public class Player extends MovableFigure implements Travel {
     
     public Player(float x, float y, int width, int height, Context context){
         super(x,y,width,height);
-        health = 5;
+        health = 6;
         immuneTimer = 0;
         bulletCount = 10;
         bulletRegenCounter = 100;

@@ -2,18 +2,17 @@ package io.github.onowrouzi.sidescroller;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.IBinder;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 public class MainActivity extends Activity {
 
@@ -55,5 +54,40 @@ public class MainActivity extends Activity {
                 android.os.Process.killProcess(pid);
             }
         });
+
+        Intent music = new Intent();
+        music.setClass(this,MusicService.class);
+        startService(music);
+        doBindService();
+    }
+
+
+    //MUSIC SERVICE LOGIC
+    private boolean mIsBound = false;
+    public static MusicService mServ;
+    private ServiceConnection Scon = new ServiceConnection(){
+
+        public void onServiceConnected(ComponentName name, IBinder binder) {
+            mServ = ((MusicService.ServiceBinder)binder).getService();
+        }
+
+        public void onServiceDisconnected(ComponentName name) {
+            mServ = null;
+        }
+    };
+
+    void doBindService(){
+        bindService(new Intent(this,MusicService.class),
+                Scon, Context.BIND_AUTO_CREATE);
+        mIsBound = true;
+    }
+
+    void doUnbindService()
+    {
+        if(mIsBound)
+        {
+            unbindService(Scon);
+            mIsBound = false;
+        }
     }
 }

@@ -19,7 +19,7 @@ public class HealthBars extends GameFigure implements Observer {
 
     public HealthBars(float x, float y, int width, int height, Player player, Context context) {
         super(x,y,width,height);
-        health = 5;
+        health = 6;
         heart = super.extractImage(context.getResources(), R.drawable.heart);
         paint = new Paint();
         player.attach(this);

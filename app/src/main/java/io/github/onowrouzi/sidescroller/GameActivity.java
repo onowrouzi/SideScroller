@@ -32,6 +32,7 @@ public class GameActivity extends Activity {
     public static int screenWidth;
     public static int screenHeight;
     public static AlertDialog gameOverDialog;
+    public static boolean isMuted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,15 +131,25 @@ public class GameActivity extends Activity {
     @Override
     public void onBackPressed(){
         GameThread.paused = true;
+        String muteOrNot = isMuted ? "Unmute" : "Mute";
         AlertDialog ad = new AlertDialog.Builder(this)
                 .setTitle("PAUSED")
-                .setItems(new CharSequence[]{"Resume", "Exit"}, new DialogInterface.OnClickListener(){
+                .setItems(new CharSequence[]{"Resume", muteOrNot, "Exit"}, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int selected){
                         switch (selected){
                             case 0: GameThread.paused = false;
                                     break;
-                            case 1: confirmExit();
+                            case 1: if (isMuted) {
+                                        MainActivity.mServ.resumeMusic();
+                                        isMuted = false;
+                                    } else {
+                                        MainActivity.mServ.pauseMusic();
+                                        isMuted = true;
+                                    }
+                                    GameThread.paused = false;
+                                    break;
+                            case 2: confirmExit();
                                     break;
                         }
                     }
