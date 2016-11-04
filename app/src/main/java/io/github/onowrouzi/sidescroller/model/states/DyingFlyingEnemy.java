@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.states;
 
+import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.Bat;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.Bird;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.FlyingEnemy;
@@ -16,8 +17,10 @@ public class DyingFlyingEnemy implements FigureState {
     public void update() {
         if (enemy.isFacingLeft()) {
             enemy.spriteState = enemy instanceof Bird ? Bird.DEAD_LEFT : Bat.DEAD_LEFT;
+            GameActivity.soundsManager.play("explode");
         } else if (enemy.isFacingRight()){
             enemy.spriteState = enemy instanceof Bird ? Bird.DEAD_RIGHT : Bat.DEAD_RIGHT;
+            GameActivity.soundsManager.play("explode");
         }
 
         if (enemy.isDyingLeft()) {

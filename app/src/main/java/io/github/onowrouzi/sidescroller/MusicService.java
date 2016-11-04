@@ -5,47 +5,40 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 public class MusicService extends Service  implements MediaPlayer.OnErrorListener {
 
-    private final IBinder mBinder = new ServiceBinder();
-    MediaPlayer mPlayer;
+    private final IBinder binder = new ServiceBinder();
+    MediaPlayer mediaPlayer;
     private int length = 0;
 
-    public MusicService() {
-    }
+    public MusicService() {}
 
     public class ServiceBinder extends Binder {
-        MusicService getService() {
-            return MusicService.this;
-        }
+        MusicService getService() { return MusicService.this; }
     }
 
     @Override
-    public IBinder onBind(Intent arg0) {
-        return mBinder;
-    }
+    public IBinder onBind(Intent arg0) { return binder; }
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mPlayer = MediaPlayer.create(this, R.raw.background_music);
-        mPlayer.setOnErrorListener(this);
+        mediaPlayer = MediaPlayer.create(this, R.raw.background_music);
+        mediaPlayer.setOnErrorListener(this);
 
-        if (mPlayer != null) {
-            mPlayer.setLooping(true);
-            mPlayer.setVolume(100, 100);
+        if (mediaPlayer != null) {
+            mediaPlayer.setLooping(true);
+            mediaPlayer.setVolume(100, 100);
         }
 
-
-        mPlayer.setOnErrorListener(new OnErrorListener() {
-
-            public boolean onError(MediaPlayer mp, int what, int
-                    extra) {
-
-                onError(mPlayer, what, extra);
+        mediaPlayer.setOnErrorListener(new OnErrorListener() {
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.e("SOUND ERROR: ", String.valueOf(what) + " ... " + String.valueOf(extra));
+                onError(mediaPlayer, what, extra);
                 return true;
             }
         });
@@ -53,54 +46,53 @@ public class MusicService extends Service  implements MediaPlayer.OnErrorListene
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mPlayer.start();
+        mediaPlayer.start();
         return START_NOT_STICKY;
     }
 
     public void pauseMusic() {
-        if (mPlayer != null) {
-            if (mPlayer.isPlaying()) {
-                mPlayer.pause();
-                length = mPlayer.getCurrentPosition();
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+                length = mediaPlayer.getCurrentPosition();
             }
         }
     }
 
     public void resumeMusic() {
-        if (mPlayer.isPlaying() == false) {
-            mPlayer.seekTo(length);
-            mPlayer.start();
+        if (mediaPlayer.isPlaying() == false) {
+            mediaPlayer.seekTo(length);
+            mediaPlayer.start();
         }
     }
 
     public void stopMusic() {
-        mPlayer.stop();
-        mPlayer.release();
-        mPlayer = null;
+        mediaPlayer.stop();
+        mediaPlayer.release();
+        mediaPlayer = null;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mPlayer != null) {
+        if (mediaPlayer != null) {
             try {
-                mPlayer.stop();
-                mPlayer.release();
+                mediaPlayer.stop();
+                mediaPlayer.release();
             } finally {
-                mPlayer = null;
+                mediaPlayer = null;
             }
         }
     }
 
     public boolean onError(MediaPlayer mp, int what, int extra) {
-
-        Toast.makeText(this, "music player failed", Toast.LENGTH_SHORT).show();
-        if (mPlayer != null) {
+        Toast.makeText(this, "Music Playback Error!!!", Toast.LENGTH_SHORT).show();
+        if (mediaPlayer != null) {
             try {
-                mPlayer.stop();
-                mPlayer.release();
+                mediaPlayer.stop();
+                mediaPlayer.release();
             } finally {
-                mPlayer = null;
+                mediaPlayer = null;
             }
         }
         return false;

@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.controller.RepeatListener;
+import io.github.onowrouzi.sidescroller.controller.SoundsManager;
 import io.github.onowrouzi.sidescroller.model.GameData;
 import io.github.onowrouzi.sidescroller.model.Player;
 import io.github.onowrouzi.sidescroller.model.helpers.SizeManager;
@@ -27,12 +28,14 @@ public class GameActivity extends Activity {
 
     public static GameData gameData;
     public static GamePanel gamePanel;
+    public static SoundsManager soundsManager;
     ImageButton buttonA, buttonB, buttonX, buttonY, buttonLeft, buttonRight;
     EditText inputName;
     public static int screenWidth;
     public static int screenHeight;
     public static AlertDialog gameOverDialog;
     public static boolean isMuted = false;
+    public static boolean soundsEnabled = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class GameActivity extends Activity {
         SizeManager sizeManager = new SizeManager(getApplicationContext());
         screenWidth = sizeManager.getX();
         screenHeight = sizeManager.getY();
+
+        soundsManager = new SoundsManager(this);
 
         final Player player = new Player(screenWidth/2, screenHeight*3/4, screenWidth/8, screenHeight/5, getApplicationContext());
 
@@ -91,19 +96,19 @@ public class GameActivity extends Activity {
             }
         }));
 
-        buttonA.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
+        buttonA.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 player.jump();
             }
-        }));
+        });
 
-        buttonX.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
+        buttonX.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 player.melee();
             }
-        }));
+        });
 
         inputName = new EditText(this);
         gameOverDialog = new AlertDialog.Builder(GameActivity.this)
@@ -131,10 +136,11 @@ public class GameActivity extends Activity {
     @Override
     public void onBackPressed(){
         GameThread.paused = true;
-        String muteOrNot = isMuted ? "Unmute" : "Mute";
+        String muteOrNot = isMuted ? "Turn Music ON" : "Turn Music OFF";
+        String soundsOnOrOff = soundsEnabled ? "Turn Sounds OFF" : "Turn Sounds ON";
         AlertDialog ad = new AlertDialog.Builder(this)
                 .setTitle("PAUSED")
-                .setItems(new CharSequence[]{"Resume", muteOrNot, "Exit"}, new DialogInterface.OnClickListener(){
+                .setItems(new CharSequence[]{"Resume", muteOrNot, soundsOnOrOff, "Return to Main Screen", "Exit Game"}, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int selected){
                         switch (selected){
@@ -149,7 +155,10 @@ public class GameActivity extends Activity {
                                     }
                                     GameThread.paused = false;
                                     break;
-                            case 2: confirmExit();
+                            case 2: soundsEnabled = !soundsEnabled;
+                                    GameThread.paused = false;
+                                    break;
+                            case 3: confirmExit();
                                     break;
                         }
                     }

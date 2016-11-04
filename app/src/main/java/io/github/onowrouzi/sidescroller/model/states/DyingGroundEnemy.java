@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.states;
 
+import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.GroundEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Walker;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Worm;
@@ -16,8 +17,10 @@ public class DyingGroundEnemy implements FigureState {
     public void update() {
         if (enemy.isFacingLeft()) {
             enemy.spriteState = enemy instanceof Walker ? Walker.DEAD_LEFT: Worm.DEAD_LEFT;
+            GameActivity.soundsManager.play("explode");
         } else if (enemy.isFacingRight()){
             enemy.spriteState = enemy instanceof Walker ? Walker.DEAD_RIGHT: Worm.DEAD_RIGHT;
+            GameActivity.soundsManager.play("explode");
         }
 
         if (enemy.isDyingLeft()) {
@@ -31,8 +34,6 @@ public class DyingGroundEnemy implements FigureState {
                 enemy.state = enemy.done;
             else enemy.spriteState++;
         }
-        //Sounds.play("sounds/dyingGroundEnemySound.wav");
-
     }
     
 }

@@ -67,7 +67,6 @@ public class MainActivity extends Activity {
         stopService(new Intent(this, MusicService.class));
     }
 
-
     //MUSIC SERVICE LOGIC
     private boolean mIsBound = false;
     public static MusicService mServ;

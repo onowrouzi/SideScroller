@@ -103,6 +103,7 @@ public class Player extends MovableFigure implements Travel {
     
     public void jump(){
         if (!ascend && !descend) {
+            GameActivity.soundsManager.play("jump");
             ascend = true;
 
             if (isStandingLeft()) spriteState = JUMP_LEFT;
@@ -142,15 +143,19 @@ public class Player extends MovableFigure implements Travel {
     }
 
     public void melee(){
-        if (isStandingLeft() || isRunningLeft()){
-            spriteState = MELEE_LEFT;
-            x -= width*.5;
-        } else if (isStandingRight() || isRunningRight()){
-            spriteState = MELEE_RIGHT;
+        if (!isJumpLeft() && !isJumpRight() && !isMeleeLeft() && !isMeleeRight()) {
+            GameActivity.soundsManager.play("slash");
+            if (isStandingLeft() || isRunningLeft()) {
+                spriteState = MELEE_LEFT;
+                x -= width * .5;
+            } else if (isStandingRight() || isRunningRight()) {
+                spriteState = MELEE_RIGHT;
+            }
         }
     }
 
     public void fireProjectile(float ex, float ey) {
+        GameActivity.soundsManager.play("shoot");
         spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
 
         float sx = isFacingRight() ? x+width : x;
@@ -166,6 +171,8 @@ public class Player extends MovableFigure implements Travel {
     public void hurt(){
         if (immuneTimer == 0) {
             v.vibrate(50);
+            GameActivity.soundsManager.play("hurt");
+//            GameActivity.sServ.playSound("hurt");
             health--;
             immuneTimer = 20;
         }
