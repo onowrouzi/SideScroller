@@ -2,10 +2,13 @@ package io.github.onowrouzi.sidescroller;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,6 +30,8 @@ public class ScoresActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_scores);
 
         highScores = new ArrayList<>();
@@ -40,9 +45,11 @@ public class ScoresActivity extends Activity {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = (TextView) view.findViewById(R.id.text1);
                 text1.setText(name);
+                text1.setTextColor(Color.BLACK);
                 text1.setTextSize(18);
                 TextView text2 = (TextView) view.findViewById(R.id.text2);
                 text2.setText(score);
+                text2.setTextColor(Color.BLACK);
                 text2.setTextSize(18);
                 return view;
             }};
