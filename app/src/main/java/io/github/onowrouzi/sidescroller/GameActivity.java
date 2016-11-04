@@ -109,6 +109,7 @@ public class GameActivity extends Activity {
                 .setTitle("Game Over")
                 .setMessage("Input your name:")
                 .setView(inputName)
+                .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -123,12 +124,13 @@ public class GameActivity extends Activity {
                     }
                 })
                 .create();
+        gameOverDialog.setCanceledOnTouchOutside(false);
     }
 
     @Override
     public void onBackPressed(){
         GameThread.paused = true;
-        new AlertDialog.Builder(this)
+        AlertDialog ad = new AlertDialog.Builder(this)
                 .setTitle("PAUSED")
                 .setItems(new CharSequence[]{"Resume", "Exit"}, new DialogInterface.OnClickListener(){
                     @Override
@@ -141,12 +143,14 @@ public class GameActivity extends Activity {
                         }
                     }
                 })
-                .show();
+                .create();
+        ad.setCanceledOnTouchOutside(false);
+        ad.show();
     }
 
     public void confirmExit(){
-        new AlertDialog.Builder(this)
-            .setMessage("Are you sure you want to exit?")
+        AlertDialog ad = new AlertDialog.Builder(this)
+            .setMessage("Your score will be discarded if you quit... \nAre you sure you want to exit?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -160,11 +164,13 @@ public class GameActivity extends Activity {
                         GameThread.paused = false;
                     }
                 })
-                .show();
+                .create();
+        ad.setCanceledOnTouchOutside(false);
+        ad.show();
     }
 
     public void replayOrExit(){
-        new AlertDialog.Builder(this)
+        AlertDialog ad = new AlertDialog.Builder(this)
             .setMessage("Do you want to play again?")
             .setCancelable(false)
             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -179,7 +185,9 @@ public class GameActivity extends Activity {
                     startActivity(i);
                 }
             })
-            .show();
+            .create();
+        ad.setCanceledOnTouchOutside(false);
+        ad.show();
     }
 
 }

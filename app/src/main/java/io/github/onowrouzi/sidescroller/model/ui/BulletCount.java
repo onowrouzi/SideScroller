@@ -23,7 +23,6 @@ public class BulletCount extends GameFigure implements Observer {
         player.attach(this);
         
         bullet = super.extractImage(context.getResources(), R.drawable.bullet_count);
-        //bullet = Bitmap.createBitmap(bullet,35, 0, 65, 127);
         bullet = Bitmap.createScaledBitmap(bullet, width, height, false);
         bullets = 10;
 
@@ -32,7 +31,6 @@ public class BulletCount extends GameFigure implements Observer {
     
     @Override
     public void render(Canvas c) {
-        paint.setColor(Color.BLACK);
         if (bullets > 0) {
             for (int i = 0; i < bullets; i++) {
                 c.drawBitmap(bullet, (int)x, (int)y+i*height, null);
