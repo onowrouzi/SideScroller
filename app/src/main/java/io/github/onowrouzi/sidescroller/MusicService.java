@@ -54,7 +54,7 @@ public class MusicService extends Service  implements MediaPlayer.OnErrorListene
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mPlayer.start();
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     public void pauseMusic() {

@@ -61,6 +61,12 @@ public class MainActivity extends Activity {
         doBindService();
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        stopService(new Intent(this, MusicService.class));
+    }
+
 
     //MUSIC SERVICE LOGIC
     private boolean mIsBound = false;
