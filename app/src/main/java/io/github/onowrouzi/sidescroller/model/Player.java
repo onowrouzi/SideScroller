@@ -94,7 +94,7 @@ public class Player extends MovableFigure implements Travel {
         if (!isJumpRight())
             spriteState = (spriteState >= RUN_RIGHT && spriteState < END_RUN_RIGHT) ? spriteState+1 : RUN_RIGHT;
         
-        if (x + width < width*6.5){
+        if (x + width < width * 5){
             x += 20;
         } else if (GameData.stage1) {
             GameData.background.moveBackground();

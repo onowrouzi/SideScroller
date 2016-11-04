@@ -17,7 +17,7 @@ public class EnemyFactory{
         int random = (int) (Math.random() * 1000);
         
         Enemy enemy = null;
-        if ((random > 85 && random < 95) || GameActivity.gameData.enemyFigures.size() < 2) {
+        if ((random > 85 && random < 95) || GameActivity.gameData.enemyFigures.size() < 4) {
             int randomType = (int) (Math.random()*100);
             if (randomType < 40) {
                 if (GameActivity.gameData.enemyFigures.size() % 2 == 0) {
@@ -65,7 +65,7 @@ public class EnemyFactory{
                     enemy.spriteState = Worm.WALK_RIGHT;
                 }
             }
-        } else if ((random > 95 && random < 100)  || GameActivity.gameData.enemyFigures.size() < 2) {
+        } else if ((random > 95 && random < 100)  || GameActivity.gameData.enemyFigures.size() < 4) {
             int randomType = (int) (Math.random()*100);
             if (randomType < 50) {
                 if (GameActivity.gameData.enemyFigures.size() % 2 == 0) {

@@ -34,8 +34,8 @@ public class PlayerActionHandler {
             }
             if (p.jumpLeft) p.x -= 5;
             if (p.jumpRight) {
-                if (p.x+p.width*2 < 800) {
-                    p.x += 5;
+                if (p.x + p.width < p.width * 5){
+                    p.x += 20;
                 } else if (GameData.stage1) {
                     GameData.background.moveBackground();
                 }

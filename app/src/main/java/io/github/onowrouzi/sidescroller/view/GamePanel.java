@@ -49,12 +49,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     p.setColor(Color.WHITE);
                     p.setTextSize(GameActivity.screenWidth/20);
                     c.drawText("LOADING ... ", GameActivity.screenWidth/20, GameActivity.screenHeight/12, p);
-                    p.setTextSize(GameActivity.screenWidth/24);
-                    c.drawText("    Controls: ", GameActivity.screenWidth / 4, GameActivity.screenHeight / 3, p);
-                    c.drawText("    Arrows = Movement", GameActivity.screenWidth / 4, GameActivity.screenHeight / 3 + p.getTextSize(), p);
-                    c.drawText("    A = JUMP", GameActivity.screenWidth / 4, GameActivity.screenHeight / 3  + p.getTextSize()*2+10, p);
-                    c.drawText("    X = MELEE", GameActivity.screenWidth / 4, GameActivity.screenHeight / 3  + p.getTextSize()*3+10, p);
-                    c.drawText("    Tap screen above player to shoot.", GameActivity.screenWidth / 4,
+                    p.setTextSize(GameActivity.screenWidth/26);
+                    c.drawText("    Controls: ", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3, p);
+                    c.drawText("    Arrows = Movement", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3 + p.getTextSize(), p);
+                    c.drawText("    A = JUMP", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*2+10, p);
+                    c.drawText("    X = MELEE", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*3+10, p);
+                    c.drawText("    Tap screen above player to shoot.", GameActivity.screenWidth / 5,
                                                             GameActivity.screenHeight / 3  + p.getTextSize()*4+10, p);
                 } else if (!GameThread.gameOver) {
 

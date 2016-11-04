@@ -96,17 +96,19 @@ public class GameActivity extends Activity {
             }
         }));
 
-        buttonA.setOnClickListener(new View.OnClickListener(){
+        buttonA.setOnTouchListener(new View.OnTouchListener(){
             @Override
-            public void onClick(View v) {
-                player.jump();
+            public boolean onTouch(View v, MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN) player.jump();
+                return true;
             }
         });
 
-        buttonX.setOnClickListener(new View.OnClickListener(){
+        buttonX.setOnTouchListener(new View.OnTouchListener(){
             @Override
-            public void onClick(View v) {
-                player.melee();
+            public boolean onTouch(View v, MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN) player.melee();
+                return true;
             }
         });
 
