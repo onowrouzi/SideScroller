@@ -140,7 +140,8 @@ public class GameActivity extends Activity {
         String soundsOnOrOff = soundsEnabled ? "Turn Sounds OFF" : "Turn Sounds ON";
         AlertDialog ad = new AlertDialog.Builder(this)
                 .setTitle("PAUSED")
-                .setItems(new CharSequence[]{"Resume", muteOrNot, soundsOnOrOff, "Return to Main Screen", "Exit Game"}, new DialogInterface.OnClickListener(){
+                .setCancelable(false)
+                .setItems(new CharSequence[]{"Resume", muteOrNot, soundsOnOrOff, "Exit Game"}, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int selected){
                         switch (selected){
