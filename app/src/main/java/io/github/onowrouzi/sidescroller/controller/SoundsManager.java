@@ -29,21 +29,23 @@ public class SoundsManager {
         explode = sounds.load(context, R.raw.explode, 2);
     }
 
-    public void play(String sound){
+    public int play(String sound){
+        int streamId = -1;
         if (loaded && GameActivity.soundsEnabled) {
             switch (sound) {
-                case "shoot": sounds.play(shoot, 100, 100, 1, 0, 1f);
+                case "shoot": streamId = sounds.play(shoot, 100, 100, 1, 0, 1f);
                             break;
-                case "slash": sounds.play(slash, 100, 100, 1, 0, 1f);
+                case "slash": streamId = sounds.play(slash, 100, 100, 1, 0, 1f);
                             break;
-                case "jump": sounds.play(jump, 100, 100, 1, 0, 1f);
+                case "jump": streamId = sounds.play(jump, 100, 100, 1, 0, 1f);
                             break;
-                case "hurt": sounds.play(hurt, 100, 100, 1, 0, 1f);
+                case "hurt": streamId = sounds.play(hurt, 100, 100, 1, 0, 1f);
                             break;
-                case "explode": sounds.play(explode, 100, 100, 1, 0, 1f);
+                case "explode": streamId = sounds.play(explode, 100, 100, 1, 0, 1f);
                             break;
             }
         }
+        return streamId;
     }
 
 }

@@ -33,7 +33,7 @@ public class Bat extends FlyingEnemy {
         px = (int) GameActivity.gameData.player.x+GameActivity.gameData.player.width/2;
         py = (int) GameActivity.gameData.player.y+GameActivity.gameData.player.height;
 
-        FireBall f = new FireBall(x+width/2, y+height, px, py, context, this);
+        FireBall f = new FireBall(x+width/2, y+height, px, py, context, this, -1);
 
         synchronized (GameActivity.gameData.enemyFigures) {
             GameActivity.gameData.enemyFigures.add(f);

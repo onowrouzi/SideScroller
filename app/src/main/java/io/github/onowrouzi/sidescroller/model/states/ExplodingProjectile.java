@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.states;
 
+import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 
 public class ExplodingProjectile implements FigureState {
@@ -16,6 +17,9 @@ public class ExplodingProjectile implements FigureState {
             projectile.size += 10;
         } else {
             projectile.state = projectile.done;
+        }
+        if (projectile.streamId >= 0) {
+            GameActivity.soundsManager.sounds.stop(projectile.streamId);
         }
     }
     

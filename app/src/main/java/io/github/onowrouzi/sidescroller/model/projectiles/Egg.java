@@ -9,8 +9,8 @@ import io.github.onowrouzi.sidescroller.model.MovableFigure;
 
 public class Egg extends Projectile{
 
-    public Egg(float sx, float sy, float tx, float ty, Context context, MovableFigure owner) {
-        super(sx, sy, tx, ty, owner);
+    public Egg(float sx, float sy, float tx, float ty, Context context, MovableFigure owner, int streamId) {
+        super(sx, sy, tx, ty, owner, streamId);
         sprites = new Bitmap[2];
 
         sprites[0] = super.extractImage(context.getResources(), R.drawable.egg);

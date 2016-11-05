@@ -18,16 +18,18 @@ public abstract class Projectile extends MovableFigure {
     public float dy; // displacement at each frame
     public boolean isFriendly;
     public MovableFigure owner;
+    public int streamId;
 
     public PointF target;
 
     private static final int UNIT_TRAVEL_DISTANCE = 15; // per frame move
     
-    public Projectile(float sx, float sy, float tx, float ty, MovableFigure owner) {
+    public Projectile(float sx, float sy, float tx, float ty, MovableFigure owner, int streamId) {
         
         super(sx, sy, 10, 10);
 
         this.owner = owner;
+        this.streamId = streamId;
         paint = new Paint();
         
         double angle = Math.atan2(Math.abs(ty - sy), Math.abs(tx - sx));

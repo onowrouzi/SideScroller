@@ -155,11 +155,11 @@ public class Player extends MovableFigure implements Travel {
     }
 
     public void fireProjectile(float ex, float ey) {
-        GameActivity.soundsManager.play("shoot");
+        int streamId = GameActivity.soundsManager.play("shoot");
         spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
 
         float sx = isFacingRight() ? x+width : x;
-        Shuriken s = new Shuriken (sx, y+height/2, ex, ey, context, this);
+        Shuriken s = new Shuriken (sx, y+height/2, ex, ey, context, this, streamId);
 
         bulletCount--;
 

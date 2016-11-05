@@ -12,8 +12,8 @@ public class Shuriken extends Projectile{
     public final int BEGIN_ROTATION = 0;
     public final int END_ROTATION = 2;
 
-    public Shuriken(float sx, float sy, float tx, float ty, Context context, MovableFigure owner) {
-        super(sx, sy, tx, ty, owner);
+    public Shuriken(float sx, float sy, float tx, float ty, Context context, MovableFigure owner, int streamId) {
+        super(sx, sy, tx, ty, owner, streamId);
         sprites = new Bitmap[3];
 
         sprites[0] = super.extractImage(context.getResources(), R.drawable.shuriken1);

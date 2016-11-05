@@ -129,11 +129,11 @@ public class BossEnemy extends Enemy {
             bx = x+width-5;
         }
         
-        Shuriken m1 = new Shuriken (bx, y+height/2, px, py, context, this);
+        Shuriken m1 = new Shuriken (bx, y+height/2, px, py, context, this, -1);
         
-        Shuriken m2 = new Shuriken (bx, y+height/2, px+60, py+60, context, this);
+        Shuriken m2 = new Shuriken (bx, y+height/2, px+60, py+60, context, this, -1);
         
-        Shuriken m3 = new Shuriken (bx, y+height/2, px-60, py-60, context, this);
+        Shuriken m3 = new Shuriken (bx, y+height/2, px-60, py-60, context, this, -1);
         
         synchronized (GameActivity.gameData.enemyFigures) {
             GameActivity.gameData.enemyFigures.add(m1);
