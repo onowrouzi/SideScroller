@@ -26,6 +26,7 @@ public class ScoresActivity extends Activity {
     private List<HighScore> highScores;
     private ListView lstHighScores;
     private ArrayAdapter<HighScore> adapter;
+    private TextView lblHighScores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,9 @@ public class ScoresActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_scores);
+
+        lblHighScores = (TextView) findViewById(R.id.lbl_high_scores);
+        lblHighScores.setTypeface(MainActivity.font);
 
         highScores = new ArrayList<>();
         lstHighScores = (ListView)findViewById(R.id.lstHighScores);

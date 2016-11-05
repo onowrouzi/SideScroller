@@ -16,7 +16,7 @@
         android:text="High Scores"
         android:gravity="center"
         android:layout_marginBottom="20dp"
-        android:id="@+id/lblHighScores"
+        android:id="@+id/lbl_high_scores"
         android:textSize="30dp" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:text="Player Name"
         android:gravity="left"
         android:layout_marginBottom="10dp"
-        android:layout_below="@id/lblHighScores"
+        android:layout_below="@id/lbl_high_scores"
         android:layout_alignParentLeft="true"
         android:textSize="20dp" />
 
@@ -35,7 +35,7 @@
         android:text="Score"
         android:gravity="right"
         android:layout_marginBottom="10dp"
-        android:layout_below="@+id/lblHighScores"
+        android:layout_below="@+id/lbl_high_scores"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/lblScore"
