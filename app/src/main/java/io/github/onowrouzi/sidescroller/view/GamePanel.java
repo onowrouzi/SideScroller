@@ -84,7 +84,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     a.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            GameActivity.gameDialogManager.showGameOverDialog();
+                            GameDialogManager.gameOverDialog.show();
                         }
                     });
                 }

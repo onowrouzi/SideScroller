@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/pause_menu_layout">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="PAUSED"
+        android:id="@+id/txt_paused"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:padding="5dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Resume Game"
+        android:id="@+id/txt_resume"
+        android:layout_below="@+id/txt_paused"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:padding="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Turn Music OFF"
+        android:id="@+id/txt_music_toggle"
+        android:layout_below="@+id/txt_resume"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:padding="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Turn Sounds OFF"
+        android:id="@+id/txt_sounds_toggle"
+        android:layout_below="@+id/txt_music_toggle"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:padding="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Exit Game"
+        android:id="@+id/txt_exit"
+        android:layout_below="@+id/txt_sounds_toggle"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:padding="5dp"
+        android:layout_marginBottom="20dp" />
+</RelativeLayout>
