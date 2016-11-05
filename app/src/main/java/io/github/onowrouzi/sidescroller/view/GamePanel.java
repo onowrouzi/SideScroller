@@ -9,6 +9,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
+import io.github.onowrouzi.sidescroller.MainActivity;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
 
@@ -34,6 +35,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         c = new Canvas();
         p = new Paint();
+        p.setTypeface(MainActivity.font);
     }
 
     public void draw(){
@@ -76,11 +78,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                         for (GameFigure e : GameActivity.gameData.enemyFigures) {
                             e.render(c);
                         }
-                    }
-
-                    if (GameThread.paused) {
-                        p.setTextSize(100);
-                        c.drawText("PAUSED", width / 2 - 175, height / 2, p);
                     }
 
                 } else {

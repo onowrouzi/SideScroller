@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
+import io.github.onowrouzi.sidescroller.MainActivity;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
 
 public class Score extends GameFigure {
@@ -21,8 +22,8 @@ public class Score extends GameFigure {
     @Override
     public void render(Canvas c) {
         paint.setColor(Color.WHITE);
+        paint.setTypeface(MainActivity.font);
         paint.setTextSize(GameActivity.screenWidth/24);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         c.drawText("SCORE: " + Integer.toString(score), x, y, paint);
     }
     

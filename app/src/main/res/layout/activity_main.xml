@@ -17,8 +17,8 @@
         android:layout_above="@+id/btn_scores"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@android:color/white"
-        android:textColor="@android:color/black"
+        android:background="@android:color/black"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
         android:layout_margin="2dp" />
 
@@ -30,8 +30,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@android:color/white"
-        android:textColor="@android:color/black"
+        android:background="@android:color/black"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
         android:layout_margin="2dp" />
 
@@ -43,8 +43,8 @@
         android:layout_above="@+id/btn_exit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@android:color/white"
-        android:textColor="@android:color/black"
+        android:background="@android:color/black"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
         android:layout_margin="2dp" />
 

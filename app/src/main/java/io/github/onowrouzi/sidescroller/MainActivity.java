@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -13,10 +14,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
     Button btnStart, btnExit, btnScores;
+    TextView txtLogo;
+    public static Typeface font;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +29,18 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        txtLogo = (TextView) findViewById(R.id.txt_logo);
+
         btnStart = (Button) findViewById(R.id.btn_start);
         btnExit = (Button) findViewById(R.id.btn_exit);
         btnScores = (Button) findViewById(R.id.btn_scores);
+
+        font = Typeface.createFromAsset(getAssets(), "shanghai.ttf");
+        font = Typeface.create(font, Typeface.BOLD);
+        txtLogo.setTypeface(font);
+        btnStart.setTypeface(font);
+        btnExit.setTypeface(font);
+        btnScores.setTypeface(font);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
