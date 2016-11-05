@@ -310,17 +310,5 @@ public class Player extends MovableFigure implements Travel {
         sprites[35] = super.flipImage(sprites[32]);
         sprites[36] = super.flipImage(sprites[33]);
         sprites[37] = super.flipImage(sprites[34]);
-        //Scale Images
-        for (int i = 0; i < MELEE_RIGHT; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
-
-        for (int i = MELEE_RIGHT; i <= END_MELEE_LEFT; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], (int)(width*1.5), height, false);
-        }
-
-        for (int i = THROW_RIGHT; i <= END_THROW_LEFT; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
     }
 }
