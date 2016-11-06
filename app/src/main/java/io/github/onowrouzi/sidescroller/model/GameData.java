@@ -23,10 +23,10 @@ public class GameData {
     private Context context;
     public final List<MovableFigure> enemyFigures;
     public final List<MovableFigure> friendFigures;
+    public final List<MovableFigure> droppableFigures;
     public final List<GameFigure> uiFigures;
     
     public Player player;
-    //public static Ground ground;
     public static Background background;
     public static Score gameScore;
     public static HealthBars healthBars;
@@ -43,8 +43,9 @@ public class GameData {
         stage1 = true;
         stage = 1;
         
-        enemyFigures = Collections.synchronizedList(new ArrayList<MovableFigure>() );
-        friendFigures = Collections.synchronizedList(new ArrayList<MovableFigure>() );
+        enemyFigures = Collections.synchronizedList(new ArrayList<MovableFigure>());
+        friendFigures = Collections.synchronizedList(new ArrayList<MovableFigure>());
+        droppableFigures = Collections.synchronizedList(new ArrayList<MovableFigure>());
         uiFigures = Collections.synchronizedList(new ArrayList<GameFigure>());
 
         friendFigures.add(player);
@@ -76,6 +77,12 @@ public class GameData {
         synchronized (friendFigures) {
             for (int i = 0; i < friendFigures.size(); i++) {
                 friendFigures.get(i).update();
+            }
+        }
+
+        synchronized (droppableFigures) {
+            for (int i = 0; i < droppableFigures.size(); i++){
+                droppableFigures.get(i).update();
             }
         }
         

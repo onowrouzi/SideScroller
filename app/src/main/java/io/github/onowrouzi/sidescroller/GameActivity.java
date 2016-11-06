@@ -26,6 +26,7 @@ public class GameActivity extends Activity {
     ImageButton buttonA, buttonB, buttonX, buttonY, buttonLeft, buttonRight;
     public static int screenWidth;
     public static int screenHeight;
+    public static int groundLevel;
     public static boolean isMuted = false;
     public static boolean soundsEnabled = true;
 
@@ -44,6 +45,8 @@ public class GameActivity extends Activity {
         soundsManager = new SoundsManager(this);
 
         final Player player = new Player(screenWidth/2, screenHeight*3/4, screenWidth/8, screenHeight/5, getApplicationContext());
+
+        groundLevel = screenHeight*3/4 + screenHeight/5;
 
         RelativeLayout surface = (RelativeLayout) findViewById(R.id.surface);
         gameData = new GameData(getApplicationContext(), player);

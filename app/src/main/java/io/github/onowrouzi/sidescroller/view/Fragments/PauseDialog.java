@@ -1,7 +1,6 @@
 package io.github.onowrouzi.sidescroller.view.Fragments;
 
 import android.app.DialogFragment;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

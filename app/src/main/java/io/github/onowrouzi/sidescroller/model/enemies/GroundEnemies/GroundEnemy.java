@@ -16,7 +16,7 @@ public abstract class GroundEnemy extends Enemy {
         
         alive = new AliveGroundEnemy(this);
         dying = new DyingGroundEnemy(this);
-        done = new DoneEnemy(this);
+        done = new DoneEnemy(this, context);
         
         state = alive;
     }

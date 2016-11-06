@@ -3,6 +3,9 @@ package io.github.onowrouzi.sidescroller.controller;
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
 import io.github.onowrouzi.sidescroller.model.Player;
+import io.github.onowrouzi.sidescroller.model.droppables.Droppable;
+import io.github.onowrouzi.sidescroller.model.droppables.HealthDroppable;
+import io.github.onowrouzi.sidescroller.model.droppables.ShurikenDroppable;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.SpikyRoll;
 import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 import io.github.onowrouzi.sidescroller.model.enemies.BossEnemy;
@@ -29,6 +32,7 @@ public class GameThread extends Thread {
             if (!paused && !gameOver) {
                 if (loading == 0) {
                     processCollisions();
+                    checkForPickups();
                     GameActivity.gameData.update();
                 } else {
                     loading--;
@@ -54,6 +58,22 @@ public class GameThread extends Thread {
                 if (e.getCollisionBox().intersect(f.getCollisionBox())
                         && ((e.state == e.alive) || (e.state == e.hurt))){
                     handleCollisions(e,f);
+                }
+            }
+        }
+    }
+
+    private synchronized void checkForPickups(){
+        for (int i = 0; i < GameActivity.gameData.droppableFigures.size(); i++){
+            MovableFigure d = GameActivity.gameData.droppableFigures.get(i);
+            if (GameActivity.gameData.player.getCollisionBox().intersect(d.getCollisionBox())){
+                if (d instanceof HealthDroppable && GameActivity.gameData.player.health < 6){
+                    GameActivity.gameData.player.health++;
+                    GameActivity.gameData.droppableFigures.remove(d);
+                }
+                if (d instanceof ShurikenDroppable && GameActivity.gameData.player.bulletCount < 10){
+                    GameActivity.gameData.player.bulletCount = 10;
+                    GameActivity.gameData.droppableFigures.remove(d);
                 }
             }
         }

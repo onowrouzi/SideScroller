@@ -52,7 +52,7 @@ public class BossEnemy extends Enemy {
         alive = new AliveBoss(this);
         hurt = new HurtBoss(this);
         dying = new DyingBoss(this);
-        done = new DoneEnemy(this);
+        done = new DoneEnemy(this, context);
 
         paint = new Paint();
         this.context = context;

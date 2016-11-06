@@ -31,21 +31,11 @@ public class BulletCount extends GameFigure implements Observer {
     
     @Override
     public void render(Canvas c) {
-        if (bullets > 0) {
-            for (int i = 0; i < bullets; i++) {
-                c.drawBitmap(bullet, (int)x, (int)y+i*height, null);
-            }
-        } else if (reloadTimer % 4 == 0) {
-            paint.setColor(Color.WHITE);
-            paint.setTextSize(GameActivity.screenWidth/20);
-            c.drawText("RELOADING...", x, y+GameActivity.screenWidth/20, paint);
-        }
+        for (int i = 0; i < bullets; i++)
+            c.drawBitmap(bullet, (int)x, (int)y+i*height, null);
     }
 
     @Override
-    public void updateObserver(int count, int timer) {
-        bullets = count;
-        reloadTimer = timer;
-    }
+    public void updateObserver(int count, int timer) { bullets = count; }
     
 }

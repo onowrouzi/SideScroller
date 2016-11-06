@@ -52,6 +52,10 @@ public class Background extends GameFigure {
             e.x -= 20;
         }
 
+        for (GameFigure d: GameActivity.gameData.droppableFigures){
+            d.x -= 20;
+        }
+
         for (GameFigure f : GameActivity.gameData.friendFigures){
             if (!(f instanceof Player)) f.x-=20;
         }

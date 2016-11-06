@@ -1,5 +1,6 @@
 package io.github.onowrouzi.sidescroller.model.helpers;
 
+import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.GameData;
 import io.github.onowrouzi.sidescroller.model.Player;
 
@@ -14,7 +15,6 @@ public class PlayerActionHandler {
     public void handle(){
         idle();
         handleImmuneTimer();
-        handleBulletCount();
         handleJump();
         handleMelee();
         handleThrow();
@@ -22,7 +22,7 @@ public class PlayerActionHandler {
 
     public void handleJump() {
         if (p.ascend) {
-            if (p.y > p.groundLevel - p.height*2) {
+            if (p.y > GameActivity.groundLevel - p.height*2) {
                 p.y -= 20;
             } else {
                 p.ascend = false;
@@ -41,7 +41,7 @@ public class PlayerActionHandler {
                 }
             }
         } else if (p.descend) {
-            if (p.y+p.height >= p.groundLevel) {
+            if (p.y+p.height >= GameActivity.groundLevel) {
                 p.descend = p.jumpLeft = p.jumpRight = false;
                 if (p.spriteState == p.FALL_LEFT)
                     p.spriteState = p.STAND_LEFT;
@@ -58,17 +58,6 @@ public class PlayerActionHandler {
                     GameData.background.moveBackground();
                 }
             }
-        }
-    }
-
-    public void handleBulletCount() {
-        if (p.bulletCount == 0) {
-            p.bulletRegenCounter--;
-        }
-
-        if (p.bulletRegenCounter == 0) {
-            p.bulletCount = 10;
-            p.bulletRegenCounter = 100;
         }
     }
 

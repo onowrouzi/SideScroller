@@ -29,7 +29,7 @@ public abstract class FlyingEnemy extends Enemy {
         
         alive = new AliveFlyingEnemy(this);
         dying = new DyingFlyingEnemy(this);
-        done = new DoneEnemy(this);
+        done = new DoneEnemy(this, context);
         
         state = alive;
         this.context = context;

@@ -40,7 +40,6 @@ public class Player extends MovableFigure implements Travel {
     public static final int THROW_LEFT = 35;
     public static final int END_THROW_LEFT = 37;
 
-    public int groundLevel;
     public boolean ascend;
     public boolean descend;
     public boolean jumpLeft;
@@ -57,8 +56,6 @@ public class Player extends MovableFigure implements Travel {
         health = 6;
         immuneTimer = 0;
         bulletCount = 10;
-        bulletRegenCounter = 100;
-        groundLevel = (int)y + height;
         
         sprites = new Bitmap[38];
 
