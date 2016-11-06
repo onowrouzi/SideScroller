@@ -32,13 +32,13 @@ public class SpikyRoll extends GroundEnemy {
     @Override
     public void travelLeft() {
         spriteState = spriteState < END_WALK_LEFT ? spriteState + 1 : WALK_LEFT;
-        x -= 5;
+        x -= width/24;
     }
 
     @Override
     public void travelRight() {
         spriteState = spriteState < END_WALK_RIGHT ? spriteState + 1 : WALK_RIGHT;
-        x += 5;
+        x += width/24;
     }
 
     public boolean isFacingLeft(){ return spriteState <= END_WALK_LEFT; }

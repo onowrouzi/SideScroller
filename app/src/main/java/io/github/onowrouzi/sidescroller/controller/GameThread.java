@@ -1,5 +1,8 @@
 package io.github.onowrouzi.sidescroller.controller;
 
+import android.text.method.MovementMethod;
+import android.util.Log;
+
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
 import io.github.onowrouzi.sidescroller.model.Player;
@@ -19,11 +22,11 @@ public class GameThread extends Thread {
     public static boolean gameWon;
     private final int FRAMES_PER_SECOND = 20;
     public static int loading;
+    private CollisionManager cm = new CollisionManager();
 
     @Override
     public void run() {
 
-        //Sounds.play("sounds/songLoop.wav");
         loading = 60;
 
         while (running){
@@ -32,7 +35,6 @@ public class GameThread extends Thread {
             if (!paused && !gameOver) {
                 if (loading == 0) {
                     processCollisions();
-                    checkForPickups();
                     GameActivity.gameData.update();
                 } else {
                     loading--;
@@ -46,7 +48,9 @@ public class GameThread extends Thread {
             if (sleepTime > 0) {
                 try {
                     Thread.sleep(sleepTime);
-                } catch (InterruptedException e){}
+                } catch (InterruptedException e){
+                    Log.e("THREAD ERROR: ", e.toString());
+                }
             }
         }
         System.exit(0);
@@ -57,75 +61,17 @@ public class GameThread extends Thread {
             for (MovableFigure e : GameActivity.gameData.enemyFigures) {
                 if (e.getCollisionBox().intersect(f.getCollisionBox())
                         && ((e.state == e.alive) || (e.state == e.hurt))){
-                    handleCollisions(e,f);
+                    cm.handleCollisions(e,f);
                 }
             }
         }
-    }
 
-    private synchronized void checkForPickups(){
         for (int i = 0; i < GameActivity.gameData.droppableFigures.size(); i++){
-            MovableFigure d = GameActivity.gameData.droppableFigures.get(i);
-            if (GameActivity.gameData.player.getCollisionBox().intersect(d.getCollisionBox())){
-                if (d instanceof HealthDroppable && GameActivity.gameData.player.health < 6){
-                    GameActivity.gameData.player.health++;
-                    GameActivity.gameData.droppableFigures.remove(d);
-                }
-                if (d instanceof ShurikenDroppable && GameActivity.gameData.player.bulletCount < 10){
-                    GameActivity.gameData.player.bulletCount = 10;
-                    GameActivity.gameData.droppableFigures.remove(d);
-                }
-            }
-        }
-    }
-
-    private synchronized void handleCollisions(MovableFigure e, MovableFigure f) {
-        if (f instanceof Player) {
-            if (GameActivity.gameData.player.isMeleeLeft() ||
-                    GameActivity.gameData.player.isMeleeRight()) {
-                if (e instanceof BossEnemy) {
-                    BossEnemy boss = (BossEnemy) e;
-                    boss.hurt();
-                } else if (e instanceof SpikyRoll){
-                    //do nothing if player melee's spikyroll...
-                } else if (GameActivity.gameData.player.isMeleeLeft()
-                        && e.state == e.alive
-                        && e.x > GameActivity.gameData.player.x) {
-                    GameActivity.gameData.player.hurt();
-                } else if (GameActivity.gameData.player.isMeleeRight()
-                        && !(e instanceof SpikyRoll)
-                        && e.state == e.alive
-                        && e.x < GameActivity.gameData.player.x) {
-                    GameActivity.gameData.player.hurt();
-                } else {
-                    e.state = e.dying;
-                }
-            } else if (GameActivity.gameData.player.descend || GameActivity.gameData.player.ascend) {
-                if (e instanceof GroundEnemy){
-                    GroundEnemy enemy = (GroundEnemy) e;
-                    if (enemy instanceof SpikyRoll){
-                        GameActivity.gameData.player.hurt();
-                        GameActivity.gameData.player.bounceBack();
-                    } else{
-                        e.state = e.dying;
-                        GameActivity.gameData.player.bounceOff();
-                    }
-                } else {
-                    GameActivity.gameData.player.hurt();
-                }
-            } else {
-                GameActivity.gameData.player.hurt();
-                if (e instanceof Projectile){
-                    e.state = e.dying;
-                }
-            }
-        } else {
-            if (e instanceof BossEnemy){
-                BossEnemy boss = (BossEnemy) e;
-                boss.hurt();
-            } else {
-                e.state = e.dying;
-                f.state = f.dying;
+            Droppable d = (Droppable) GameActivity.gameData.droppableFigures.get(i);
+            for (MovableFigure f : GameActivity.gameData.friendFigures){
+                if (d.getCollisionBox().intersect(f.getCollisionBox())
+                        && f instanceof Player)
+                    cm.handleCollisions(d,f);
             }
         }
     }

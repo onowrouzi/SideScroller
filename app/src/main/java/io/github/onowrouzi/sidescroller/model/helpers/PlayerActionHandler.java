@@ -23,7 +23,7 @@ public class PlayerActionHandler {
     public void handleJump() {
         if (p.ascend) {
             if (p.y > GameActivity.groundLevel - p.height*2) {
-                p.y -= 20;
+                p.y -= p.height/6;
             } else {
                 p.ascend = false;
                 p.descend = true;
@@ -32,10 +32,10 @@ public class PlayerActionHandler {
                 if (p.spriteState == p.JUMP_RIGHT)
                     p.spriteState = p.FALL_RIGHT;
             }
-            if (p.jumpLeft) p.x -= 5;
+            if (p.jumpLeft) p.x -= p.width/8;
             if (p.jumpRight) {
                 if (p.x + p.width < p.width * 5){
-                    p.x += 20;
+                    p.x += p.width/8;
                 } else if (GameData.stage1) {
                     GameData.background.moveBackground();
                 }
@@ -48,12 +48,12 @@ public class PlayerActionHandler {
                 if (p.spriteState == p.FALL_RIGHT)
                     p.spriteState = p.STAND_RIGHT;
             } else {
-                p.y += 20;
+                p.y += p.height/6;
             }
-            if (p.jumpLeft && p.x>0) p.x -= 5;
+            if (p.jumpLeft && p.x>0) p.x -= p.width/8;
             if (p.jumpRight){
                 if (p.x+p.width*2 < 800) {
-                    p.x += 5;
+                    p.x += p.width/8;
                 } else if (GameData.stage1) {
                     GameData.background.moveBackground();
                 }

@@ -37,7 +37,7 @@ public class Worm extends GroundEnemy {
             spriteState = WALK_LEFT;
         }
 
-        x -= 2;
+        x -= width/48;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Worm extends GroundEnemy {
             spriteState = WALK_RIGHT;
         }
 
-        x += 2;
+        x += width/48;
     }
 
     public boolean isFacingLeft(){ return spriteState <= END_WALK_LEFT; }

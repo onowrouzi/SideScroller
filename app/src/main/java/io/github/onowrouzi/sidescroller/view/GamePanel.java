@@ -68,15 +68,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                         }
                     }
 
-                    synchronized (GameActivity.gameData.friendFigures) {
-                        for (GameFigure f : GameActivity.gameData.friendFigures) {
-                            f.render(c);
-                        }
-                    }
-
                     synchronized (GameActivity.gameData.droppableFigures){
                         for (GameFigure d: GameActivity.gameData.droppableFigures){
                             d.render(c);
+                        }
+                    }
+
+                    synchronized (GameActivity.gameData.friendFigures) {
+                        for (GameFigure f : GameActivity.gameData.friendFigures) {
+                            f.render(c);
                         }
                     }
 

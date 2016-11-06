@@ -48,13 +48,13 @@ public class Bat extends FlyingEnemy {
     @Override
     public void travelLeft() {
         spriteState = spriteState < END_FLAP_LEFT ? spriteState + 1: START_FLAP_LEFT;
-        x -= 5;
+        x -= width/32;
     }
 
     @Override
     public void travelRight() {
         spriteState = spriteState < END_FLAP_RIGHT ? spriteState + 1 : START_FLAP_RIGHT;
-        x += 5;
+        x += width/32;
     }
 
     public boolean isFacingLeft(){ return (spriteState >= START_FLAP_LEFT && spriteState <= END_FLAP_LEFT); }
