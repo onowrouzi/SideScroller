@@ -23,6 +23,7 @@ public class PauseDialog extends DialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pause_menu, container);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        setCancelable(false);
 
         txtPaused = (TextView) view.findViewById(R.id.txt_paused);
         txtPaused.setTypeface(MainActivity.font);

@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.controller.RepeatListener;
 import io.github.onowrouzi.sidescroller.controller.SoundsManager;
 import io.github.onowrouzi.sidescroller.model.GameData;
@@ -57,7 +58,7 @@ public class GameActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() < screenHeight - screenHeight/4
-                        && player.bulletCount > 0){
+                        && player.bulletCount > 0 && GameThread.loading == 0){
                     player.fireProjectile(event.getX(), event.getY());
                     return true;
                 }

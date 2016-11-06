@@ -4,6 +4,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
+import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
 import io.github.onowrouzi.sidescroller.model.Player;
 import io.github.onowrouzi.sidescroller.model.states.ActiveProjectile;
@@ -12,7 +13,7 @@ import io.github.onowrouzi.sidescroller.model.states.ExplodingProjectile;
 
 public abstract class Projectile extends MovableFigure {
 
-    public int size = 10;
+    public int size = GameActivity.screenWidth /32;
     public static final int MAX_EXPLOSION_SIZE = 30;
     public float dx; // displacement at each frame
     public float dy; // displacement at each frame
@@ -22,7 +23,7 @@ public abstract class Projectile extends MovableFigure {
 
     public PointF target;
 
-    private static final int UNIT_TRAVEL_DISTANCE = 15; // per frame move
+    private static final int UNIT_TRAVEL_DISTANCE = GameActivity.screenWidth/64; // per frame move
     
     public Projectile(float sx, float sy, float tx, float ty, MovableFigure owner, int streamId) {
         

@@ -13,7 +13,7 @@ import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Worm;
 public class EnemyFactory{
     
     public static Enemy generateEnemy(Context context){
-        
+
         int random = (int) (Math.random() * 1000);
         
         Enemy enemy = null;
@@ -99,6 +99,7 @@ public class EnemyFactory{
                 }
             }
         }
+
         return enemy;
     }
     
