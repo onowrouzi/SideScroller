@@ -39,6 +39,10 @@ public abstract class GroundEnemy extends Enemy {
 
     public abstract boolean isDyingRight();
 
+    public abstract void setDead();
+
+    public abstract void checkDone();
+
     public abstract void getSprites(Context context);
 
 }

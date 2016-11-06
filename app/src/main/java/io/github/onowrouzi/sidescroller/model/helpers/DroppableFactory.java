@@ -14,12 +14,10 @@ public class DroppableFactory {
         int random = (int) (Math.random() * 100);
 
         Droppable droppable = null;
-        if ((random > 30 && random < 50) || GameActivity.gameData.enemyFigures.size() < 4) {
-//            int randomType = (int) (Math.random()*100);
-            droppable = new HealthDroppable(x, y, GameActivity.screenWidth/12, GameActivity.screenHeight/12, context);
-        } else if (random > 60 && random < 100) {
-//            int randomType = (int) (Math.random() * 100);
-            droppable = new ShurikenDroppable(x, y, GameActivity.screenWidth/15, GameActivity.screenHeight/15, context);
+        if (random > 60 && random < 80) {
+            droppable = new HealthDroppable(x, y, GameActivity.screenWidth/12, GameActivity.screenHeight/10, context);
+        } else if (random > 10 && random < 50) {
+            droppable = new ShurikenDroppable(x, y, GameActivity.screenWidth/18, GameActivity.screenHeight/18, context);
         }
 
         if (droppable != null) GameActivity.gameData.droppableFigures.add(droppable);

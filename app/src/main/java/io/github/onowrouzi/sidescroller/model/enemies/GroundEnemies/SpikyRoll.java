@@ -49,6 +49,16 @@ public class SpikyRoll extends GroundEnemy {
 
     public boolean isDyingRight() { return (spriteState >= DEAD_RIGHT && spriteState <= END_DEAD_RIGHT); }
 
+    public void setDead() { spriteState = isFacingLeft() ? DEAD_LEFT : DEAD_RIGHT; }
+
+    public void checkDone() {
+        if (spriteState != END_DEAD_LEFT && spriteState != END_DEAD_RIGHT){
+            spriteState++;
+        } else {
+            state = done;
+        }
+    }
+
     public void getSprites(Context context){
         sprites[9] = super.extractImage(context.getResources(), R.drawable.spiky_roll1);
         sprites[10] = super.extractImage(context.getResources(), R.drawable.spiky_roll2);

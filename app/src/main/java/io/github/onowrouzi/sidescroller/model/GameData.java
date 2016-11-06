@@ -15,6 +15,7 @@ import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Walker;
 import io.github.onowrouzi.sidescroller.model.helpers.EnemyFactory;
 import io.github.onowrouzi.sidescroller.model.ui.Background;
 import io.github.onowrouzi.sidescroller.model.ui.BulletCount;
+import io.github.onowrouzi.sidescroller.model.ui.FireBallCount;
 import io.github.onowrouzi.sidescroller.model.ui.HealthBars;
 import io.github.onowrouzi.sidescroller.model.ui.Score;
 
@@ -31,6 +32,7 @@ public class GameData {
     public static Score gameScore;
     public static HealthBars healthBars;
     public static BulletCount bulletCount;
+    public static FireBallCount fireBallCount;
     public static boolean stage1;
     public static boolean stage2;
     public static int stage;
@@ -52,15 +54,14 @@ public class GameData {
         
         background = new Background(context);
         uiFigures.add(background);
-//        ground = new Ground(0, 0, GameActivity.screenWidth, GameActivity.screenHeight, context);
-//        uiFigures.add(ground);
         gameScore = new Score(10,GameActivity.screenHeight/16,80,20);
         uiFigures.add(gameScore);
         healthBars = new HealthBars(GameActivity.screenWidth*4/7, 0, GameActivity.screenWidth/10, GameActivity.screenHeight/10, player, context);
         uiFigures.add(healthBars);
         bulletCount = new BulletCount(10, GameActivity.screenHeight/10, GameActivity.screenWidth/16, GameActivity.screenHeight/20, player, context);
         uiFigures.add(bulletCount);
-        
+        fireBallCount = new FireBallCount(GameActivity.screenWidth * 9/10, GameActivity.screenHeight/10, GameActivity.screenWidth/10, GameActivity.screenHeight/12, player, context);
+        uiFigures.add(fireBallCount);
         enemyFigures.add(new Walker(GameActivity.screenWidth + GameActivity.screenWidth/8, GameActivity.screenHeight - GameActivity.screenHeight/4, GameActivity.screenWidth/8, GameActivity.screenHeight/5, context));
         enemyFigures.add(new Bird(-GameActivity.screenWidth/8, GameActivity.screenHeight/20, GameActivity.screenWidth/8, GameActivity.screenHeight/8, context));
     }

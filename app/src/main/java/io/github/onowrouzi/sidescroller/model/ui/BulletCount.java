@@ -15,7 +15,6 @@ public class BulletCount extends GameFigure implements Observer {
     
     Bitmap bullet;
     private int bullets;
-    private int reloadTimer;
 
     public BulletCount(float x, float y, int width, int height, Player player, Context context) {
         super(x,y,width,height);
@@ -25,8 +24,6 @@ public class BulletCount extends GameFigure implements Observer {
         bullet = super.extractImage(context.getResources(), R.drawable.bullet_count);
         bullet = Bitmap.createScaledBitmap(bullet, width, height, false);
         bullets = 10;
-
-        paint = new Paint();
     }
     
     @Override

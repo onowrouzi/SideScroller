@@ -59,6 +59,16 @@ public class Walker extends GroundEnemy {
 
     public boolean isDyingRight() { return (spriteState >= DEAD_RIGHT && spriteState <= END_DEAD_RIGHT); }
 
+    public void setDead() { spriteState = isFacingLeft() ? DEAD_LEFT : DEAD_RIGHT; }
+
+    public void checkDone() {
+        if (spriteState != END_DEAD_LEFT && spriteState != END_DEAD_RIGHT){
+            spriteState++;
+        } else {
+            state = done;
+        }
+    }
+
     public void getSprites(Context context){
         sprites[0] = super.extractImage(context.getResources(), R.drawable.walker1);
         sprites[1] = super.extractImage(context.getResources(), R.drawable.walker2);

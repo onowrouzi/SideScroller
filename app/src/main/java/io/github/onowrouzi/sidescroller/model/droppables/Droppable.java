@@ -13,7 +13,7 @@ public abstract class Droppable extends MovableFigure{
     }
 
     @Override
-    public void update(){ if (y+height*1.5 < GameActivity.groundLevel) y += GameActivity.screenHeight/20; }
+    public void update(){ if (y+height < GameActivity.groundLevel) y += height/2; }
 
     @Override
     public RectF getCollisionBox() { return new RectF(x,y,x+width,y+height); }

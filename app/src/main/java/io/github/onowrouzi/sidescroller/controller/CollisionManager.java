@@ -8,6 +8,7 @@ import io.github.onowrouzi.sidescroller.model.droppables.HealthDroppable;
 import io.github.onowrouzi.sidescroller.model.droppables.ShurikenDroppable;
 import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.SpikyRoll;
+import io.github.onowrouzi.sidescroller.model.projectiles.PlayerFireBall;
 import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 
 public class CollisionManager {
@@ -29,7 +30,10 @@ public class CollisionManager {
 
     public void checkProjectileCollision(Projectile p, GameFigure gf){
         if (gf instanceof Projectile) return;
-        if (p.owner instanceof Player && gf instanceof Enemy) {
+        if (p instanceof PlayerFireBall && gf instanceof Enemy) {
+            Enemy e = (Enemy) gf;
+            e.state = e.dying;
+        } else if (p.owner instanceof Player && gf instanceof Enemy && (!(gf instanceof SpikyRoll))) {
             Enemy e = (Enemy) gf;
             e.state = e.dying;
             p.state = p.dying;
@@ -44,7 +48,7 @@ public class CollisionManager {
         if (d instanceof HealthDroppable && p.health < 6) {
             p.health++;
             GameActivity.gameData.droppableFigures.remove(d);
-        } else if (d instanceof ShurikenDroppable) {
+        } else if (d instanceof ShurikenDroppable && p.bulletCount < 10) {
             p.bulletCount = 10;
             GameActivity.gameData.droppableFigures.remove(d);
         }

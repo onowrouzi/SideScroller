@@ -12,8 +12,10 @@ import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.helpers.PlayerActionHandler;
+import io.github.onowrouzi.sidescroller.model.projectiles.PlayerFireBall;
 import io.github.onowrouzi.sidescroller.model.projectiles.Shuriken;
 import io.github.onowrouzi.sidescroller.model.ui.BulletCount;
+import io.github.onowrouzi.sidescroller.model.ui.FireBallCount;
 import io.github.onowrouzi.sidescroller.model.ui.HealthBars;
 import io.github.onowrouzi.sidescroller.model.ui.Observer;
 
@@ -45,6 +47,7 @@ public class Player extends MovableFigure implements Travel {
     public boolean jumpLeft;
     public boolean jumpRight;
     public int bulletCount;
+    public int fireBallCount;
     public int bulletRegenCounter;
     private final ArrayList<Observer> observers = new ArrayList<>();
     Vibrator v;
@@ -56,6 +59,7 @@ public class Player extends MovableFigure implements Travel {
         health = 6;
         immuneTimer = 0;
         bulletCount = 10;
+        fireBallCount = 5;
         
         sprites = new Bitmap[38];
 
@@ -165,6 +169,20 @@ public class Player extends MovableFigure implements Travel {
         }
     }
 
+    public void throwFireBall(){
+        int streamId = -1;
+        spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
+
+        float sx = isFacingRight() ? x+width/2 : x-width;
+        PlayerFireBall fb = new PlayerFireBall(sx, y+height/4, 0, 0, context, this, streamId);
+
+        fireBallCount--;
+
+        synchronized (GameActivity.gameData.friendFigures){
+            GameActivity.gameData.friendFigures.add(fb);
+        }
+    }
+
     public void hurt(){
         if (immuneTimer == 0) {
             v.vibrate(50);
@@ -254,6 +272,8 @@ public class Player extends MovableFigure implements Travel {
                 o.updateObserver(bulletCount, bulletRegenCounter);
             } else if (o instanceof HealthBars){
                 o.updateObserver(health, immuneTimer);
+            } else if (o instanceof FireBallCount) {
+                o.updateObserver(fireBallCount, 0);
             }
         }
     }

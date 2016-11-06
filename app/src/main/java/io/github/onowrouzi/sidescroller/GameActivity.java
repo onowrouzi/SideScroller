@@ -57,8 +57,8 @@ public class GameActivity extends Activity {
         gamePanel.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() < screenHeight - screenHeight/4
-                        && player.bulletCount > 0 && GameThread.loading == 0){
+                if (event.getAction() == MotionEvent.ACTION_DOWN && player.bulletCount > 0
+                        && GameThread.loading == 0){
                     player.fireProjectile(event.getX(), event.getY());
                     return true;
                 }
@@ -82,21 +82,22 @@ public class GameActivity extends Activity {
         buttonLeft.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                player.travelLeft();
+                if (GameThread.loading == 0) player.travelLeft();
             }
         }));
 
         buttonRight.setOnTouchListener(new RepeatListener(50, 50, player, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                player.travelRight();
+                if (GameThread.loading == 0) player.travelRight();
             }
         }));
 
         buttonA.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent e) {
-                if (e.getAction() == MotionEvent.ACTION_DOWN) player.jump();
+                if (e.getAction() == MotionEvent.ACTION_DOWN && GameThread.loading == 0)
+                    player.jump();
                 return true;
             }
         });
@@ -104,7 +105,18 @@ public class GameActivity extends Activity {
         buttonX.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent e) {
-                if (e.getAction() == MotionEvent.ACTION_DOWN) player.melee();
+                if (e.getAction() == MotionEvent.ACTION_DOWN && GameThread.loading == 0)
+                    player.melee();
+                return true;
+            }
+        });
+
+        buttonB.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN && player.fireBallCount > 0
+                        && GameThread.loading == 0)
+                    player.throwFireBall();
                 return true;
             }
         });
