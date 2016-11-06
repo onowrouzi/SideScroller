@@ -81,7 +81,7 @@ public class FlyingEnemy extends Enemy {
         } else {
             spriteState =  START_FLAP_LEFT;
         }
-        x -= 5;
+        x -= width/32;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class FlyingEnemy extends Enemy {
         } else {
             spriteState = START_FLAP_RIGHT;
         }
-        x += 5;
+        x += width/32;
     }
 
     public void getSprites(Context context){

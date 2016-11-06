@@ -90,7 +90,7 @@ public class Player extends MovableFigure implements Travel {
             spriteState = RUN_LEFT;
         }
         
-        if (x > 0) x -= 20;
+        if (x > 0) x -= width/12;
     }
     
     @Override
@@ -103,7 +103,7 @@ public class Player extends MovableFigure implements Travel {
         }
         
         if (x + width < width*6.5){
-            x += 20;
+            x += width/12;
         } else if (GameData.stage1) {
             GameData.background.moveBackground();
         }

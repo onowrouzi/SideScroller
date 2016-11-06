@@ -58,7 +58,7 @@ public class GroundEnemy extends Enemy {
             spriteState = STAND_LEFT;
         }
         
-        x -= 2;
+        x -= width/48;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class GroundEnemy extends Enemy {
             spriteState = STAND_RIGHT;
         }
         
-        x += 2;
+        x += width/48;
     }
 
     public void getSprites(Context context){
