@@ -87,15 +87,22 @@ public class Player extends MovableFigure implements Travel {
             spriteState = (spriteState >= RUN_LEFT && spriteState < END_RUN_LEFT) ? spriteState+1 : RUN_LEFT;
 
         if (x > 0) x -= width/8;
+
+        if (spriteState >= RUN_LEFT && spriteState < END_RUN_LEFT){
+            spriteState++;
+        } else {
+            spriteState = RUN_LEFT;
+        }
     }
     
     @Override
     public void travelRight() {
         if (!isJumpRight())
             spriteState = (spriteState >= RUN_RIGHT && spriteState < END_RUN_RIGHT) ? spriteState+1 : RUN_RIGHT;
-        
+  
         if (x + width < width * 5){
             x += width/8;
+
         } else if (GameData.stage1) {
             GameData.background.moveBackground();
         }
