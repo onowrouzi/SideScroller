@@ -30,7 +30,7 @@ public class DoneEnemy implements FigureState {
 //            Sounds.backgroundMusic.stop();
 //        }
         GameActivity.gameData.enemyFigures.remove(enemy);
-        DroppableFactory.generateDroppable(enemy.x, enemy.y, context);
+//        DroppableFactory.generateDroppable(enemy.x, enemy.y, context);
     }
     
 }

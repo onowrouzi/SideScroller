@@ -99,7 +99,7 @@ public class Player extends MovableFigure implements Travel {
     public void travelRight() {
         if (!isJumpRight())
             spriteState = (spriteState >= RUN_RIGHT && spriteState < END_RUN_RIGHT) ? spriteState+1 : RUN_RIGHT;
-  
+
         if (x + width < width * 5){
             x += width/8;
 
