@@ -49,8 +49,10 @@ public class GameThread extends Thread {
     }
 
     private synchronized void processCollisions() {
-        for (MovableFigure f : GameActivity.gameData.friendFigures) {
-            for (MovableFigure e : GameActivity.gameData.enemyFigures) {
+        for (int i = 0; i <  GameActivity.gameData.friendFigures.size(); i++) {
+            MovableFigure f = GameActivity.gameData.friendFigures.get(i);
+            for (int j = 0; j < GameActivity.gameData.enemyFigures.size(); j++) {
+                MovableFigure e = GameActivity.gameData.enemyFigures.get(j);
                 if (e.getCollisionBox().intersect(f.getCollisionBox())
                         && ((e.state == e.alive) || (e.state == e.hurt))){
                     e.handleCollision(f);

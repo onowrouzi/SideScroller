@@ -13,6 +13,7 @@ import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.Bird;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Walker;
 import io.github.onowrouzi.sidescroller.model.helpers.EnemyFactory;
+import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 import io.github.onowrouzi.sidescroller.model.ui.Background;
 import io.github.onowrouzi.sidescroller.model.ui.ShurikenCount;
 import io.github.onowrouzi.sidescroller.model.ui.FireBallCount;
@@ -118,6 +119,9 @@ public class GameData {
         stage = 1;
 //        background.changeBackground("images/background1.png");
         enemyFigures.clear();
+        droppableFigures.clear();
+        friendFigures.clear();
+        friendFigures.add(player);
         player.resetPlayer();
         GameThread.gameWon = GameThread.gameOver = false;
 //        GameThread.loading = 60;
