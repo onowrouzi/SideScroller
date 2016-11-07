@@ -170,7 +170,7 @@ public class Player extends MovableFigure implements Travel {
     }
 
     public void throwFireBall(){
-        int streamId = -1;
+        int streamId = GameActivity.soundsManager.play("fireball");
         spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
 
         float sx = isFacingRight() ? x+width/2 : x-width;

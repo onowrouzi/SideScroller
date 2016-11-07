@@ -11,7 +11,7 @@ public class SoundsManager {
 
     public static SoundPool sounds;
     private boolean loaded;
-    int shoot, slash, jump, hurt, explode;
+    int shoot, slash, jump, hurt, explode, fireball;
 
     public SoundsManager(Context context){
         sounds = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
@@ -27,6 +27,7 @@ public class SoundsManager {
         jump = sounds.load(context, R.raw.jump, 4);
         hurt = sounds.load(context, R.raw.hurt, 5);
         explode = sounds.load(context, R.raw.explode, 2);
+        fireball = sounds.load(context, R.raw.fireball, 3);
     }
 
     public int play(String sound){
@@ -43,6 +44,7 @@ public class SoundsManager {
                             break;
                 case "explode": streamId = sounds.play(explode, 100, 100, 1, 0, 1f);
                             break;
+                case "fireball": streamId = sounds.play(fireball, 100, 100, 1, 0, 1f);
             }
         }
         return streamId;
