@@ -8,6 +8,7 @@ import java.util.List;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
+import io.github.onowrouzi.sidescroller.model.droppables.Droppable;
 import io.github.onowrouzi.sidescroller.model.enemies.BossEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.Bird;
@@ -67,6 +68,8 @@ public class GameData {
     }
     
     public void update() {
+
+        processCollisions();
        
         if (stage1) {
             Enemy enemy = EnemyFactory.generateEnemy(context);
@@ -97,6 +100,29 @@ public class GameData {
 //            setBossStage();
 //        }
     }
+
+    private synchronized void processCollisions() {
+        for (int i = 0; i < friendFigures.size(); i++) {
+            MovableFigure f = friendFigures.get(i);
+            for (int j = 0; j < enemyFigures.size(); j++) {
+                MovableFigure e = enemyFigures.get(j);
+                if (e.getCollisionBox().intersect(f.getCollisionBox())
+                        && ((e.state == e.alive) || (e.state == e.hurt))){
+                    e.handleCollision(f);
+                }
+            }
+        }
+
+        for (int i = 0; i < droppableFigures.size(); i++){
+            Droppable d = (Droppable) droppableFigures.get(i);
+            for (int j = 0; j < friendFigures.size(); j++){
+                MovableFigure f = friendFigures.get(j);
+                if (d.getCollisionBox().intersect(f.getCollisionBox())
+                        && f instanceof Player)
+                    d.handleCollision(f);
+            }
+        }
+    }
     
     public void setBossStage() {
         stage1 = false;
@@ -118,6 +144,9 @@ public class GameData {
         stage = 1;
 //        background.changeBackground("images/background1.png");
         enemyFigures.clear();
+        droppableFigures.clear();
+        friendFigures.clear();
+        friendFigures.add(player);
         player.resetPlayer();
         GameThread.gameWon = GameThread.gameOver = false;
 //        GameThread.loading = 60;
@@ -126,4 +155,3 @@ public class GameData {
     }
     
 }
-

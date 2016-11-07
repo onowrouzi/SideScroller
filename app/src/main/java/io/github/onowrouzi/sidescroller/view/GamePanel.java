@@ -48,6 +48,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     c.drawText("YOU WON!!!", width / 2 - 250, height / 2, p);
 
                 } else if (GameThread.loading > 0) {
+                    p.setColor(Color.BLACK);
+                    c.drawRect(0,0,GameActivity.screenWidth,GameActivity.screenHeight, p);
                     p.setColor(Color.WHITE);
                     p.setTextSize(GameActivity.screenWidth/20);
                     c.drawText("LOADING ... ", GameActivity.screenWidth/20, GameActivity.screenHeight/12, p);

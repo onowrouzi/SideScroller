@@ -203,6 +203,7 @@ public class Player extends MovableFigure implements Travel {
         health = 5;
         immuneTimer = 0;
         shurikenCount = 10;
+        fireBallCount = 5;
         x = GameActivity.screenWidth/2;
         y = GameActivity.screenHeight*3/4;
         spriteState = STAND_RIGHT;
