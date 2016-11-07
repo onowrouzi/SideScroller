@@ -57,7 +57,7 @@ public class GameActivity extends Activity {
         gamePanel.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN && player.bulletCount > 0 && GameThread.loading == 0
+                if (event.getAction() == MotionEvent.ACTION_DOWN && player.shurikenCount > 0 && GameThread.loading == 0
                         && (event.getY() < buttonY.getY() || event.getX() < buttonX.getX())
                         && (event.getY() < buttonRight.getY() || event.getX() < buttonRight.getX())){
                     player.fireProjectile(event.getX(), event.getY());

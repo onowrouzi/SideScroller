@@ -56,8 +56,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     c.drawText("    Arrows = Movement", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3 + p.getTextSize(), p);
                     c.drawText("    A = JUMP", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*2+10, p);
                     c.drawText("    X = MELEE", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*3+10, p);
-                    c.drawText("    Tap screen above player to shoot.", GameActivity.screenWidth / 5,
-                                                            GameActivity.screenHeight / 3  + p.getTextSize()*4+10, p);
+                    c.drawText("    B = FireBall", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*4+10, p);
+                    c.drawText("    Tap screen to shoot.", GameActivity.screenWidth / 5,
+                                                            GameActivity.screenHeight / 3  + p.getTextSize()*5+10, p);
                 } else if (!GameThread.gameOver) {
 
                     p.setColor(Color.WHITE);

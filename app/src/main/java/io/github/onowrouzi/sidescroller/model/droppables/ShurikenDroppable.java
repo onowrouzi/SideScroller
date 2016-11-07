@@ -19,8 +19,8 @@ public class ShurikenDroppable extends Droppable{
     @Override
     public void handleCollision(MovableFigure mf){
         Player p = (Player) mf;
-        if (p.bulletCount < 10) {
-            p.bulletCount = 10;
+        if (p.shurikenCount < 10) {
+            p.shurikenCount = 10;
             GameActivity.gameData.droppableFigures.remove(this);
         }
     }

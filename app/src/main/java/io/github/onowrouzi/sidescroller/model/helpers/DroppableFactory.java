@@ -14,11 +14,11 @@ public class DroppableFactory {
         int random = (int) (Math.random() * 100);
         Droppable droppable = null;
 
-        if (random > 60 && random < 70) {
+        if (random > 65 && random < 70) {
             droppable = new HealthDroppable(x, y, GameActivity.screenWidth/12, GameActivity.screenHeight/10, context);
-        } else if (random > 70 && random < 80) {
+        } else if (random > 70 && random < 75) {
             droppable = new FireBallDroppable(x, y, GameActivity.screenWidth/12, GameActivity.screenHeight/12, context);
-        } else if (random > 10 && random < 30) {
+        } else if (random > 10 && random < 20) {
             droppable = new ShurikenDroppable(x, y, GameActivity.screenWidth/18, GameActivity.screenHeight/18, context);
         }
 

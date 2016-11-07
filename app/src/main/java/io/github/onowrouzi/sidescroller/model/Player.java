@@ -12,9 +12,9 @@ import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.helpers.PlayerActionHandler;
-import io.github.onowrouzi.sidescroller.model.projectiles.PlayerFireBall;
+import io.github.onowrouzi.sidescroller.model.projectiles.FireBall;
 import io.github.onowrouzi.sidescroller.model.projectiles.Shuriken;
-import io.github.onowrouzi.sidescroller.model.ui.BulletCount;
+import io.github.onowrouzi.sidescroller.model.ui.ShurikenCount;
 import io.github.onowrouzi.sidescroller.model.ui.FireBallCount;
 import io.github.onowrouzi.sidescroller.model.ui.HealthBars;
 import io.github.onowrouzi.sidescroller.model.ui.Observer;
@@ -46,9 +46,8 @@ public class Player extends MovableFigure implements Travel {
     public boolean descend;
     public boolean jumpLeft;
     public boolean jumpRight;
-    public int bulletCount;
+    public int shurikenCount;
     public int fireBallCount;
-    public int bulletRegenCounter;
     private final ArrayList<Observer> observers = new ArrayList<>();
     Vibrator v;
     Context context;
@@ -58,7 +57,7 @@ public class Player extends MovableFigure implements Travel {
         super(x,y,width,height);
         health = 6;
         immuneTimer = 0;
-        bulletCount = 10;
+        shurikenCount = 10;
         fireBallCount = 5;
         
         sprites = new Bitmap[38];
@@ -162,7 +161,7 @@ public class Player extends MovableFigure implements Travel {
         float sx = isFacingRight() ? x+width : x;
         Shuriken s = new Shuriken (sx, y+height/2, ex, ey, context, this, streamId);
 
-        bulletCount--;
+        shurikenCount--;
 
         synchronized (GameActivity.gameData.friendFigures) {
             GameActivity.gameData.friendFigures.add(s);
@@ -174,7 +173,7 @@ public class Player extends MovableFigure implements Travel {
         spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
 
         float sx = isFacingRight() ? x+width/2 : x-width;
-        PlayerFireBall fb = new PlayerFireBall(sx, y+height/4, 0, 0, context, this, streamId);
+        FireBall fb = new FireBall(sx, y+height/4, 0, 0, context, this, streamId);
 
         fireBallCount--;
 
@@ -203,8 +202,7 @@ public class Player extends MovableFigure implements Travel {
     public void resetPlayer(){
         health = 5;
         immuneTimer = 0;
-        bulletCount = 10;
-        bulletRegenCounter = 100;
+        shurikenCount = 10;
         x = GameActivity.screenWidth/2;
         y = GameActivity.screenHeight*3/4;
         spriteState = STAND_RIGHT;
@@ -272,8 +270,8 @@ public class Player extends MovableFigure implements Travel {
     
     public void notifyObservers(){
         for (Observer o : observers){
-            if (o instanceof BulletCount){
-                o.updateObserver(bulletCount, bulletRegenCounter);
+            if (o instanceof ShurikenCount){
+                o.updateObserver(shurikenCount, 0);
             } else if (o instanceof HealthBars){
                 o.updateObserver(health, immuneTimer);
             } else if (o instanceof FireBallCount) {

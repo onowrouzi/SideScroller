@@ -7,7 +7,7 @@ import android.graphics.RectF;
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
-import io.github.onowrouzi.sidescroller.model.projectiles.FireBall;
+import io.github.onowrouzi.sidescroller.model.projectiles.Thunderbolt;
 import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 
 public class Bat extends FlyingEnemy {
@@ -35,10 +35,10 @@ public class Bat extends FlyingEnemy {
         px = (int) GameActivity.gameData.player.x+GameActivity.gameData.player.width/2;
         py = (int) GameActivity.gameData.player.y+GameActivity.gameData.player.height;
 
-        FireBall f = new FireBall(x+width/2, y+height, px, py, context, this, -1);
+        Thunderbolt t = new Thunderbolt(x+width/2, y+height, px, py, context, this, -1);
 
         synchronized (GameActivity.gameData.enemyFigures) {
-            GameActivity.gameData.enemyFigures.add(f);
+            GameActivity.gameData.enemyFigures.add(t);
         }
     }
 

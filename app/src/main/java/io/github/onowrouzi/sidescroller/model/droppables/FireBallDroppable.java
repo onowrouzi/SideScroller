@@ -21,7 +21,7 @@ public class FireBallDroppable extends Droppable {
     public void handleCollision(MovableFigure mf){
          Player p = (Player) mf;
          if (p.fireBallCount < 5) {
-             p.fireBallCount = 5;
+             p.fireBallCount++;
              GameActivity.gameData.droppableFigures.remove(this);
          }
     }

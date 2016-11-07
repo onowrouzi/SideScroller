@@ -60,7 +60,8 @@ public class GameThread extends Thread {
 
         for (int i = 0; i < GameActivity.gameData.droppableFigures.size(); i++){
             Droppable d = (Droppable) GameActivity.gameData.droppableFigures.get(i);
-            for (MovableFigure f : GameActivity.gameData.friendFigures){
+            for (int j = 0; j < GameActivity.gameData.friendFigures.size(); j++){
+                MovableFigure f = GameActivity.gameData.friendFigures.get(j);
                 if (d.getCollisionBox().intersect(f.getCollisionBox())
                         && f instanceof Player)
                     d.handleCollision(f);

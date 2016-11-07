@@ -8,6 +8,7 @@ import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
 import io.github.onowrouzi.sidescroller.model.Player;
 import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
+import io.github.onowrouzi.sidescroller.model.projectiles.Shuriken;
 
 public class Worm extends GroundEnemy {
     public final static int WALK_LEFT = 0;
@@ -34,8 +35,13 @@ public class Worm extends GroundEnemy {
 
     @Override
     public void handleCollision(MovableFigure mf){
-        if (mf instanceof Projectile) state = dying;
-        if (mf instanceof Player) {
+        if (mf instanceof Projectile) {
+            if (mf instanceof Shuriken) {
+                Projectile p = (Projectile) mf;
+                p.state = p.dying;
+            }
+            state = dying;
+        } else if (mf instanceof Player) {
             Player p = (Player) mf;
             if ((p.isMeleeLeft() && p.x > x) || (p.isMeleeRight() && p.x+p.width/2 < x)) {
                 state = dying;
