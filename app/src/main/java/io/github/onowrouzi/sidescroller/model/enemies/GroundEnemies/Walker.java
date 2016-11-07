@@ -5,6 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.RectF;
 
 import io.github.onowrouzi.sidescroller.R;
+import io.github.onowrouzi.sidescroller.model.MovableFigure;
+import io.github.onowrouzi.sidescroller.model.Player;
+import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
+import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 
 public class Walker extends GroundEnemy {
     public final static int WALK_LEFT = 0;
@@ -27,6 +31,22 @@ public class Walker extends GroundEnemy {
     @Override
     public RectF getCollisionBox() {
         return new RectF(x+width*.1f, y, x+width*.9f, y+height);
+    }
+
+    @Override
+    public void handleCollision(MovableFigure mf){
+        if (mf instanceof Projectile) state = dying;
+        if (mf instanceof Player) {
+            Player p = (Player) mf;
+            if ((p.isMeleeLeft() && p.x > x) || (p.isMeleeRight() && p.x+p.width/2 < x)) {
+                state = dying;
+            } else if (p.isJumpLeft() || p.isJumpRight()) {
+                state = dying;
+                p.bounceOff();
+            } else {
+                p.hurt();
+            }
+        }
     }
 
     @Override

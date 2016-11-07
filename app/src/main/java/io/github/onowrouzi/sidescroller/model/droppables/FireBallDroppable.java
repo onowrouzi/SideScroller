@@ -8,22 +8,21 @@ import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
 import io.github.onowrouzi.sidescroller.model.Player;
 
-public class HealthDroppable extends Droppable {
-
-    public HealthDroppable(float x, float y, int width, int height, Context context) {
+public class FireBallDroppable extends Droppable {
+    public FireBallDroppable(float x, float y, int width, int height, Context context) {
         super(x, y, width, height);
+
         sprites = new Bitmap[1];
-        sprites[0] = super.extractImage(context.getResources(), R.drawable.heart);
+        sprites[0] = super.extractImage(context.getResources(), R.drawable.fire);
         sprites[0] = Bitmap.createScaledBitmap(sprites[0], width, height, false);
     }
 
     @Override
     public void handleCollision(MovableFigure mf){
-        Player p = (Player) mf;
-        if (p.health < 6) {
-            p.health++;
-            GameActivity.gameData.droppableFigures.remove(this);
-        }
+         Player p = (Player) mf;
+         if (p.fireBallCount < 5) {
+             p.fireBallCount = 5;
+             GameActivity.gameData.droppableFigures.remove(this);
+         }
     }
-
 }

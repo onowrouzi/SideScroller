@@ -8,6 +8,7 @@ import android.graphics.RectF;
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
 import io.github.onowrouzi.sidescroller.model.Player;
+import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 
 public class PlayerFireBall extends Projectile{
 
@@ -51,6 +52,15 @@ public class PlayerFireBall extends Projectile{
         } else {
             spriteState = spriteState < END_RIGHT ? spriteState + 1 : START_RIGHT;
             x += width/4;
+        }
+    }
+
+    @Override
+    public void handleCollision(MovableFigure mf){
+        if (mf instanceof Enemy){
+            Enemy e = (Enemy) mf;
+            e.state = e.dying;
+            state = dying;
         }
     }
 

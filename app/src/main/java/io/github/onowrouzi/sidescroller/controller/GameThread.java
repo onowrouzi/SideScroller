@@ -1,18 +1,11 @@
 package io.github.onowrouzi.sidescroller.controller;
 
-import android.text.method.MovementMethod;
 import android.util.Log;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
 import io.github.onowrouzi.sidescroller.model.Player;
 import io.github.onowrouzi.sidescroller.model.droppables.Droppable;
-import io.github.onowrouzi.sidescroller.model.droppables.HealthDroppable;
-import io.github.onowrouzi.sidescroller.model.droppables.ShurikenDroppable;
-import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.SpikyRoll;
-import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
-import io.github.onowrouzi.sidescroller.model.enemies.BossEnemy;
-import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.GroundEnemy;
 
 public class GameThread extends Thread {
 
@@ -22,7 +15,6 @@ public class GameThread extends Thread {
     public static boolean gameWon;
     private final int FRAMES_PER_SECOND = 20;
     public static int loading;
-    private CollisionManager cm = new CollisionManager();
 
     @Override
     public void run() {
@@ -61,7 +53,7 @@ public class GameThread extends Thread {
             for (MovableFigure e : GameActivity.gameData.enemyFigures) {
                 if (e.getCollisionBox().intersect(f.getCollisionBox())
                         && ((e.state == e.alive) || (e.state == e.hurt))){
-                    cm.handleCollisions(e,f);
+                    e.handleCollision(f);
                 }
             }
         }
@@ -71,7 +63,7 @@ public class GameThread extends Thread {
             for (MovableFigure f : GameActivity.gameData.friendFigures){
                 if (d.getCollisionBox().intersect(f.getCollisionBox())
                         && f instanceof Player)
-                    cm.handleCollisions(d,f);
+                    d.handleCollision(f);
             }
         }
     }

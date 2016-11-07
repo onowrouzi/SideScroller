@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.RectF;
 
 import io.github.onowrouzi.sidescroller.R;
+import io.github.onowrouzi.sidescroller.model.MovableFigure;
+import io.github.onowrouzi.sidescroller.model.Player;
+import io.github.onowrouzi.sidescroller.model.projectiles.PlayerFireBall;
 
 public class SpikyRoll extends GroundEnemy {
     public final static int WALK_LEFT = 0;
@@ -22,6 +25,16 @@ public class SpikyRoll extends GroundEnemy {
         sprites = new Bitmap[28];
 
         getSprites(context);
+    }
+
+    @Override
+    public void handleCollision(MovableFigure mf){
+        if (mf instanceof PlayerFireBall) state = dying;
+        if (mf instanceof Player) {
+            Player p = (Player) mf;
+            p.hurt();
+            if (p.isJumpLeft() || p.isJumpRight()) p.bounceBack();
+        }
     }
 
     @Override

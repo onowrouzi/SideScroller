@@ -9,6 +9,7 @@ import android.graphics.RectF;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
+import io.github.onowrouzi.sidescroller.model.MovableFigure;
 import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 import io.github.onowrouzi.sidescroller.model.projectiles.Shuriken;
 import io.github.onowrouzi.sidescroller.model.states.AliveBoss;
@@ -103,7 +104,12 @@ public class BossEnemy extends Enemy {
         state.update();
         attackTimer--;
     }
-    
+
+    @Override
+    public void handleCollision(MovableFigure mf) {
+
+    }
+
     public void hurt() {
         if (immuneTimer == 0) {
             immuneTimer = 75 ;

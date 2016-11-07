@@ -22,5 +22,7 @@ public abstract class MovableFigure extends GameFigure implements CollisionBox {
     }
     
     public abstract void update();
+
+    public abstract void handleCollision(MovableFigure mf);
     
 }

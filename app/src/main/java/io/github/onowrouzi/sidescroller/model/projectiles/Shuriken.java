@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
+import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 
 public class Shuriken extends Projectile{
 
@@ -34,5 +35,14 @@ public class Shuriken extends Projectile{
             spriteState = BEGIN_ROTATION;
         }
         state.update();
+    }
+
+    @Override
+    public void handleCollision(MovableFigure mf){
+        if (mf instanceof Enemy){
+            Enemy e = (Enemy) mf;
+            e.state = e.dying;
+            state = dying;
+        }
     }
 }

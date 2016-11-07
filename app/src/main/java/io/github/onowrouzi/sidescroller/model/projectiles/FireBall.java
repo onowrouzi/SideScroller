@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.MovableFigure;
+import io.github.onowrouzi.sidescroller.model.Player;
 
 public class FireBall extends Projectile{
 
@@ -21,5 +22,14 @@ public class FireBall extends Projectile{
 
     @Override
     public void render(Canvas c) { c.drawBitmap(sprites[spriteState], super.x, super.y, super.paint); }
+
+    @Override
+    public void handleCollision(MovableFigure mf){
+        if (mf instanceof Player){
+            Player p = (Player) mf;
+            p.hurt();
+            state = dying;
+        }
+    }
 
 }

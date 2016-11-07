@@ -187,13 +187,17 @@ public class Player extends MovableFigure implements Travel {
         if (immuneTimer == 0) {
             v.vibrate(50);
             GameActivity.soundsManager.play("hurt");
-//            GameActivity.sServ.playSound("hurt");
             health--;
             immuneTimer = 20;
         }
         if (health == 0){
             GameThread.gameOver = true;
         }
+    }
+
+    @Override
+    public void handleCollision(MovableFigure mf){
+        //Let others handle collision
     }
 
     public void resetPlayer(){

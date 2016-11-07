@@ -6,7 +6,9 @@ import android.graphics.RectF;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
+import io.github.onowrouzi.sidescroller.model.MovableFigure;
 import io.github.onowrouzi.sidescroller.model.projectiles.Egg;
+import io.github.onowrouzi.sidescroller.model.projectiles.Projectile;
 
 
 public class Bird extends FlyingEnemy {
@@ -39,6 +41,15 @@ public class Bird extends FlyingEnemy {
 
         synchronized (GameActivity.gameData.enemyFigures) {
             GameActivity.gameData.enemyFigures.add(e);
+        }
+    }
+
+    @Override
+    public void handleCollision(MovableFigure mf){
+        if (mf instanceof Projectile) {
+            Projectile p = (Projectile) mf;
+            state = dying;
+            p.state = p.dying;
         }
     }
 
