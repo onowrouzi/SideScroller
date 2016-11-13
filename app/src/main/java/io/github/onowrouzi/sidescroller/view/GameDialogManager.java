@@ -61,7 +61,7 @@ public class GameDialogManager {
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        GameActivity.gameData.setStageOne();
+                        GameActivity.gameData.setStage();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

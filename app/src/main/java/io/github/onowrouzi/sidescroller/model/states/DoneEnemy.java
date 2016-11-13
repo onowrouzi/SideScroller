@@ -3,9 +3,8 @@ package io.github.onowrouzi.sidescroller.model.states;
 import android.content.Context;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
-import io.github.onowrouzi.sidescroller.controller.GameThread;
-import io.github.onowrouzi.sidescroller.model.droppables.Droppable;
-import io.github.onowrouzi.sidescroller.model.enemies.BossEnemy;
+import io.github.onowrouzi.sidescroller.model.GameData;
+import io.github.onowrouzi.sidescroller.model.enemies.BossEnemies.BossEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 import io.github.onowrouzi.sidescroller.model.helpers.DroppableFactory;
 import io.github.onowrouzi.sidescroller.model.ui.Score;
@@ -24,12 +23,8 @@ public class DoneEnemy implements FigureState {
     @Override
     public void update() {
         Score.score += 10;
-//        if (enemy instanceof BossEnemy) {
-//            GameThread.gameWon = true;
-//            Sounds.play("sounds/victory.wav");
-//            Sounds.backgroundMusic.stop();
-//        }
         GameActivity.gameData.enemyFigures.remove(enemy);
+        if (enemy instanceof BossEnemy) GameData.bossPresent = false;
         DroppableFactory.generateDroppable(enemy.x, enemy.y, context);
     }
     

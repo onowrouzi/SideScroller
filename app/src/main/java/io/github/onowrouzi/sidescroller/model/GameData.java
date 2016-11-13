@@ -9,7 +9,7 @@ import java.util.List;
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.droppables.Droppable;
-import io.github.onowrouzi.sidescroller.model.enemies.BossEnemy;
+import io.github.onowrouzi.sidescroller.model.enemies.BossEnemies.BossEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.Bird;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Walker;
@@ -34,17 +34,13 @@ public class GameData {
     public static HealthBars healthBars;
     public static ShurikenCount shurikenCount;
     public static FireBallCount fireBallCount;
-    public static boolean stage1;
-    public static boolean stage2;
-    public static int stage;
-    
+    public static boolean bossPresent;
+    public static int spawnBossScore = 200;
+
     public GameData(Context context, Player player) {
 
         this.context = context;
         this.player = player;
-
-        stage1 = true;
-        stage = 1;
         
         enemyFigures = Collections.synchronizedList(new ArrayList<MovableFigure>());
         friendFigures = Collections.synchronizedList(new ArrayList<MovableFigure>());
@@ -67,17 +63,15 @@ public class GameData {
         enemyFigures.add(new Bird(-GameActivity.screenWidth/8, GameActivity.screenHeight/20, GameActivity.screenWidth/8, GameActivity.screenHeight/8, context));
     }
     
-    public void update() {
+    public void update() { 
 
         processCollisions();
-       
-        if (stage1) {
+
+        if (!bossPresent) {
             Enemy enemy = EnemyFactory.generateEnemy(context);
-            if (enemy != null) {
-                enemyFigures.add(enemy);
-            }
+            if (enemy != null) enemyFigures.add(enemy);
         }
-        
+
         synchronized (friendFigures) {
             for (int i = 0; i < friendFigures.size(); i++) {
                 friendFigures.get(i).update();
@@ -96,9 +90,12 @@ public class GameData {
             }
         }
         
-//        if (Score.score >= 200 && !stage2){
-//            setBossStage();
-//        }
+        if (Score.score >= spawnBossScore && !bossPresent){
+            enemyFigures.add(new BossEnemy(GameActivity.screenWidth*7/8, -GameActivity.screenHeight/6,
+                    GameActivity.screenWidth/6, GameActivity.screenHeight/6, context));
+            bossPresent = true;
+            spawnBossScore += 200;
+        }
     }
 
     private synchronized void processCollisions() {
@@ -109,6 +106,9 @@ public class GameData {
                 if (e.getCollisionBox().intersect(f.getCollisionBox())
                         && ((e.state == e.alive) || (e.state == e.hurt))){
                     e.handleCollision(f);
+                } else if (e instanceof BossEnemy && e.getCollisionBox().intersect(f.getCollisionBox())){
+                    BossEnemy be = (BossEnemy) e;
+                    if (be.state == be.drop || be.state == be.raging) be.handleCollision(f);
                 }
             }
         }
@@ -123,35 +123,15 @@ public class GameData {
             }
         }
     }
-    
-    public void setBossStage() {
-        stage1 = false;
-        stage2 = true;
-        stage = 2;
-        enemyFigures.clear();
-        enemyFigures.add(new BossEnemy(600, -200, 200, 200, context));
-        GameThread.loading = 60;
-        player.resetPlayer();
-//        background.changeBackground("images/background2.png");
-//        backgroundMusic.stop();
-//        Sounds.play("sounds/bossLoop.wav");
-    }
 
-    public void setStageOne() {
+    public void setStage() {
         Score.score = 0;
-        stage1 = true;
-        stage2 = false;
-        stage = 1;
-//        background.changeBackground("images/background1.png");
         enemyFigures.clear();
         droppableFigures.clear();
         friendFigures.clear();
         friendFigures.add(player);
         player.resetPlayer();
         GameThread.gameWon = GameThread.gameOver = false;
-//        GameThread.loading = 60;
-//        Sounds.backgroundMusic.stop();
-//        Sounds.play("sounds/songLoop.wav");
     }
     
 }

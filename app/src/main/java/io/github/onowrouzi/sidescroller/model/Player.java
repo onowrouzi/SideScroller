@@ -64,7 +64,7 @@ public class Player extends MovableFigure implements Travel {
 
         this.context = context;
         pah = new PlayerActionHandler(this);
-        getSprites(context);
+        getSprites();
 
         v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
@@ -94,11 +94,8 @@ public class Player extends MovableFigure implements Travel {
         if (!isJumpRight())
             spriteState = (spriteState >= RUN_RIGHT && spriteState < END_RUN_RIGHT) ? spriteState+1 : RUN_RIGHT;
         
-        if (x + width < width * 5){
-            x += width/8;
-        } else if (GameData.stage1) {
-            GameData.background.moveBackground();
-        }
+        if (x + width < width * 5) x += width/8;
+        else GameData.background.moveBackground();
     }
     
     public void jump(){
@@ -281,7 +278,7 @@ public class Player extends MovableFigure implements Travel {
         }
     }
 
-    public void getSprites(Context context){
+    public void getSprites(){
         //Idle Right
         sprites[0] = super.extractImage(context.getResources(), R.drawable.player1);
         sprites[1] = super.extractImage(context.getResources(), R.drawable.player2);

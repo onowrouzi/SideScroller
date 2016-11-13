@@ -7,9 +7,7 @@ public class AliveGroundEnemy implements FigureState {
 
     public GroundEnemy enemy;
     
-    public AliveGroundEnemy(GroundEnemy enemy) {
-        this.enemy = enemy;
-    }
+    public AliveGroundEnemy(GroundEnemy enemy) { this.enemy = enemy; }
 
     @Override
     public void update() {
