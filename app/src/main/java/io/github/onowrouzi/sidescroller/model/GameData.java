@@ -19,6 +19,9 @@ import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Walker;
 import io.github.onowrouzi.sidescroller.model.helpers.EnemyFactory;
 import io.github.onowrouzi.sidescroller.model.helpers.PowerUpFactory;
 import io.github.onowrouzi.sidescroller.model.ui.Background;
+import io.github.onowrouzi.sidescroller.model.ui.DoubleScoreIcon;
+import io.github.onowrouzi.sidescroller.model.ui.InvincibilityCount;
+import io.github.onowrouzi.sidescroller.model.ui.ShieldCount;
 import io.github.onowrouzi.sidescroller.model.ui.ShurikenCount;
 import io.github.onowrouzi.sidescroller.model.ui.FireBallCount;
 import io.github.onowrouzi.sidescroller.model.ui.HealthBars;
@@ -39,6 +42,9 @@ public class GameData {
     public static HealthBars healthBars;
     public static ShurikenCount shurikenCount;
     public static FireBallCount fireBallCount;
+    public static ShieldCount shieldCount;
+    public static InvincibilityCount invincibilityCount;
+    public static DoubleScoreIcon doubleScoreIcon;
     public static boolean bossPresent;
     public static int spawnBossScore = 200;
 
@@ -61,6 +67,12 @@ public class GameData {
         uiFigures.add(gameScore);
         healthBars = new HealthBars(GameActivity.screenWidth*4/7, 0, GameActivity.screenWidth/10, GameActivity.screenHeight/10, player, context);
         uiFigures.add(healthBars);
+        shieldCount = new ShieldCount(GameActivity.screenWidth*4/7, GameActivity.screenHeight/9, GameActivity.screenWidth/10, GameActivity.screenHeight/10, player, context);
+        uiFigures.add(shieldCount);
+        invincibilityCount = new InvincibilityCount(GameActivity.screenWidth/10, GameActivity.screenHeight/16, GameActivity.screenWidth/10, GameActivity.screenHeight/10, player, context);
+        uiFigures.add(invincibilityCount);
+        doubleScoreIcon = new DoubleScoreIcon(GameActivity.screenWidth/4, 0, GameActivity.screenWidth/10, GameActivity.screenHeight/10, context);
+        uiFigures.add(doubleScoreIcon);
         shurikenCount = new ShurikenCount(10, GameActivity.screenHeight/10, GameActivity.screenWidth/16, GameActivity.screenHeight/20, player, context);
         uiFigures.add(shurikenCount);
         fireBallCount = new FireBallCount(GameActivity.screenWidth * 9/10, GameActivity.screenHeight/10, GameActivity.screenWidth/10, GameActivity.screenHeight/12, player, context);
@@ -79,6 +91,9 @@ public class GameData {
         }
 
         PowerUpFactory.generatePowerUp(context);
+
+        if (Score.dblScoreTimer > 0) Score.dblScoreTimer--;
+        else Score.increment = 10;
 
         synchronized (friendFigures) {
             for (int i = 0; i < friendFigures.size(); i++) {

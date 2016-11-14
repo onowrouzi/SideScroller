@@ -22,7 +22,7 @@ public class DoneEnemy implements FigureState {
 
     @Override
     public void update() {
-        Score.score += 10;
+        Score.score += Score.increment;
         GameActivity.gameData.enemyFigures.remove(enemy);
         if (enemy instanceof BossEnemy) GameData.bossPresent = false;
         DroppableFactory.generateDroppable(enemy.x, enemy.y, context);

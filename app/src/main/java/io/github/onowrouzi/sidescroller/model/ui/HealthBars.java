@@ -3,9 +3,6 @@ package io.github.onowrouzi.sidescroller.model.ui;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 
 import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
@@ -21,15 +18,11 @@ public class HealthBars extends GameFigure implements Observer {
         super(x,y,width,height);
         health = 6;
         heart = super.extractImage(context.getResources(), R.drawable.heart);
-        paint = new Paint();
         player.attach(this);
     }
     
     @Override
     public void render(Canvas c) {
-        paint.setColor(Color.RED);
-        paint.setTextSize(20);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         for (int i = 0; i < health; i++){
             c.drawBitmap(heart, (int)x+i*width/2+width,0, null);
         }

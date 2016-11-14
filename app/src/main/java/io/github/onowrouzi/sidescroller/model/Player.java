@@ -15,6 +15,8 @@ import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.helpers.PlayerActionHandler;
 import io.github.onowrouzi.sidescroller.model.projectiles.FireBall;
 import io.github.onowrouzi.sidescroller.model.projectiles.Shuriken;
+import io.github.onowrouzi.sidescroller.model.ui.InvincibilityCount;
+import io.github.onowrouzi.sidescroller.model.ui.ShieldCount;
 import io.github.onowrouzi.sidescroller.model.ui.ShurikenCount;
 import io.github.onowrouzi.sidescroller.model.ui.FireBallCount;
 import io.github.onowrouzi.sidescroller.model.ui.HealthBars;
@@ -282,9 +284,7 @@ public class Player extends MovableFigure implements Travel {
         return new RectF(x,y,x+width*.7f,y+height);
     }
     
-    public void attach(Observer observer){
-        observers.add(observer);
-    }
+    public void attach(Observer observer){ observers.add(observer); }
     
     public void notifyObservers(){
         for (Observer o : observers){
@@ -294,6 +294,10 @@ public class Player extends MovableFigure implements Travel {
                 o.updateObserver(health, immuneTimer);
             } else if (o instanceof FireBallCount) {
                 o.updateObserver(fireBallCount, 0);
+            } else if (o instanceof ShieldCount){
+                o.updateObserver(shielding, 0);
+            } else if (o instanceof InvincibilityCount){
+                o.updateObserver(invincibilityTimer, 0);
             }
         }
     }
