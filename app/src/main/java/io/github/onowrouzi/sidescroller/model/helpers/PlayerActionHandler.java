@@ -8,13 +8,11 @@ public class PlayerActionHandler {
 
     private Player p;
 
-    public PlayerActionHandler(Player p){
-        this.p = p;
-    }
+    public PlayerActionHandler(Player p){ this.p = p; }
 
     public void handle(){
         idle();
-        handleImmuneTimer();
+        handleTimers();
         handleJump();
         handleMelee();
         handleThrow();
@@ -84,7 +82,11 @@ public class PlayerActionHandler {
         }
     }
 
-    public void handleImmuneTimer() { if (p.immuneTimer > 0) p.immuneTimer--; }
+    public void handleTimers() {
+        if (p.immuneTimer > 0) p.immuneTimer--;
+        if (p.invincibilityTimer > 0) p.invincibilityTimer--;
+        if (p.shieldTimer > 0) p.shieldTimer--;
+    }
 
     public void idle(){
         if (p.spriteState <= Player.END_STAND_LEFT) {

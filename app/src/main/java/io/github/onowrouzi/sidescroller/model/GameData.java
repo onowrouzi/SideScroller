@@ -8,12 +8,16 @@ import java.util.List;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
+import io.github.onowrouzi.sidescroller.model.PowerUps.Invinciblity;
+import io.github.onowrouzi.sidescroller.model.PowerUps.PowerUp;
+import io.github.onowrouzi.sidescroller.model.PowerUps.Shield;
 import io.github.onowrouzi.sidescroller.model.droppables.Droppable;
 import io.github.onowrouzi.sidescroller.model.enemies.BossEnemies.BossEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.Bird;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Walker;
 import io.github.onowrouzi.sidescroller.model.helpers.EnemyFactory;
+import io.github.onowrouzi.sidescroller.model.helpers.PowerUpFactory;
 import io.github.onowrouzi.sidescroller.model.ui.Background;
 import io.github.onowrouzi.sidescroller.model.ui.ShurikenCount;
 import io.github.onowrouzi.sidescroller.model.ui.FireBallCount;
@@ -26,6 +30,7 @@ public class GameData {
     public final List<MovableFigure> enemyFigures;
     public final List<MovableFigure> friendFigures;
     public final List<MovableFigure> droppableFigures;
+    public final List<MovableFigure> powerUpFigures;
     public final List<GameFigure> uiFigures;
     
     public Player player;
@@ -45,6 +50,7 @@ public class GameData {
         enemyFigures = Collections.synchronizedList(new ArrayList<MovableFigure>());
         friendFigures = Collections.synchronizedList(new ArrayList<MovableFigure>());
         droppableFigures = Collections.synchronizedList(new ArrayList<MovableFigure>());
+        powerUpFigures = Collections.synchronizedList(new ArrayList<MovableFigure>());
         uiFigures = Collections.synchronizedList(new ArrayList<GameFigure>());
 
         friendFigures.add(player);
@@ -59,11 +65,11 @@ public class GameData {
         uiFigures.add(shurikenCount);
         fireBallCount = new FireBallCount(GameActivity.screenWidth * 9/10, GameActivity.screenHeight/10, GameActivity.screenWidth/10, GameActivity.screenHeight/12, player, context);
         uiFigures.add(fireBallCount);
-        enemyFigures.add(new Walker(GameActivity.screenWidth + GameActivity.screenWidth/8, GameActivity.screenHeight - GameActivity.screenHeight/4, GameActivity.screenWidth/8, GameActivity.screenHeight/5, context));
+        enemyFigures.add(new Walker(GameActivity.screenWidth*9/8, GameActivity.screenHeight*3/4, GameActivity.screenWidth/8, GameActivity.screenHeight/5, context));
         enemyFigures.add(new Bird(-GameActivity.screenWidth/8, GameActivity.screenHeight/20, GameActivity.screenWidth/8, GameActivity.screenHeight/8, context));
     }
     
-    public void update() { 
+    public void update() {
 
         processCollisions();
 
@@ -71,6 +77,8 @@ public class GameData {
             Enemy enemy = EnemyFactory.generateEnemy(context);
             if (enemy != null) enemyFigures.add(enemy);
         }
+
+        PowerUpFactory.generatePowerUp(context);
 
         synchronized (friendFigures) {
             for (int i = 0; i < friendFigures.size(); i++) {
@@ -81,6 +89,12 @@ public class GameData {
         synchronized (droppableFigures) {
             for (int i = 0; i < droppableFigures.size(); i++){
                 droppableFigures.get(i).update();
+            }
+        }
+
+        synchronized (powerUpFigures) {
+            for (int i = 0; i < powerUpFigures.size(); i++){
+                powerUpFigures.get(i).update();
             }
         }
         
@@ -120,6 +134,16 @@ public class GameData {
                 if (d.getCollisionBox().intersect(f.getCollisionBox())
                         && f instanceof Player)
                     d.handleCollision(f);
+            }
+        }
+
+        for (int i = 0; i < powerUpFigures.size(); i++){
+            PowerUp p = (PowerUp) powerUpFigures.get(i);
+            for (int j = 0; j < friendFigures.size(); j++){
+                MovableFigure f = friendFigures.get(j);
+                if (p.getCollisionBox().intersect(f.getCollisionBox())
+                        && f instanceof Player)
+                    p.handleCollision(f);
             }
         }
     }

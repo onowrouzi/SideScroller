@@ -3,6 +3,7 @@ package io.github.onowrouzi.sidescroller.model;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Vibrator;
 
@@ -48,6 +49,11 @@ public class Player extends MovableFigure implements Travel {
     public boolean jumpRight;
     public int shurikenCount;
     public int fireBallCount;
+    public int invincibilityTimer;
+    public int shieldTimer;
+    public int shielding;
+    public int bubbleState;
+    public Bitmap[] bubble;
     private final ArrayList<Observer> observers = new ArrayList<>();
     Vibrator v;
     Context context;
@@ -57,13 +63,18 @@ public class Player extends MovableFigure implements Travel {
         super(x,y,width,height);
         health = 6;
         immuneTimer = 0;
+        invincibilityTimer = 0;
+        shieldTimer = 0;
         shurikenCount = 10;
         fireBallCount = 5;
         
         sprites = new Bitmap[38];
+        bubble = new Bitmap[5];
+        paint = new Paint();
 
         this.context = context;
         pah = new PlayerActionHandler(this);
+        bubbleState = 0;
         getSprites();
 
         v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -71,14 +82,20 @@ public class Player extends MovableFigure implements Travel {
     
     @Override
     public void render(Canvas c) {
+        if (invincibilityTimer > 0) paint.setAlpha(50);
+        else paint.setAlpha(255);
+
         if (immuneTimer % 2 == 0)
-            c.drawBitmap(sprites[spriteState], (int)x, (int)y, null);
+            c.drawBitmap(sprites[spriteState], (int)x, (int)y, paint);
+        if (shielding > 0)
+            c.drawBitmap(bubble[bubbleState], (int)(x-width*.1), (int)(y-height*.1), null);
     }
 
     @Override
     public void update() {
         pah.handle();
         notifyObservers();
+        if (shielding > 0) bubbleState = bubbleState < 4 ? bubbleState + 1 : 0;
     }
     
     @Override
@@ -180,15 +197,18 @@ public class Player extends MovableFigure implements Travel {
     }
 
     public void hurt(){
-        if (immuneTimer == 0) {
-            v.vibrate(50);
-            GameActivity.soundsManager.play("hurt");
-            health--;
-            immuneTimer = 20;
+        if (immuneTimer == 0 && invincibilityTimer == 0 && shieldTimer == 0) {
+            if (shielding > 0) {
+                shielding--;
+                shieldTimer = 20;
+            } else {
+                v.vibrate(50);
+                GameActivity.soundsManager.play("hurt");
+                health--;
+                immuneTimer = 20;
+            }
         }
-        if (health == 0){
-            GameThread.gameOver = true;
-        }
+        if (health == 0) GameThread.gameOver = true;
     }
 
     @Override
@@ -338,6 +358,16 @@ public class Player extends MovableFigure implements Travel {
 
         for (int i = THROW_RIGHT; i <= END_THROW_LEFT; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
+        }
+
+        bubble[0] = super.extractImage(context.getResources(), R.drawable.bubble1);
+        bubble[1] = super.extractImage(context.getResources(), R.drawable.bubble2);
+        bubble[2] = super.extractImage(context.getResources(), R.drawable.bubble3);
+        bubble[3] = super.extractImage(context.getResources(), R.drawable.bubble4);
+        bubble[4] = super.extractImage(context.getResources(), R.drawable.bubble5);
+
+        for (int i = 0; i < 5; i++){
+            bubble[i] = Bitmap.createScaledBitmap(bubble[i], (int)(width*1.2), (int)(height*1.2), false);
         }
     }
 }

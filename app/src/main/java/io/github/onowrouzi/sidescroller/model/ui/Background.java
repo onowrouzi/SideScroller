@@ -1,13 +1,8 @@
 package io.github.onowrouzi.sidescroller.model.ui;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Point;
-import android.view.Display;
-import android.view.WindowManager;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.R;
@@ -32,11 +27,9 @@ public class Background extends GameFigure {
     }
 
     @Override
-    public void render(Canvas c) { // Need to reimplement scrolling.
+    public void render(Canvas c) {
         c.drawBitmap(b1, b1X, (int)y, null);
-        if (b2X < b1.getWidth()) {
-            c.drawBitmap(b2, b2X, (int)y, null);
-        }
+        if (b2X < b1.getWidth()) c.drawBitmap(b2, b2X, (int)y, null);
     }
     
     public void moveBackground(){
@@ -52,18 +45,17 @@ public class Background extends GameFigure {
             e.x -= 20;
         }
 
-        for (GameFigure d: GameActivity.gameData.droppableFigures){
+        for (GameFigure d : GameActivity.gameData.droppableFigures) {
             d.x -= 20;
         }
 
-        for (GameFigure f : GameActivity.gameData.friendFigures){
+        for (GameFigure f : GameActivity.gameData.friendFigures) {
             if (!(f instanceof Player)) f.x-=20;
         }
-    }
-    
-    public void changeBackground(String image){
-        //b1 = b2 = super.extractImage(image);
-        b1X = 0;
+
+        for (GameFigure p : GameActivity.gameData.powerUpFigures) {
+            p.x -= 20;
+        }
     }
     
 }

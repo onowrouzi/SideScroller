@@ -77,6 +77,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                         }
                     }
 
+                    synchronized (GameActivity.gameData.powerUpFigures){
+                        for (GameFigure p: GameActivity.gameData.powerUpFigures){
+                            p.render(c);
+                        }
+                    }
+
                     synchronized (GameActivity.gameData.friendFigures) {
                         for (GameFigure f : GameActivity.gameData.friendFigures) {
                             f.render(c);
