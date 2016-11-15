@@ -221,7 +221,7 @@ public class Player extends MovableFigure implements Travel {
     }
 
     public void resetPlayer(){
-        health = 5;
+        health = 6;
         immuneTimer = 0;
         shurikenCount = 10;
         fireBallCount = 5;
