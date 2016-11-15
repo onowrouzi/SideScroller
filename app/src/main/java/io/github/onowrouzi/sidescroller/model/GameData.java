@@ -90,7 +90,7 @@ public class GameData {
             if (enemy != null) enemyFigures.add(enemy);
         }
 
-        PowerUpFactory.generatePowerUp(context);
+//        PowerUpFactory.generatePowerUp(context);
 
         if (Score.dblScoreTimer > 0) Score.dblScoreTimer--;
         else Score.increment = 10;
@@ -119,12 +119,12 @@ public class GameData {
             }
         }
         
-        if (Score.score >= spawnBossScore && !bossPresent){
-            enemyFigures.add(new BossEnemy(GameActivity.screenWidth*7/8, -GameActivity.screenHeight/6,
-                    GameActivity.screenWidth/6, GameActivity.screenHeight/6, context));
-            bossPresent = true;
-            spawnBossScore += 200;
-        }
+//        if (Score.score >= spawnBossScore && !bossPresent){
+//            enemyFigures.add(new BossEnemy(GameActivity.screenWidth*7/8, -GameActivity.screenHeight/6,
+//                    GameActivity.screenWidth/6, GameActivity.screenHeight/6, context));
+//            bossPresent = true;
+//            spawnBossScore += 200;
+//        }
     }
 
     private synchronized void processCollisions() {
