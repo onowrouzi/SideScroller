@@ -17,7 +17,7 @@ import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
 import io.github.onowrouzi.sidescroller.model.enemies.FlyingEnemies.Bird;
 import io.github.onowrouzi.sidescroller.model.enemies.GroundEnemies.Walker;
 import io.github.onowrouzi.sidescroller.model.helpers.EnemyFactory;
-import io.github.onowrouzi.sidescroller.model.helpers.PowerUpFactory;
+
 import io.github.onowrouzi.sidescroller.model.ui.Background;
 import io.github.onowrouzi.sidescroller.model.ui.DoubleScoreIcon;
 import io.github.onowrouzi.sidescroller.model.ui.InvincibilityCount;

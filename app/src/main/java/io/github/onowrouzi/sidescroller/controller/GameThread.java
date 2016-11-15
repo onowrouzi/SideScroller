@@ -43,5 +43,4 @@ public class GameThread extends Thread {
         }
         System.exit(0);
     }
-
 }
