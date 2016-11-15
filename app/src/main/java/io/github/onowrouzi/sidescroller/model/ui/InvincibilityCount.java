@@ -36,7 +36,7 @@ public class InvincibilityCount extends GameFigure implements Observer {
             paint.setTypeface(MainActivity.font);
             paint.setTextSize(height/2);
             c.drawBitmap(star, x, y, null);
-            c.drawText(Integer.toString(invincibilityCount/100 + 1), x+width, (int)(y+height*.7), paint);
+            c.drawText(Integer.toString(invincibilityCount/10 + 1), x+width, (int)(y+height*.7), paint);
         }
     }
 

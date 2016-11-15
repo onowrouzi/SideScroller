@@ -19,7 +19,7 @@ public class Invinciblity extends PowerUp {
     @Override
     public void handleCollision(MovableFigure mf) {
         Player p = (Player) mf;
-        p.invincibilityTimer = 500;
+        p.invincibilityTimer = 300;
         GameActivity.gameData.powerUpFigures.remove(this);
     }
 }

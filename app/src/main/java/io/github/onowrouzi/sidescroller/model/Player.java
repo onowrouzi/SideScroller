@@ -89,8 +89,10 @@ public class Player extends MovableFigure implements Travel {
 
         if (immuneTimer % 2 == 0)
             c.drawBitmap(sprites[spriteState], (int)x, (int)y, paint);
-        if (shielding > 0)
-            c.drawBitmap(bubble[bubbleState], (int)(x-width*.1), (int)(y-height*.1), null);
+        if (shielding > 0) {
+            int bx = isMeleeLeft() ? (int)(x+width*.4) : (int)(x-width*.1);
+            c.drawBitmap(bubble[bubbleState], bx, (int) (y - height * .1), null);
+        }
     }
 
     @Override
@@ -223,6 +225,8 @@ public class Player extends MovableFigure implements Travel {
         immuneTimer = 0;
         shurikenCount = 10;
         fireBallCount = 5;
+        invincibilityTimer = 0;
+        shielding = 0;
         x = GameActivity.screenWidth/2;
         y = GameActivity.screenHeight*3/4;
         spriteState = STAND_RIGHT;

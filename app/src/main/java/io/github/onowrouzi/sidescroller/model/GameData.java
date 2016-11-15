@@ -165,6 +165,9 @@ public class GameData {
 
     public void setStage() {
         Score.score = 0;
+        Score.dblScoreTimer = 0;
+        Score.increment = 10;
+        bossPresent = false;
         enemyFigures.clear();
         droppableFigures.clear();
         friendFigures.clear();

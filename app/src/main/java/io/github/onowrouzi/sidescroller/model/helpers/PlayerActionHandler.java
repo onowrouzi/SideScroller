@@ -21,7 +21,7 @@ public class PlayerActionHandler {
     public void handleJump() {
         if (p.ascend) {
             if (p.y > GameActivity.groundLevel - p.height*2.5) {
-                p.y -= p.height/6;
+                p.y -= p.height/4;
             } else {
                 p.ascend = false;
                 p.descend = true;
@@ -45,7 +45,7 @@ public class PlayerActionHandler {
                 if (p.spriteState == Player.FALL_RIGHT)
                     p.spriteState = Player.STAND_RIGHT;
             } else {
-                p.y += p.height/6;
+                p.y += p.height/4;
             }
             if (p.jumpLeft && p.x>0) p.x -= p.width/8;
             if (p.jumpRight){
