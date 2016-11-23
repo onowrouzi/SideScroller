@@ -1,6 +1,5 @@
 package io.github.onowrouzi.sidescroller;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -145,6 +144,20 @@ public class GameActivity extends Activity {
                         && GameThread.loading == 0)
                     player.throwFireBall();
                 return true;
+            }
+        });
+
+        buttonY.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN && !player.isJumpLeft() && !player.isJumpRight()){
+                    player.duck();
+                    return true;
+                } else if (event.getAction() == MotionEvent.ACTION_UP && (player.isDuckLeft() || player.isDuckRight())){
+                    player.unduck();
+                    return true;
+                }
+                return false;
             }
         });
     }

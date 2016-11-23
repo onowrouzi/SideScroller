@@ -44,6 +44,8 @@ public class Player extends MovableFigure implements Travel {
     public static final int END_THROW_RIGHT = 34;
     public static final int THROW_LEFT = 35;
     public static final int END_THROW_LEFT = 37;
+    public static final int DUCK_RIGHT = 38;
+    public static final int DUCK_LEFT = 39;
 
     public boolean ascend;
     public boolean descend;
@@ -70,7 +72,7 @@ public class Player extends MovableFigure implements Travel {
         shurikenCount = 10;
         fireBallCount = 5;
         
-        sprites = new Bitmap[38];
+        sprites = new Bitmap[40];
         bubble = new Bitmap[5];
         paint = new Paint();
 
@@ -104,6 +106,8 @@ public class Player extends MovableFigure implements Travel {
     
     @Override
     public void travelLeft() {
+        if (isDuck()) unduck();
+
         if (!isJumpLeft())
             spriteState = (spriteState >= RUN_LEFT && spriteState < END_RUN_LEFT) ? spriteState+1 : RUN_LEFT;
 
@@ -112,6 +116,8 @@ public class Player extends MovableFigure implements Travel {
     
     @Override
     public void travelRight() {
+        if (isDuck()) unduck();
+
         if (!isJumpRight())
             spriteState = (spriteState >= RUN_RIGHT && spriteState < END_RUN_RIGHT) ? spriteState+1 : RUN_RIGHT;
         
@@ -120,6 +126,8 @@ public class Player extends MovableFigure implements Travel {
     }
     
     public void jump(){
+        if (isDuck()) unduck();
+
         if (!ascend && !descend) {
             GameActivity.soundsManager.play("jump");
             ascend = true;
@@ -161,6 +169,8 @@ public class Player extends MovableFigure implements Travel {
     }
 
     public void melee(){
+        if (isDuck()) unduck();
+
         if (!isJumpLeft() && !isJumpRight() && !isMeleeLeft() && !isMeleeRight()) {
             GameActivity.soundsManager.play("slash");
             if (isStandingLeft() || isRunningLeft()) {
@@ -172,7 +182,19 @@ public class Player extends MovableFigure implements Travel {
         }
     }
 
+    public void duck(){
+        spriteState = isFacingLeft() ? DUCK_LEFT : DUCK_RIGHT;
+        y += height/3;
+    }
+
+    public void unduck(){
+        spriteState = isDuckLeft() ? STAND_LEFT : STAND_RIGHT;
+        y -= height/3;
+    }
+
     public void fireProjectile(float ex, float ey) {
+        if (isDuck()) unduck();
+
         int streamId = GameActivity.soundsManager.play("shoot");
         spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
 
@@ -187,6 +209,8 @@ public class Player extends MovableFigure implements Travel {
     }
 
     public void throwFireBall(){
+        if (isDuck()) unduck();
+
         int streamId = GameActivity.soundsManager.play("fireball");
         spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
 
@@ -273,14 +297,20 @@ public class Player extends MovableFigure implements Travel {
         return spriteState == JUMP_RIGHT || spriteState == FALL_RIGHT;
     }
 
+    public boolean isDuckLeft() { return spriteState == DUCK_LEFT; }
+
+    public boolean isDuckRight() { return spriteState == DUCK_RIGHT; }
+
+    public boolean isDuck() { return isDuckLeft() || isDuckRight(); }
+
     public boolean isFacingLeft(){
-        return (isStandingLeft() || isRunningLeft() || isMeleeLeft() || isThrowLeft() || isJumpLeft());
+        return (isStandingLeft() || isRunningLeft() || isMeleeLeft() || isThrowLeft() || isJumpLeft() || isDuckLeft());
     }
 
     public boolean isFacingRight(){
-        return (isStandingRight() || isRunningRight() || isMeleeRight() || isThrowRight() || isJumpRight());
+        return (isStandingRight() || isRunningRight() || isMeleeRight() || isThrowRight() || isJumpRight() || isDuckRight());
     }
-    
+
     @Override
     public RectF getCollisionBox() {
         if (isMeleeRight()) return new RectF(x+width*.3f,y,x+width*1.3f,y+height);
@@ -355,6 +385,12 @@ public class Player extends MovableFigure implements Travel {
         sprites[35] = super.flipImage(sprites[32]);
         sprites[36] = super.flipImage(sprites[33]);
         sprites[37] = super.flipImage(sprites[34]);
+        //Duck Right
+        sprites[38] = super.extractImage(context.getResources(), R.drawable.player20);
+        sprites[38] = Bitmap.createScaledBitmap(sprites[38], width, height*2/3, false);
+        //Duck Left
+        sprites[39] = super.flipImage(sprites[38]);
+        sprites[39] = Bitmap.createScaledBitmap(sprites[39], width, height*2/3, false);
 
         for (int i = MELEE_RIGHT; i <= END_MELEE_LEFT; i++){
             sprites[i] = Bitmap.createScaledBitmap(sprites[i], (int)(width*1.4), height, false);

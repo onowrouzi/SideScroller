@@ -10,6 +10,7 @@ import android.view.SurfaceView;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.MainActivity;
+import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.GameFigure;
 
@@ -43,24 +44,20 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             c = holder.lockCanvas(null);
             if (gameThread.running) {
 
-                if (GameThread.gameWon) {
-                    p.setColor(Color.WHITE);
-                    c.drawText("YOU WON!!!", width / 2 - 250, height / 2, p);
-
-                } else if (GameThread.loading > 0) {
+                if (GameThread.loading > 0) {
                     p.setColor(Color.BLACK);
                     c.drawRect(0,0,GameActivity.screenWidth,GameActivity.screenHeight, p);
                     p.setColor(Color.WHITE);
                     p.setTextSize(GameActivity.screenWidth/20);
-                    c.drawText("LOADING ... ", GameActivity.screenWidth/20, GameActivity.screenHeight/12, p);
+                    c.drawText(getContext().getString(R.string.txt_loading), GameActivity.screenWidth/20, GameActivity.screenHeight/12, p);
                     p.setTextSize(GameActivity.screenWidth/26);
-                    c.drawText("    Controls: ", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3, p);
-                    c.drawText("    Arrows = Movement", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3 + p.getTextSize(), p);
-                    c.drawText("    A = JUMP", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*2+10, p);
-                    c.drawText("    X = MELEE", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*3+10, p);
-                    c.drawText("    B = FireBall", GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*4+10, p);
-                    c.drawText("    Tap screen to shoot.", GameActivity.screenWidth / 5,
-                                                            GameActivity.screenHeight / 3  + p.getTextSize()*5+10, p);
+                    c.drawText(getContext().getString(R.string.txt_controls_title), GameActivity.screenWidth / 5, GameActivity.screenHeight / 3, p);
+                    c.drawText(getContext().getString(R.string.txt_controls_move), GameActivity.screenWidth / 5, GameActivity.screenHeight / 3 + p.getTextSize(), p);
+                    c.drawText(getContext().getString(R.string.txt_controls_jump), GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*2+10, p);
+                    c.drawText(getContext().getString(R.string.txt_controls_melee), GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*3+10, p);
+                    c.drawText(getContext().getString(R.string.txt_controls_fireball), GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*4+10, p);
+                    c.drawText(getContext().getString(R.string.txt_controls_duck), GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*5+10, p);
+                    c.drawText(getContext().getString(R.string.txt_controls_shoot), GameActivity.screenWidth / 5, GameActivity.screenHeight / 3  + p.getTextSize()*6+10, p);
                 } else if (!GameThread.gameOver) {
 
                     p.setColor(Color.WHITE);
@@ -111,9 +108,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
-    }
+    public boolean onTouchEvent(MotionEvent event) { return super.onTouchEvent(event); }
 
     @Override
     public void onDraw(Canvas canvas) { draw(); }

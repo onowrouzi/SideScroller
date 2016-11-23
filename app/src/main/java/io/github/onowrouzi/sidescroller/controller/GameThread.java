@@ -9,7 +9,6 @@ public class GameThread extends Thread {
     public boolean running = true;
     public static boolean paused;
     public static boolean gameOver;
-    public static boolean gameWon;
     private final int FRAMES_PER_SECOND = 24;
     public static int loading;
 

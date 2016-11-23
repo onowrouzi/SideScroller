@@ -21,4 +21,12 @@
     <string name="txt_input_name">Input your name:</string>
     <string name="txt_ok">OK</string>
     <string name="txt_game_over">GAME OVER</string>
+    <string name="txt_loading">"LOADING ... "</string>
+    <string name="txt_controls_title">"    Controls: "</string>
+    <string name="txt_controls_move">"    Arrows = Movement"</string>
+    <string name="txt_controls_jump">"    A = Jump"</string>
+    <string name="txt_controls_melee">"    X = Melee"</string>
+    <string name="txt_controls_fireball">"    B = FireBall"</string>
+    <string name="txt_controls_duck">"    Y = Duck"</string>
+    <string name="txt_controls_shoot">"    Tap screen to shoot."</string>
 </resources>

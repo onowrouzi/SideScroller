@@ -173,7 +173,7 @@ public class GameData {
         friendFigures.clear();
         friendFigures.add(player);
         player.resetPlayer();
-        GameThread.gameWon = GameThread.gameOver = false;
+        GameThread.gameOver = false;
     }
     
 }
