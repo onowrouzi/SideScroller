@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Danzo</string>
+    <string name="game_title"><![CDATA[Danzo & The Dark Forest]]></string>
+    <string name="txt_scores">SCORES</string>
+    <string name="txt_exit">EXIT</string>
+    <string name="txt_start">START</string>
+    <string name="txt_score">Score</string>
+    <string name="txt_player_name">Player Name</string>
+    <string name="txt_high_scores">High Scores</string>
+    <string name="txt_music_on">Turn Music ON</string>
+    <string name="txt_music_off">Turn Music OFF</string>
+    <string name="txt_sounds_off">Turn Sounds OFF</string>
+    <string name="txt_sounds_on">Turn Sounds ON</string>
+    <string name="txt_paused">PAUSED</string>
+    <string name="txt_resume_game">Resume Game</string>
+    <string name="txt_exit_game">Exit Game</string>
+    <string name="txt_exit_prompt">Your score will be discarded if you quit... \nAre you sure you want to exit?</string>
+    <string name="txt_yes">Yes</string>
+    <string name="txt_no">No</string>
+    <string name="txt_play_again">Do you want to play again?</string>
+    <string name="txt_input_name">Input your name:</string>
+    <string name="txt_ok">OK</string>
+    <string name="txt_game_over">GAME OVER</string>
 </resources>

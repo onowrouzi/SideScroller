@@ -50,7 +50,7 @@ public class PauseDialog extends DialogFragment {
                     MainActivity.mServ.pauseMusic();
                     GameActivity.isMuted = true;
                 }
-                String muteOrNot = GameActivity.isMuted ? "Turn Music ON" : "Turn Music OFF";
+                String muteOrNot = GameActivity.isMuted ? getString(R.string.txt_music_on) : getString(R.string.txt_music_off);
                 txtMusicToggle.setText(muteOrNot);
             }
         });
@@ -61,7 +61,7 @@ public class PauseDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 GameActivity.soundsEnabled = !GameActivity.soundsEnabled;
-                String soundsOnOrOff = GameActivity.soundsEnabled ? "Turn Sounds OFF" : "Turn Sounds ON";
+                String soundsOnOrOff = GameActivity.soundsEnabled ? getString(R.string.txt_sounds_off) : getString(R.string.txt_sounds_on);
                 txtSoundsToggle.setText(soundsOnOrOff);
             }
         });

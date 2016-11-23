@@ -62,6 +62,7 @@
         android:layout_height="50dp"
         android:id="@+id/button_right"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:background="@drawable/button_right"
         android:layout_alignTop="@+id/button_left"
         android:layout_toRightOf="@+id/button_left"

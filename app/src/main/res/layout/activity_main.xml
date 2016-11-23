@@ -12,7 +12,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="START"
+        android:text="@string/txt_start"
         android:id="@+id/btn_start"
         android:layout_above="@+id/btn_scores"
         android:layout_alignParentLeft="true"
@@ -25,7 +25,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="EXIT"
+        android:text="@string/txt_exit"
         android:id="@+id/btn_exit"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -38,7 +38,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SCORES"
+        android:text="@string/txt_scores"
         android:id="@+id/btn_scores"
         android:layout_above="@+id/btn_exit"
         android:layout_alignParentLeft="true"
@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Danzo &amp; The Dark Forest"
+        android:text="@string/game_title"
         android:id="@+id/txt_logo"
         android:textStyle="bold|italic"
         android:layout_below="@id/image_logo"

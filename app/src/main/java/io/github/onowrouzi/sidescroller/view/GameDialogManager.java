@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.MainActivity;
+import io.github.onowrouzi.sidescroller.R;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
 import io.github.onowrouzi.sidescroller.model.ui.Score;
 import io.github.onowrouzi.sidescroller.view.Fragments.PauseDialog;
@@ -37,15 +38,15 @@ public class GameDialogManager {
 
     public void buildExitDialog() {
         exitDialog = new AlertDialog.Builder(activity)
-                .setMessage("Your score will be discarded if you quit... \nAre you sure you want to exit?")
+                .setMessage(R.string.txt_exit_prompt)
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.txt_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent i = new Intent(activity.getApplicationContext(), MainActivity.class);
                         activity.startActivity(i);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.txt_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         GameThread.paused = false;
@@ -57,14 +58,14 @@ public class GameDialogManager {
 
     public void buildReplayDialog() {
         replayDialog = new AlertDialog.Builder(activity)
-                .setMessage("Do you want to play again?")
+                .setMessage(R.string.txt_play_again)
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.txt_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         GameActivity.gameData.setStage();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.txt_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent i = new Intent(activity.getApplicationContext(), MainActivity.class);
@@ -78,16 +79,16 @@ public class GameDialogManager {
     public void buildGameOverDialog() {
         final EditText inputName = new EditText(activity);
         TextView txtGameOver = new TextView(activity);
-        txtGameOver.setText("GAME OVER");
+        txtGameOver.setText(R.string.txt_game_over);
         txtGameOver.setTextSize(30);
         txtGameOver.setGravity(Gravity.CENTER);
         txtGameOver.setTypeface(MainActivity.font);
         gameOverDialog = new AlertDialog.Builder(activity)
                 .setCustomTitle(txtGameOver)
-                .setMessage("Input your name:")
+                .setMessage(R.string.txt_input_name)
                 .setView(inputName)
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.txt_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String playerName = inputName.getText().toString();
