@@ -22,7 +22,6 @@ public class ShurikenCount extends GameFigure implements Observer {
         player.attach(this);
 
         shuriken = super.extractImage(context.getResources(), R.drawable.shuriken_count);
-        shuriken = Bitmap.createScaledBitmap(shuriken, width, height, false);
         shurikens = 10;
     }
     

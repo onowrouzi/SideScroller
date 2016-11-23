@@ -35,7 +35,7 @@ public class Bat extends FlyingEnemy {
         px = (int) GameActivity.gameData.player.x+GameActivity.gameData.player.width/2;
         py = (int) GameActivity.gameData.player.y+GameActivity.gameData.player.height;
 
-        Thunderbolt t = new Thunderbolt(x+width/2, y+height, px, py, context, this, -1);
+        Thunderbolt t = new Thunderbolt(x+width/2, y+height, px, py, width*3/4, height*3/4, context, this, -1);
 
         synchronized (GameActivity.gameData.enemyFigures) {
             GameActivity.gameData.enemyFigures.add(t);
@@ -94,10 +94,5 @@ public class Bat extends FlyingEnemy {
         sprites[14] = sprites[19] = super.extractImage(context.getResources(), R.drawable.air_explode3);
         sprites[15] = sprites[20] = super.extractImage(context.getResources(), R.drawable.air_explode4);
         sprites[16] = sprites[21] = super.extractImage(context.getResources(), R.drawable.air_explode5);
-
-
-        for (int i = 0; i < sprites.length; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
     }
 }

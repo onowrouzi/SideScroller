@@ -33,6 +33,7 @@ public abstract class GameFigure {
             //JOptionPane.showMessageDialog(null, "Error: Cannot open " + image);
             System.exit(-1);
         }
+        img = Bitmap.createScaledBitmap(img, width, height, false);
         return img;
     }
     //Below code retrieved and modifiied from http://stackoverflow.com/questions/7925278/drawing-mirrored-bitmaps-in-android

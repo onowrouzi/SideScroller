@@ -37,7 +37,7 @@ public class Bird extends FlyingEnemy {
         px = (int) GameActivity.gameData.player.x+GameActivity.gameData.player.width/2;
         py = (int) GameActivity.gameData.player.y+GameActivity.gameData.player.height;
 
-        Egg e = new Egg (x+width/2, y+height, px, py, context, this, -1);
+        Egg e = new Egg (x+width/2, y+height, px, py, width*3/4, height*3/4, context, this, -1);
 
         synchronized (GameActivity.gameData.enemyFigures) {
             GameActivity.gameData.enemyFigures.add(e);
@@ -92,10 +92,5 @@ public class Bird extends FlyingEnemy {
         sprites[10] = sprites[15] = super.extractImage(context.getResources(), R.drawable.air_explode3);
         sprites[11] = sprites[16] = super.extractImage(context.getResources(), R.drawable.air_explode4);
         sprites[12] = sprites[17] = super.extractImage(context.getResources(), R.drawable.air_explode5);
-
-
-        for (int i = 0; i < sprites.length; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
     }
 }

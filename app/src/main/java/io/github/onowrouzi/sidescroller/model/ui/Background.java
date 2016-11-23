@@ -17,10 +17,9 @@ public class Background extends GameFigure {
     public final int WIDTH;
     
     public Background(Context context) {
-        super(0,0,GameActivity.screenWidth,GameActivity.screenHeight);
+        super(0,0,GameActivity.screenWidth*2,GameActivity.screenHeight);
 
         b1 = b2 = super.extractImage(context.getResources(), R.drawable.background1);
-        b1 = b2 = Bitmap.createScaledBitmap(b1, b1.getWidth(), GameActivity.screenHeight, false);
         b1X = 0;
         b2X = b1.getWidth();
         WIDTH = b2X - GameActivity.screenWidth;

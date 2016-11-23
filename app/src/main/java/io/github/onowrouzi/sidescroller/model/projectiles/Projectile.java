@@ -21,13 +21,11 @@ public abstract class Projectile extends MovableFigure {
     public MovableFigure owner;
     public int streamId;
 
-    public PointF target;
-
     private static final int UNIT_TRAVEL_DISTANCE = GameActivity.screenWidth/64; // per frame move
     
-    public Projectile(float sx, float sy, float tx, float ty, MovableFigure owner, int streamId) {
+    public Projectile(float sx, float sy, float tx, float ty, int width, int height, MovableFigure owner, int streamId) {
         
-        super(sx, sy, 10, 10);
+        super(sx, sy, width, height);
 
         this.owner = owner;
         this.streamId = streamId;

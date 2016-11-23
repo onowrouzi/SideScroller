@@ -17,8 +17,8 @@ public class FireBall extends Projectile{
     public static final int START_RIGHT = 5;
     public static final int END_RIGHT = 9;
 
-    public FireBall(float sx, float sy, float tx, float ty, Context context, MovableFigure owner, int streamId) {
-        super(sx, sy, tx, ty, owner, streamId);
+    public FireBall(float sx, float sy, float tx, float ty, int width, int height, Context context, MovableFigure owner, int streamId) {
+        super(sx, sy, tx, ty, width, height, owner, streamId);
         sprites = new Bitmap[12];
 
         sprites[0] = super.extractImage(context.getResources(), R.drawable.fireball1);

@@ -111,9 +111,5 @@ public class Worm extends GroundEnemy {
         sprites[13] = sprites[18] = super.extractImage(context.getResources(), R.drawable.ground_explode3);
         sprites[14] = sprites[19] = super.extractImage(context.getResources(), R.drawable.ground_explode4);
         sprites[15] = sprites[20] = super.extractImage(context.getResources(), R.drawable.ground_explode5);
-
-        for (int i = 0; i < sprites.length; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
     }
 }

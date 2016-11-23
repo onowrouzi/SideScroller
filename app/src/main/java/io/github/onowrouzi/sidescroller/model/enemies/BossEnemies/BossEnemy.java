@@ -150,7 +150,7 @@ public class BossEnemy extends Enemy {
         spriteState = isFacingRight() ? SHOOT_RIGHT : SHOOT_LEFT;
 
         float sx = isFacingRight() ? x+width/2 : x-width;
-        BeastFireBall bfb = new BeastFireBall(sx, y+height/2, 0, 0, context, this, streamId);
+        BeastFireBall bfb = new BeastFireBall(sx, y+height/2, 0, 0, width, height, context, this, streamId);
         
         synchronized (GameActivity.gameData.enemyFigures) {
             GameActivity.gameData.enemyFigures.add(bfb);
@@ -222,5 +222,9 @@ public class BossEnemy extends Enemy {
         sprites[50] = super.extractImage(context.getResources(), R.drawable.beast_explode3);
         sprites[51] = super.extractImage(context.getResources(), R.drawable.beast_explode4);
         sprites[52] = super.extractImage(context.getResources(), R.drawable.beast_explode5);
+
+        for (int i = RAGE_RIGHT; i <= END_RAGE_LEFT; i++){
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width*3, height*2, false);
+        }
     }
 }

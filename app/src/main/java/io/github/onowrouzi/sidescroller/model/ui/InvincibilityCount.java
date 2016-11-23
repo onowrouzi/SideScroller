@@ -21,7 +21,6 @@ public class InvincibilityCount extends GameFigure implements Observer {
         super(x, y, width, height);
 
         star = super.extractImage(context.getResources(), R.drawable.star);
-        star = Bitmap.createScaledBitmap(star, width, height, false);
         invincibilityCount = 0;
 
         player.attach(this);

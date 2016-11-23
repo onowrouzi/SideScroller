@@ -15,7 +15,6 @@ public class DoubleScoreIcon extends GameFigure {
         super(x, y, width, height);
 
         timesTwo = super.extractImage(context.getResources(), R.drawable.times_two);
-        timesTwo = Bitmap.createScaledBitmap(timesTwo, width, height, false);
     }
 
     @Override

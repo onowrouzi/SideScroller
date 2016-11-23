@@ -18,8 +18,6 @@ public class FireBallCount extends GameFigure implements Observer {
         player.attach(this);
 
         fireBall = super.extractImage(context.getResources(), R.drawable.fire);
-        fireBall = Bitmap.createScaledBitmap(fireBall, width, height, false);
-
         fireBalls = 5;
     }
 

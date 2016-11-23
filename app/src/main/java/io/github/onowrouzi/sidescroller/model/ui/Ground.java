@@ -24,7 +24,6 @@ public class Ground extends GameFigure {
         display.getSize(size);
 
         groundImage = super.extractImage(context.getResources(), R.drawable.ground);
-        groundImage = Bitmap.createScaledBitmap(groundImage, width, height, false);
     }
 
     @Override

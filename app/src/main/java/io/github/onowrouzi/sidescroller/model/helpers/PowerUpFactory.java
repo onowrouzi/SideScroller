@@ -18,11 +18,11 @@ public class PowerUpFactory {
         PowerUp powerUp = null;
 
         if (random == 100) {
-            powerUp = new DoubleScore(x, y, GameActivity.screenWidth/18, GameActivity.screenHeight/18, context);
+            powerUp = new DoubleScore(x, y, GameActivity.screenWidth/10, GameActivity.screenHeight/10, context);
         } else if (random == 75) {
-            powerUp = new Shield(x, y, GameActivity.screenWidth/12, GameActivity.screenHeight/12, context);
+            powerUp = new Shield(x, y, GameActivity.screenWidth/10, GameActivity.screenHeight/10, context);
         } else if (random == 10) {
-            powerUp = new Invinciblity(x, y, GameActivity.screenWidth/18, GameActivity.screenHeight/18, context);
+            powerUp = new Invinciblity(x, y, GameActivity.screenWidth/10, GameActivity.screenHeight/10, context);
         }
 
         if (powerUp != null) GameActivity.gameData.powerUpFigures.add(powerUp);

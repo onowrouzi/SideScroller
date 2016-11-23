@@ -117,9 +117,5 @@ public class Walker extends GroundEnemy {
         sprites[18] = sprites[23] = super.extractImage(context.getResources(), R.drawable.ground_explode3);
         sprites[19] = sprites[24] = super.extractImage(context.getResources(), R.drawable.ground_explode4);
         sprites[20] = sprites[25] = super.extractImage(context.getResources(), R.drawable.ground_explode5);
-
-        for (int i = 0; i < sprites.length; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
     }
 }

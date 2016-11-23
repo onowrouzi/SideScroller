@@ -177,7 +177,7 @@ public class Player extends MovableFigure implements Travel {
         spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
 
         float sx = isFacingRight() ? x+width : x;
-        Shuriken s = new Shuriken (sx, y+height/2, ex, ey, context, this, streamId);
+        Shuriken s = new Shuriken (sx, y+height/2, ex, ey, width/4, height/4, context, this, streamId);
 
         shurikenCount--;
 
@@ -191,7 +191,7 @@ public class Player extends MovableFigure implements Travel {
         spriteState = isFacingRight() ? THROW_RIGHT : THROW_LEFT;
 
         float sx = isFacingRight() ? x+width/2 : x-width;
-        FireBall fb = new FireBall(sx, y+height/4, 0, 0, context, this, streamId);
+        FireBall fb = new FireBall(sx, y+height/4, 0, 0, width*2, height*3/4, context, this, streamId);
 
         fireBallCount--;
 
@@ -355,17 +355,9 @@ public class Player extends MovableFigure implements Travel {
         sprites[35] = super.flipImage(sprites[32]);
         sprites[36] = super.flipImage(sprites[33]);
         sprites[37] = super.flipImage(sprites[34]);
-        //Scale Images
-        for (int i = 0; i < MELEE_RIGHT; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
 
         for (int i = MELEE_RIGHT; i <= END_MELEE_LEFT; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], (int)(width*1.5), height, false);
-        }
-
-        for (int i = THROW_RIGHT; i <= END_THROW_LEFT; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
+            sprites[i] = Bitmap.createScaledBitmap(sprites[i], (int)(width*1.4), height, false);
         }
 
         bubble[0] = super.extractImage(context.getResources(), R.drawable.bubble1);
@@ -375,7 +367,7 @@ public class Player extends MovableFigure implements Travel {
         bubble[4] = super.extractImage(context.getResources(), R.drawable.bubble5);
 
         for (int i = 0; i < 5; i++){
-            bubble[i] = Bitmap.createScaledBitmap(bubble[i], (int)(width*1.2), (int)(height*1.2), false);
+            bubble[i] = Bitmap.createScaledBitmap(bubble[i], width*5/4, height*5/4, false);
         }
     }
 }

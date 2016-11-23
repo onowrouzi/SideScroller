@@ -14,7 +14,6 @@ public class FireBallDroppable extends Droppable {
 
         sprites = new Bitmap[1];
         sprites[0] = super.extractImage(context.getResources(), R.drawable.fire);
-        sprites[0] = Bitmap.createScaledBitmap(sprites[0], width, height, false);
     }
 
     @Override

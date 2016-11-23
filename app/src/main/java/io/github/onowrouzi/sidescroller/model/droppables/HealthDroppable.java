@@ -14,7 +14,6 @@ public class HealthDroppable extends Droppable {
         super(x, y, width, height);
         sprites = new Bitmap[1];
         sprites[0] = super.extractImage(context.getResources(), R.drawable.heart);
-        sprites[0] = Bitmap.createScaledBitmap(sprites[0], width, height, false);
     }
 
     @Override

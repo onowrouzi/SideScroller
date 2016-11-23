@@ -1,9 +1,11 @@
 package io.github.onowrouzi.sidescroller;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -68,11 +70,35 @@ public class GameActivity extends Activity {
         });
 
         buttonA = (ImageButton) findViewById(R.id.button_a);
+        ViewGroup.LayoutParams lpA = buttonA.getLayoutParams();
+        lpA.width = screenWidth/14;
+        lpA.height = screenHeight/10;
+        buttonA.setLayoutParams(lpA);
         buttonB = (ImageButton) findViewById(R.id.button_b);
+        ViewGroup.LayoutParams lpB = buttonB.getLayoutParams();
+        lpB.width = screenWidth/14;
+        lpB.height = screenHeight/10;
+        buttonB.setLayoutParams(lpB);
         buttonX = (ImageButton) findViewById(R.id.button_x);
+        ViewGroup.LayoutParams lpX = buttonX.getLayoutParams();
+        lpX.width = screenWidth/14;
+        lpX.height = screenHeight/10;
+        buttonX.setLayoutParams(lpX);
         buttonY = (ImageButton) findViewById(R.id.button_y);
+        ViewGroup.LayoutParams lpY = buttonY.getLayoutParams();
+        lpY.width = screenWidth/14;
+        lpY.height = screenHeight/10;
+        buttonY.setLayoutParams(lpY);
         buttonLeft = (ImageButton) findViewById(R.id.button_left);
+        ViewGroup.LayoutParams lpL = buttonLeft.getLayoutParams();
+        lpL.width = screenWidth/14;
+        lpL.height = screenHeight/10;
+        buttonLeft.setLayoutParams(lpL);
         buttonRight = (ImageButton) findViewById(R.id.button_right);
+        ViewGroup.LayoutParams lpR = buttonRight.getLayoutParams();
+        lpR.width = screenWidth/14;
+        lpR.height = screenHeight/10;
+        buttonRight.setLayoutParams(lpR);
         buttonA.bringToFront();
         buttonB.bringToFront();
         buttonX.bringToFront();

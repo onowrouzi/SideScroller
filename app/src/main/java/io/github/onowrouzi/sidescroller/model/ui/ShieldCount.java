@@ -17,7 +17,6 @@ public class ShieldCount extends GameFigure implements Observer {
         super(x, y, width, height);
 
         shield = super.extractImage(context.getResources(), R.drawable.shield);
-        shield = Bitmap.createScaledBitmap(shield, width, height, false);
         shieldCount = 0;
 
         player.attach(this);

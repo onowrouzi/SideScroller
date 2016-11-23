@@ -53,8 +53,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/image_logo"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:layout_alignLeft="@+id/txt_logo"
+        android:layout_alignStart="@+id/txt_logo"
+        android:layout_alignRight="@+id/txt_logo"
+        android:layout_alignEnd="@+id/txt_logo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,7 +65,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Danzo &amp; The Dark Forest"
         android:id="@+id/txt_logo"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        android:layout_below="@id/image_logo"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

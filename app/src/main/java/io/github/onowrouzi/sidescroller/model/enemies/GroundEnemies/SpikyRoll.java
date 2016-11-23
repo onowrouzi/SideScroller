@@ -96,9 +96,5 @@ public class SpikyRoll extends GroundEnemy {
         sprites[20] = sprites[25] = super.extractImage(context.getResources(), R.drawable.ground_explode3);
         sprites[21] = sprites[26] = super.extractImage(context.getResources(), R.drawable.ground_explode4);
         sprites[22] = sprites[27] = super.extractImage(context.getResources(), R.drawable.ground_explode5);
-
-        for (int i = 0; i < sprites.length; i++){
-            sprites[i] = Bitmap.createScaledBitmap(sprites[i], width, height, false);
-        }
     }
 }
