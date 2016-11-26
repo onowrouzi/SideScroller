@@ -8,54 +8,34 @@ import android.view.View.OnTouchListener;
 
 import io.github.onowrouzi.sidescroller.model.Player;
 
-/**
- * A class, that can be used as a TouchListener on any view (e.g. a Button).
- * It cyclically runs a clickListener, emulating keyboard-like behaviour. First
- * click is fired immediately, next one after the initialInterval, and subsequent
- * ones after the normalInterval.
- *
- * <p>Interval is scheduled after the onClick completes, so it has to run fast.
- * If it runs slow, it does not generate skipped onClicks. Can be rewritten to
- * achieve this.
- */
 public class RepeatListener implements OnTouchListener {
 
     private Handler handler = new Handler();
 
-    private int initialInterval;
-    private final int normalInterval;
+    private int firstInterval;
+    private final int interval;
     private final OnClickListener clickListener;
     public Player player;
+    private View view;
 
     private Runnable handlerRunnable = new Runnable() {
         @Override
         public void run() {
-            handler.postDelayed(this, normalInterval);
-            clickListener.onClick(downView);
+            handler.postDelayed(this, interval);
+            clickListener.onClick(view);
         }
     };
-
-    private View downView;
-
-    /**
-     * @param initialInterval The interval after first click event
-     * @param normalInterval The interval after second and subsequent click 
-     *       events
-     * @param clickListener The OnClickListener, that will be called
-     *       periodically
-     */
-    public RepeatListener(int initialInterval, int normalInterval, Player player,
-                          OnClickListener clickListener) {
-
+    
+    public RepeatListener(int firstInterval, int interval, Player player, OnClickListener clickListener) {
         this.player = player;
 
         if (clickListener == null)
-            throw new IllegalArgumentException("null runnable");
-        if (initialInterval < 0 || normalInterval < 0)
-            throw new IllegalArgumentException("negative interval");
+            throw new IllegalArgumentException("Must include click listener");
+        if (firstInterval <= 0 || interval <= 0)
+            throw new IllegalArgumentException("Intervals must be greater than zero.");
 
-        this.initialInterval = initialInterval;
-        this.normalInterval = normalInterval;
+        this.firstInterval = firstInterval;
+        this.interval = interval;
         this.clickListener = clickListener;
     }
 
@@ -63,16 +43,16 @@ public class RepeatListener implements OnTouchListener {
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 handler.removeCallbacks(handlerRunnable);
-                handler.postDelayed(handlerRunnable, initialInterval);
-                downView = view;
-                downView.setPressed(true);
+                handler.postDelayed(handlerRunnable, firstInterval);
+                this.view = view;
+                this.view.setPressed(true);
                 clickListener.onClick(view);
                 return true;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 handler.removeCallbacks(handlerRunnable);
-                downView.setPressed(false);
-                downView = null;
+                this.view.setPressed(false);
+                this.view = null;
                 if (player.isRunningRight()) {
                     player.spriteState = Player.STAND_RIGHT;
                 } else if (player.isRunningLeft()){
@@ -80,7 +60,6 @@ public class RepeatListener implements OnTouchListener {
                 }
                 return true;
         }
-
         return false;
     }
 

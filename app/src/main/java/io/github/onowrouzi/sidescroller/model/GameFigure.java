@@ -30,7 +30,6 @@ public abstract class GameFigure {
         try {
             img = BitmapFactory.decodeResource(resources, id);
         } catch (Exception ex) {
-            //JOptionPane.showMessageDialog(null, "Error: Cannot open " + image);
             System.exit(-1);
         }
         img = Bitmap.createScaledBitmap(img, width, height, false);
