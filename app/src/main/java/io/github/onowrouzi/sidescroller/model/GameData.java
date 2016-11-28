@@ -8,9 +8,7 @@ import java.util.List;
 
 import io.github.onowrouzi.sidescroller.GameActivity;
 import io.github.onowrouzi.sidescroller.controller.GameThread;
-import io.github.onowrouzi.sidescroller.model.PowerUps.Invinciblity;
 import io.github.onowrouzi.sidescroller.model.PowerUps.PowerUp;
-import io.github.onowrouzi.sidescroller.model.PowerUps.Shield;
 import io.github.onowrouzi.sidescroller.model.droppables.Droppable;
 import io.github.onowrouzi.sidescroller.model.enemies.BossEnemies.BossEnemy;
 import io.github.onowrouzi.sidescroller.model.enemies.Enemy;
@@ -20,12 +18,12 @@ import io.github.onowrouzi.sidescroller.model.helpers.EnemyFactory;
 import io.github.onowrouzi.sidescroller.model.helpers.PowerUpFactory;
 import io.github.onowrouzi.sidescroller.model.ui.Background;
 import io.github.onowrouzi.sidescroller.model.ui.DoubleScoreIcon;
-import io.github.onowrouzi.sidescroller.model.ui.InvincibilityCount;
-import io.github.onowrouzi.sidescroller.model.ui.ShieldCount;
-import io.github.onowrouzi.sidescroller.model.ui.ShurikenCount;
 import io.github.onowrouzi.sidescroller.model.ui.FireBallCount;
 import io.github.onowrouzi.sidescroller.model.ui.HealthBars;
+import io.github.onowrouzi.sidescroller.model.ui.InvincibilityCount;
 import io.github.onowrouzi.sidescroller.model.ui.Score;
+import io.github.onowrouzi.sidescroller.model.ui.ShieldCount;
+import io.github.onowrouzi.sidescroller.model.ui.ShurikenCount;
 
 public class GameData {
 
@@ -170,6 +168,7 @@ public class GameData {
         bossPresent = false;
         enemyFigures.clear();
         droppableFigures.clear();
+        powerUpFigures.clear();
         friendFigures.clear();
         friendFigures.add(player);
         player.resetPlayer();
